@@ -2,18 +2,19 @@ $().ready(function() {
     "use strict";
 
     var tooltip = d3.select("#map-controls").append("div")
-        .attr("class", "tooltip");
+        .attr("class", "mc-tooltip"),
+        tooltipContents = tooltip.append("div").attr("class", "mc-tooltip-contents");
 
     // Set the dimensions of the canvas / graph
-    var margin = {top: 50, right: 80, bottom: 30, left: 20},
+    var margin = {top: 10, right: 80, bottom: 20, left: 20},
         width = $(window).width() - 0 - margin.left - margin.right,
-        height = 180 - margin.top - margin.bottom;
+        height = 130 - margin.top - margin.bottom;
 
     var bisectDate = d3.bisector(function(d) { return d.year; }).left;
 
     // Set the ranges
     var x = d3.scale.linear().range([0, width]);
-    var y = d3.scale.linear().range([height, 0]);
+    var y = d3.scale.pow().exponent(.3).range([height, 0]);
 
     // Define the axes
     var xAxis = d3.svg.axis().scale(x)
@@ -116,7 +117,7 @@ $().ready(function() {
                 .attr("class", "thumb")
                 .attr("r", 12)
                 .attr("cx", 0)
-                .attr("cy", -30)
+                .attr("cy", height + 30)
                 .attr("transform", "translate(0 ,0)")
                 .call(drag);
 
@@ -139,9 +140,11 @@ $().ready(function() {
             //marker.select("text").text(d.count);
 
             // update the position of the tooltip
-            tooltip.html(d.count)
+            tooltip
                 .style("left", posX + margin.left + "px")
-                .style("top",  posY + margin.top + "px");
+                //.style("top",  posY + margin.top + "px");
+                .style("top",  "20px");
+            tooltipContents.html(d.count);
 
             // update the position of the guideline
             guideline.attr("x1", posX).attr("x2", posX);
