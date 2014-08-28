@@ -36,7 +36,7 @@ $().ready(function() {
         .y(function(d) { return y(d.count); });
 
     // Get the data
-    d3.csv("data/buildings_mn_aggr.csv", function(error, data) {
+    d3.csv("data/buildings_mn_year.csv", function(error, data) {
 
         // Add an SVG element with the desired dimensions and margin.
         var svg = d3.select("#map-controls").append("svg")
