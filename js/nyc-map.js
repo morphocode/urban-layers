@@ -34,7 +34,7 @@ $().ready(function() {
         var basemap = new mapboxgl.Source({
             type: 'raster',
             //url: 'http://localhost:8000/stamen-toner.tilejson',
-            url: 'http://localhost:8000/web-project/data/esri-light-gray.tilejson',
+            url: 'http://io.morphocode.com/city-layers/data/esri-light-gray.tilejson',
             "tileSize": 256
         });
         map.addSource('basemap', basemap);
