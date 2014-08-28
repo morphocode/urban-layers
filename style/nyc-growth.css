@@ -1,0 +1,93 @@
+body {
+    margin:0;
+    padding:0;
+    font: 10px sans-serif;
+}
+
+#map {
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:100%;
+}
+
+/** Map Controls */
+
+body.thumb-drag {
+    cursor: e-resize;
+}
+
+#map-controls {
+    position: absolute;
+    bottom: 0;
+}
+
+#map-controls svg {
+    background: white;
+    opacity: 0.8;
+}
+
+path.line {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+path.area {
+  fill: #e7e7e7;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: #fff;
+}
+
+.x.axis .minor {
+  stroke-opacity: .5;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: #000;
+}
+
+circle.thumb  {
+  fill: lightgray;
+  cursor: pointer;
+}
+
+circle.thumb:hover  {
+    fill: darkgray;
+}
+
+circle.thumb.dragging {
+    fill: darkgray;
+}
+
+.guideline {
+    stroke: gray;
+    stroke-width: 0.5px;
+}
+
+.marker circle {
+    fill: darkgray;
+}
+
+div.tooltip {
+    color: #222;
+    background: #fff;
+    padding: .5em;
+    text-shadow: #f5f5f5 0 1px 0;
+    border-radius: 2px;
+    box-shadow: 0px 0px 2px 0px #a6a6a6;
+    opacity: 0.9;
+    position: absolute;
+    z-index: 1;
+}
