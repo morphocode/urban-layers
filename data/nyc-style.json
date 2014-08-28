@@ -1,0 +1,25 @@
+{
+  "version": 4,
+  "sprite": "https://www.mapbox.com/mapbox-gl-styles/sprites/outdoors",
+  "glyphs": "https://mapbox.s3.amazonaws.com/gl-glyphs-256/{fontstack}/{range}.pbf",
+  "constants": {
+    "@land": "rgb(244,239,225)",
+    "@water": "#cdd"
+  },
+  "sources": {
+    "nycBuildings": {
+      "type": "vector",
+      "url": "http://io.morphocode.com/city-layers/data/nyc-mn-tiles.tilejson",
+      "maxZoom": 15
+    }
+  },
+  "layers": [
+    {
+        "id": "background",
+        "style": {
+          "background-color": "@land"
+        },
+        "type": "background"
+    }
+    ]
+}

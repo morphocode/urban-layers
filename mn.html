@@ -14,6 +14,16 @@
 
         <script src="js/map-controls.js"></script>
         <script src="js/nyc-map.js"></script>
+        <script src="js/util.js"></script>
+
+        <script>
+            $().ready(function() {
+                if (getParameterByName("show") != "true") {
+                    $("body").html("Under Construction");
+                }
+            });
+
+        </script>
 
         <link href='style/nyc-growth.css' rel='stylesheet' />
     </head>
