@@ -92,7 +92,7 @@ $().ready(function() {
             clearTimeout(updateTimeout);
             updateTimeout = setTimeout(function() {
                 showAllBefore(year);
-            }, 0);
+            }, 10);
         });
 
         /**
