@@ -1,12 +1,13 @@
 $().ready(function() {
     "use strict";
 
+
     var tooltip = d3.select("#map-controls").append("div")
         .attr("class", "mc-tooltip"),
         tooltipContents = tooltip.append("div").attr("class", "mc-tooltip-contents");
 
     // Set the dimensions of the canvas / graph
-    var margin = {top: 10, right: 80, bottom: 20, left: 20},
+    var margin = {top: 10, right: 25, bottom: 20, left: 25},
         width = $(window).width() - 0 - margin.left - margin.right,
         height = 130 - margin.top - margin.bottom;
 
@@ -21,7 +22,7 @@ $().ready(function() {
         .orient("bottom").ticks(20).tickSize(-height).tickSubdivide(true);
 
     var yAxis = d3.svg.axis().scale(y)
-        .orient("right").ticks(5);
+        .orient("left").ticks(5);
 
     // An area generator, for the light fill.
     var area = d3.svg.area()
@@ -90,11 +91,7 @@ $().ready(function() {
             .attr("class", "marker");
 
         marker.append("circle")
-            .attr("r", 4.5);
-
-        marker.append("text")
-            .attr("x", 9)
-            .attr("dy", ".55em");
+            .attr("r", 2.5);
 
         // add the guideline
         var guideline = svg.append("line")
@@ -105,22 +102,6 @@ $().ready(function() {
             .attr("y2", height);
 
 
-        // add the scrollbar
-
-        var drag = d3.behavior.drag()
-            .on("dragstart", dragstarted)
-            .on("drag", dragged)
-            .on("dragend", dragended);
-
-        // ad the thumb
-        svg.append("circle")
-                .attr("class", "thumb")
-                .attr("r", 12)
-                .attr("cx", 0)
-                .attr("cy", height + 30)
-                .attr("transform", "translate(0 ,0)")
-                .call(drag);
-
         //init the marker:
         updateMarker(0);
 
@@ -129,6 +110,8 @@ $().ready(function() {
          * Updates the position of the marker on the graph
          */
         function updateMarker(posX) {
+            if (posX < 0 || posX > width) return;
+
             var x0 = x.invert(posX),
                 year = Math.round(x0),
                 i = bisectDate(data, x0, 1),
@@ -142,8 +125,8 @@ $().ready(function() {
             // update the position of the tooltip
             tooltip
                 .style("left", posX + margin.left + "px")
-                //.style("top",  posY + margin.top + "px");
-                .style("top",  "20px");
+                .style("top",  posY + margin.top + "px");
+                //.style("top",  "20px");
             tooltipContents.html(d.count);
 
             // update the position of the guideline
@@ -156,23 +139,14 @@ $().ready(function() {
             }
         }
 
-        function dragstarted(d) {
-          d3.select(this).classed("dragging", true);
-          $('body').addClass("thumb-drag");
-        }
-
-        function dragged(d) {
-            var mouseX = d3.event.x;
-            if (mouseX > 0 && mouseX < width) {
-                d3.select(this).attr("cx", mouseX);
-                updateMarker(d3.event.x);
-            }
-        }
-
-        function dragended(d) {
-            d3.select(this).classed("dragging", false);
-            $('body').removeClass("thumb-drag");
-        }
+        // add the scroll thumb. using jQ Draggable in order to have it outside the svg bounds
+        $("#scroll-thumb").draggable({
+            axis: "x",
+            drag: function(event) {
+                updateMarker($(this).position().left);
+            },
+            containment: "svg"
+        });
 
     });
 
