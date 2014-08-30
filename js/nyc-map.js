@@ -88,7 +88,7 @@ $().ready(function() {
 
         // listen for yearUpdate event:
         var updateTimeout;
-        $(document).bind("yearUpdated", function(event, year) {
+        $(document).bind("slider-range-end", function(event, year) {
             clearTimeout(updateTimeout);
             updateTimeout = setTimeout(function() {
                 showAllBefore(year);

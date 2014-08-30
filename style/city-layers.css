@@ -80,34 +80,49 @@ path.area {
   stroke-dasharray: 2,2;
 }
 
-.guideline {
+
+.marker .guideline {
     stroke: gray;
     stroke-width: 0.5px;
 }
 
-.marker circle {
+.marker.drag .guideline {
+    stroke: black;
+}
+
+.marker .dot {
     fill: #666;
 }
 
-#marker-2 {
-    display: none;
+.marker.drag .dot {
+    fill: black;
 }
 
-.drag-2 #marker-2 {
-    display: block;
-}
-
-.mc-tooltip {
+.v-tooltip {
     position: absolute;
     z-index: 2;
+    opacity: 0;
+    -webkit-transition: opacity 0.2s ease-in-out;
+    -moz-transition: opacity 0.2s ease-in-out;
+    -ms-transition: opacity 0.2s ease-in-out;
+    -o-transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
+    /** disable events for the tooltip */
+    pointer-events: none;
 }
 
-/** disable events for the tooltip */
-.mc-tooltip {
-    pointer-events:none;
+.v-tooltip-contents {
+    color: #333;
+    background: white;
+    border: 1px solid #eee;
+    padding: 2px;
+    margin-top: -25px;
+    margin-left: -18px;
+    width: 36px;
+    text-align: center;
 }
 
-.mc-tooltip-contents:before {
+.v-tooltip-contents:before {
     position: absolute;
     display: none;
     content: "";
@@ -120,30 +135,65 @@ path.area {
     top: -13px;
 }
 
-
-.mc-tooltip-contents {
-    color: #333;
-    background: white;
-    border: 1px solid #eee;
-    padding: 2px;
-    margin-top: -25px;
-    margin-left: -18px;
-    width: 36px;
-    text-align: center;
-}
-
-#scroll-thumb {
+.slider-thumb {
     background-color: #999;
     cursor: e-resize;
     height: 15px;
     padding: 0.5em;
-    /*margin-left: -25px;*/
     position: absolute;
     bottom: 3px;
     width: 50px;
     z-index: 3;
 }
 
-.drag-2 #scroll-thumb, #scroll-thumb:hover {
+.slider.drag .slider-thumb, .slider-thumb:hover {
     background-color: #0099ff;
-};
+}
+
+.slider.drag .v-tooltip {
+    opacity: 1;
+}
+
+.slider.range-end .slider-thumb {
+    margin-left: 24px;
+}
+
+.slider.range-start .slider-thumb {
+    margin-left: -24px;
+}
+
+.slider.range-end .slider-thumb, .slider.range-start .slider-thumb {
+    background: none;
+}
+
+.slider .slider-thumb:before {
+    position: absolute;
+    display: block;
+    content: "";
+    border-style: solid;
+    height: 0;
+    width: 0;
+    top: 0px;
+}
+
+.slider.range-end .slider-thumb:before {
+    border-color: #999 transparent transparent transparent;
+    border-width: 40px 40px 0 0;
+    right: 10px;
+}
+
+.slider.range-end  .slider-thumb:hover:before, .slider.range-end.drag .slider-thumb:before {
+    border-color: #0099ff transparent transparent transparent;
+}
+
+.slider.range-start .slider-thumb:before {
+    border-color: transparent #999 transparent transparent;
+    border-width: 0 40px 40px 0;
+    right: 0px;
+}
+
+.slider.range-start  .slider-thumb:hover:before, .slider.range-start.drag .slider-thumb:before {
+    border-color: transparent #0099ff transparent transparent;
+}
+
+
