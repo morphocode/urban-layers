@@ -1,13 +1,12 @@
 $().ready(function() {
     "use strict";
 
-
     var tooltip = d3.select("#map-controls").append("div")
         .attr("class", "mc-tooltip"),
         tooltipContents = tooltip.append("div").attr("class", "mc-tooltip-contents");
 
     // Set the dimensions of the canvas / graph
-    var margin = {top: 10, right: 25, bottom: 20, left: 25},
+    var margin = {top: 10, right: 25, bottom: 15, left: 25},
         width = $(window).width() - 0 - margin.left - margin.right,
         height = 130 - margin.top - margin.bottom;
 
@@ -19,10 +18,22 @@ $().ready(function() {
 
     // Define the axes
     var xAxis = d3.svg.axis().scale(x)
-        .orient("bottom").ticks(20).tickSize(-height).tickSubdivide(true);
+        .orient("bottom")
+        .tickSize(0)
+        .tickSubdivide(true);
 
-    var yAxis = d3.svg.axis().scale(y)
-        .orient("left").ticks(5);
+    function formatBuildingsCount(d) {
+        console.log(y.domain()[1]);
+        return d === 5000 ? d + " buildings" : d;
+    }
+
+
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .tickValues([100, 1000, 5000])
+        .tickSize(width)
+        .orient("right")
+        .tickFormat(formatBuildingsCount);
 
     // An area generator, for the light fill.
     var area = d3.svg.area()
@@ -78,8 +89,9 @@ $().ready(function() {
         // Add the Y Axis
         svg.append("g")
             .attr("class", "y axis")
-            .attr("transform", "translate(" + width + ",0)")
-            .call(yAxis);
+            //.attr("transform", "translate(" + width + ",0)")
+            .call(yAxis)
+            .call(customYTicks);
 
         // Add the valueline path.
         svg.append("path")
@@ -139,11 +151,27 @@ $().ready(function() {
             }
         }
 
+        /**
+         * Adjusts the position of the ticks on the Y axis
+         */
+        function customYTicks(g) {
+          g.selectAll("text")
+              .attr("x", 4)
+              .attr("dy", -4);
+        }
+
+
         // add the scroll thumb. using jQ Draggable in order to have it outside the svg bounds
         $("#scroll-thumb").draggable({
             axis: "x",
+            start : function() {
+                $(this).addClass("drag");
+            },
             drag: function(event) {
                 updateMarker($(this).position().left);
+            },
+            stop : function() {
+                $(this).removeClass("drag");
             },
             containment: "svg"
         });

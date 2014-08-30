@@ -70,22 +70,14 @@ path.area {
   display: none;
 }
 
-.y.axis line, .y.axis path {
+.y.axis path {
   fill: none;
-  stroke: #000;
+  stroke: none;
 }
 
-circle.thumb  {
-  fill: lightgray;
-  cursor: pointer;
-}
-
-circle.thumb:hover  {
-    fill: darkgray;
-}
-
-circle.thumb.dragging {
-    fill: darkgray;
+.y.axis line {
+  stroke: #ccc;
+  stroke-dasharray: 2,2;
 }
 
 .guideline {
@@ -135,11 +127,15 @@ circle.thumb.dragging {
 #scroll-thumb {
     background-color: #999;
     cursor: e-resize;
-    height: 25px;
+    height: 15px;
     padding: 0.5em;
     /*margin-left: -25px;*/
     position: absolute;
-    bottom: 0;
+    bottom: 3px;
     width: 50px;
     z-index: 3;
 }
+
+#scroll-thumb.drag, #scroll-thumb:hover {
+    background-color: #0099ff;
+};
