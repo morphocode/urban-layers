@@ -1,4 +1,7 @@
-nyc-map
+City Layers
 =======
 
-NYC Interactive Map
+City Layers is an Interactive Map that runs in the browser.
+
+It is developed by Morphocode.
+
