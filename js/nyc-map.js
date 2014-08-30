@@ -87,22 +87,36 @@ $().ready(function() {
         }
 
         // listen for yearUpdate event:
+        var startYear = minYear,
+            endYear = maxYear;
         var updateTimeout;
         $(document).bind("slider-range-end", function(event, year) {
+            endYear = year;
             clearTimeout(updateTimeout);
             updateTimeout = setTimeout(function() {
-                showAllBefore(year);
+                showAllBetween(startYear, endYear);
+            }, 10);
+        });
+
+        $(document).bind("slider-range-start", function(event, year) {
+            startYear = year;
+            clearTimeout(updateTimeout);
+            updateTimeout = setTimeout(function() {
+                showAllBetween(startYear, endYear);
             }, 10);
         });
 
         /**
          * Shows all buildings up until the specified year
          */
-        function showAllBefore(year) {
-            for(var i = minYear; i < year; i++) {
+        function showAllBetween(startYear, endYear) {
+            for(var i = startYear; i < endYear; i++) {
                 showByYear(i, true);
             }
-            for(var j = year; j < maxYear; j++) {
+            for(var j = minYear; j < startYear; j++) {
+                showByYear(j, false);
+            }
+            for(var j = endYear; j < maxYear; j++) {
                 showByYear(j, false);
             }
         }
