@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8' />
+        <title>City Layers Map. Layers of Manhattan. Project by Morphocode.</title>
+        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+        <script src='lib/mapbox-gl-js/dist/mapbox-gl-dev.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.2.2/mapbox-gl.css' rel='stylesheet' />
+
+        <script src="lib/d3js/d3.js"></script>
+        <script src="lib/jquery/jquery-2.1.1.min.js"></script>
+
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+        <script src="js/map-controls.js"></script>
+        <script src="js/nyc-map.js"></script>
+        <script src="js/util.js"></script>
+
+        <script>
+            $().ready(function() {
+                if (getParameterByName("show") != "true") {
+                    $("body").html("Under Construction");
+                }
+            });
+
+        </script>
+
+        <link href='style/city-layers.css' rel='stylesheet' />
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Morphocode</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Link</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Share</a></li>
+              </ul>
+            </div>
+
+          </div>
+        </nav>
+
+        <div id="map"></div>
+        <div id="map-controls"></div>
+    </body>
+</html>
