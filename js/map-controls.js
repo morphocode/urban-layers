@@ -2,11 +2,12 @@ $().ready(function() {
     "use strict";
 
     var tooltip = d3.select("#map-controls").append("div")
-        .attr("class", "mc-tooltip"),
+        .attr("class", "mc-tooltip")
+        .attr("id", "marker-2"),
         tooltipContents = tooltip.append("div").attr("class", "mc-tooltip-contents");
 
     // Set the dimensions of the canvas / graph
-    var margin = {top: 10, right: 25, bottom: 15, left: 25},
+    var margin = {top: 20, right: 25, bottom: 15, left: 25},
         width = $(window).width() - 0 - margin.left - margin.right,
         height = 130 - margin.top - margin.bottom;
 
@@ -24,13 +25,13 @@ $().ready(function() {
 
     function formatBuildingsCount(d) {
         console.log(y.domain()[1]);
-        return d === 5000 ? d + " buildings" : d;
+        return d === 8000 ? d + " buildings" : d;
     }
 
 
     var yAxis = d3.svg.axis()
         .scale(y)
-        .tickValues([100, 1000, 5000])
+        .tickValues([200, 2000, 8000])
         .tickSize(width)
         .orient("right")
         .tickFormat(formatBuildingsCount);
@@ -55,6 +56,7 @@ $().ready(function() {
         var svg = d3.select("#map-controls").append("svg")
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
+          .attr("class", "graph")
           .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -165,13 +167,13 @@ $().ready(function() {
         $("#scroll-thumb").draggable({
             axis: "x",
             start : function() {
-                $(this).addClass("drag");
+                $(this).closest("#map-controls").addClass("drag-2");
             },
             drag: function(event) {
                 updateMarker($(this).position().left);
             },
             stop : function() {
-                $(this).removeClass("drag");
+                $(this).closest("#map-controls").removeClass("drag-2");
             },
             containment: "svg"
         });

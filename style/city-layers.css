@@ -89,6 +89,14 @@ path.area {
     fill: #666;
 }
 
+#marker-2 {
+    display: none;
+}
+
+.drag-2 #marker-2 {
+    display: block;
+}
+
 .mc-tooltip {
     position: absolute;
     z-index: 2;
@@ -136,6 +144,6 @@ path.area {
     z-index: 3;
 }
 
-#scroll-thumb.drag, #scroll-thumb:hover {
+.drag-2 #scroll-thumb, #scroll-thumb:hover {
     background-color: #0099ff;
 };
