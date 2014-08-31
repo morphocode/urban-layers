@@ -132,16 +132,7 @@ $().ready(function() {
         var startSlider = buildSlider("range-start", canvas, data);
 
         var dragBehavior = d3.behavior.drag()
-            .on("drag", function(d) {
-                var $this = d3.select(this),
-                    currentX = +$this.attr("x"),
-                    width = +$this.attr("width"),
-                    newX = currentX + d3.event.dx;
-                d3.select(this).attr("x", newX);
-
-                startSlider.update(newX, true);
-                endSlider.update(newX + width, true);
-            });
+            .on("drag", onSelectionDrag);
 
         // build the selection window
         var selection = canvas.append("rect")
@@ -151,12 +142,31 @@ $().ready(function() {
             .attr("width", 0)
             .call(dragBehavior);
 
+        /**
+         * Updates the bounds of the selection marquee according to the positions of the sliders
+         */
         function updateSelection() {
-            var startX = $(".range-start .slider-thumb").position().left,
-                endX = $(".range-end .slider-thumb").position().left;
+            selection.attr("x", startSlider.pos());
+            selection.attr("width", endSlider.pos() - startSlider.pos());
+        }
 
-            selection.attr("x", startX);
-            selection.attr("width", endX - startX);
+        /**
+         * Handles dragging of the selection window
+         */
+        function onSelectionDrag() {
+
+            var $this = d3.select(this),
+                currentX = +$this.attr("x"),
+                sWidth = +$this.attr("width"),
+                newX = currentX + d3.event.dx;
+
+            // check bounds:
+            if (newX < 0 || newX+sWidth > width) return;
+
+            $this.attr("x", newX);
+
+            startSlider.update(newX, true);
+            endSlider.update(newX + sWidth, true);
         }
 
         /**
@@ -183,6 +193,7 @@ $().ready(function() {
                     .attr("x2", 0)
                     .attr("y2", height*2),
 
+                // builds the slider as div elements. this allows to have them outside of the svg bounds
                 slider = controller
                     .append("div")
                     .attr("class", "slider " + sliderName),
@@ -191,7 +202,7 @@ $().ready(function() {
                     .append("div")
                     .attr("class", "slider-thumb"),
 
-                // build the tooltip
+                // build the tooltip. tooltips are also divs
                 tooltip = slider
                     .append("div")
                     .attr("class", "v-tooltip"),
@@ -199,8 +210,11 @@ $().ready(function() {
                 tooltipContents = tooltip.append("div")
                     .attr("class", "v-tooltip-contents"),
 
-                // default value of the slider
-                value = -1;
+                // the position of the slider
+                _pos = 0,
+
+                // the value of the data for the current position
+                value = 0;
 
             // add the scroll thumb. using jQ Draggable in order to have it outside the svg bounds
             $(".slider." + sliderName + " .slider-thumb").draggable({
@@ -228,10 +242,16 @@ $().ready(function() {
 
 
             /**
-             * Updates the guideline & the tooltip to match the current position of the slider.
+             * Updates the slider to match the specified position.
+             * This will update the position of the guideline, the dot, the tooltip.
+             * This is usually called by the draggable thumb.
+             *
              */
             function updateSlider(posX, updateThumb) {
                 if (posX < 0 || posX > width) return;
+
+                // update the slider x:
+                _pos = posX;
 
                 var x0 = x.invert(posX),
                     newValue = Math.round(x0),
@@ -267,8 +287,21 @@ $().ready(function() {
                 }
             }
 
+            /**
+             * returns the current value of the slider
+             */
+            function value() {
+                return value;
+            }
+
+            function pos() {
+                return _pos;
+            }
+
             return {
-                update: updateSlider
+                update: updateSlider,
+                value: value,
+                pos: pos
             };
 
         }//buildSlider
