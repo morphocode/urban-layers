@@ -185,12 +185,12 @@ $().ready(function() {
                 .style("left", posX + margin.left + "px")
                 .style("top",  posY + margin.top + "px");
                 //.style("top",  "20px");
-            tooltipContents.html(d.count);
+            tooltipContents.html(d.count + " buildings");
 
             // update the position of the guideline
             //guideline.attr("x1", posX)
             //    .attr("x2", posX);
-            //sliderThumb.html(d.count);
+            sliderThumb.html(newValue);
 
             // fire update event, if year has changed:
             if (value != newValue) {
