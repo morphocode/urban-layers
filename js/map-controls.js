@@ -56,20 +56,10 @@ $().ready(function() {
           .attr("dy", -4);
     }
 
-    var selection;
-
     // Get the data
     d3.csv("data/buildings_mn_year.csv", function(error, data) {
         buildGraph(svg, data);
-        buildRangeSlider("range-end", svg, data);
-        buildRangeSlider("range-start", svg, data);
-
-        selection = svg.append("rect")
-            .attr("class", "selection")
-            .attr("x", 0)
-            .attr("y", 0 - margin.top)
-            .attr("height", height + margin.top)
-            .attr("width", 0);
+        buildRange(svg, data);
     });
 
 
@@ -134,82 +124,26 @@ $().ready(function() {
     }
 
     /**
-     * Builds a slider attached to the specified canvas
+     * builds the Range slider composed of two seprate slider and a selection marquee
      */
-    function buildRangeSlider(sliderName, canvas, data) {
+    function buildRange(canvas, data) {
 
-        // build the guideline and the dot showing the current value of the slider
-        var controller = d3.select("#map-controls"),
+        var dragBehavior = d3.behavior.drag()
+            .on("drag", function(d) {
+                var x = +d3.select(this).attr("x");
+                d3.select(this).attr("x", x + d3.event.dx);
+            });
 
-            marker = canvas.append("g")
-                .attr("class", "marker " + sliderName),
+        // build the selection window
+        var selection = canvas.append("rect")
+            .attr("class", "selection")
+            .attr("y", 0 - margin.top)
+            .attr("height", height + margin.top)
+            .attr("width", 0)
+            .call(dragBehavior);
 
-            // a small circle at the intersection of the graph and the guideline
-            dot = marker.append("circle")
-                .attr("class", "dot")
-                .attr("r", 2.5),
-
-            // add the guideline
-            guideline = marker.append("line")
-                .attr("class", "guideline")
-                .attr("x1", 0)
-                .attr("y1", -height*2)
-                .attr("x2", 0)
-                .attr("y2", height*2),
-
-            slider = controller
-                .append("div")
-                .attr("class", "slider " + sliderName),
-
-            sliderThumb = slider
-                .append("div")
-                .attr("class", "slider-thumb"),
-
-            // build the tooltip
-            tooltip = slider
-                .append("div")
-                .attr("class", "v-tooltip"),
-
-            tooltipContents = tooltip.append("div")
-                .attr("class", "v-tooltip-contents"),
-
-            // default value of the slider
-            value = -1;
-
-        /**
-         * Updates the guideline & the tooltip to match the current position of the slider.
-         */
-        function updateSlider(posX) {
-            if (posX < 0 || posX > width) return;
-
-            var x0 = x.invert(posX),
-                newValue = Math.round(x0),
-                i = bisectDate(data, x0, 1),
-                d0 = data[i - 1],
-                d1 = data[i],
-                d = x0 - d0.year > d1.year - x0 ? d1 : d0,
-                posY = y(d.count);
-            marker.attr("transform", "translate(" + posX + "," + posY + ")");
-
-            // update the position of the tooltip
-            tooltip
-                .style("left", posX + margin.left + "px")
-                .style("top",  posY + margin.top + "px");
-                //.style("top",  "20px");
-            tooltipContents.html(d.count + " buildings");
-
-            // update the position of the guideline
-            //guideline.attr("x1", posX)
-            //    .attr("x2", posX);
-            sliderThumb.html(newValue);
-
-            // fire update event, if year has changed:
-            if (value != newValue) {
-                $(document).trigger("slider-" + sliderName, newValue);
-                value = newValue;
-            }
-
-        }
+        buildSlider("range-end", canvas, data);
+        buildSlider("range-start", canvas, data);
 
         function updateSelection() {
             var startX = $(".range-start .slider-thumb").position().left,
@@ -219,29 +153,113 @@ $().ready(function() {
             selection.attr("width", endX - startX);
         }
 
-        // add the scroll thumb. using jQ Draggable in order to have it outside the svg bounds
-        $(".slider." + sliderName + " .slider-thumb").draggable({
-            axis: "x",
-            start : function() {
-                $(this).closest(".slider").addClass("drag");
-                marker.classed("drag", true);
-                updateSelection();
-            },
-            drag: function(event) {
-                updateSlider($(this).position().left);
-                updateSelection();
-            },
-            stop : function() {
-                $(this).closest(".slider").removeClass("drag");
-                marker.classed("drag", false);
-                updateSlider($(this).position().left);
-                updateSelection();
-            },
-            containment: "svg"
-        });
+        /**
+         * Builds a slider attached to the specified canvas
+         */
+        function buildSlider(sliderName, canvas, data) {
 
-        //init the marker:
-        updateSlider(0);
-    }
+            // build the guideline and the dot showing the current value of the slider
+            var controller = d3.select("#map-controls"),
+
+                marker = canvas.append("g")
+                    .attr("class", "marker " + sliderName),
+
+                // a small circle at the intersection of the graph and the guideline
+                dot = marker.append("circle")
+                    .attr("class", "dot")
+                    .attr("r", 2.5),
+
+                // add the guideline
+                guideline = marker.append("line")
+                    .attr("class", "guideline")
+                    .attr("x1", 0)
+                    .attr("y1", -height*2)
+                    .attr("x2", 0)
+                    .attr("y2", height*2),
+
+                slider = controller
+                    .append("div")
+                    .attr("class", "slider " + sliderName),
+
+                sliderThumb = slider
+                    .append("div")
+                    .attr("class", "slider-thumb"),
+
+                // build the tooltip
+                tooltip = slider
+                    .append("div")
+                    .attr("class", "v-tooltip"),
+
+                tooltipContents = tooltip.append("div")
+                    .attr("class", "v-tooltip-contents"),
+
+                // default value of the slider
+                value = -1;
+
+            // add the scroll thumb. using jQ Draggable in order to have it outside the svg bounds
+            $(".slider." + sliderName + " .slider-thumb").draggable({
+                axis: "x",
+                start : function() {
+                    $(this).closest(".slider").addClass("drag");
+                    marker.classed("drag", true);
+                    updateSelection();
+                },
+                drag: function(event) {
+                    updateSlider($(this).position().left);
+                    updateSelection();
+                },
+                stop : function() {
+                    $(this).closest(".slider").removeClass("drag");
+                    marker.classed("drag", false);
+                    updateSlider($(this).position().left);
+                    updateSelection();
+                },
+                containment: "svg"
+            });
+
+            //init the marker:
+            updateSlider(0);
+
+
+            /**
+             * Updates the guideline & the tooltip to match the current position of the slider.
+             */
+            function updateSlider(posX) {
+                if (posX < 0 || posX > width) return;
+
+                var x0 = x.invert(posX),
+                    newValue = Math.round(x0),
+                    i = bisectDate(data, x0, 1),
+                    d0 = data[i - 1],
+                    d1 = data[i],
+                    d = x0 - d0.year > d1.year - x0 ? d1 : d0,
+                    posY = y(d.count);
+                marker.attr("transform", "translate(" + posX + "," + posY + ")");
+
+                // update the position of the tooltip
+                tooltip
+                    .style("left", posX + margin.left + "px")
+                    .style("top",  posY + margin.top + "px");
+                    //.style("top",  "20px");
+                tooltipContents.html(d.count + " buildings");
+
+                // update the position of the guideline
+                //guideline.attr("x1", posX)
+                //    .attr("x2", posX);
+                sliderThumb.html(newValue);
+
+                // fire update event, if year has changed:
+                if (value != newValue) {
+                    $(document).trigger("slider-" + sliderName, newValue);
+                    value = newValue;
+                }
+
+            }
+
+        }//buildSlider
+
+    }// buildRange
+
+
 
 });
