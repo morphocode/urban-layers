@@ -47,19 +47,6 @@ $().ready(function() {
       .attr("width", width)
       .attr("height", height);
 
-    // Add the X Axis
-    var gx = svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
-
-    // Add the Y Axis
-    var gy = svg.append("g")
-        .attr("class", "y axis")
-        //.attr("transform", "translate(" + width + ",0)")
-        .call(yAxis)
-        .call(customYTicks);
-
     /**
      * Adjusts the position of the ticks on the Y axis
      */
@@ -69,11 +56,20 @@ $().ready(function() {
           .attr("dy", -4);
     }
 
+    var selection;
+
     // Get the data
     d3.csv("data/buildings_mn_year.csv", function(error, data) {
         buildGraph(svg, data);
         buildRangeSlider("range-end", svg, data);
         buildRangeSlider("range-start", svg, data);
+
+        selection = svg.append("rect")
+            .attr("class", "selection")
+            .attr("x", 0)
+            .attr("y", 0 - margin.top)
+            .attr("height", height + margin.top)
+            .attr("width", 0);
     });
 
 
@@ -110,6 +106,20 @@ $().ready(function() {
           .attr("clip-path", "url(#clip)")
           .attr("d", area(data));
 
+
+        // Add the X Axis
+        var gx = canvas.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        // Add the Y Axis
+        var gy = canvas.append("g")
+            .attr("class", "y axis")
+            //.attr("transform", "translate(" + width + ",0)")
+            .call(yAxis)
+            .call(customYTicks);
+
         // Add the valueline path.
         canvas.append("path")
             .attr("class", "line")
@@ -120,6 +130,7 @@ $().ready(function() {
         d3.select(".x.axis").call(xAxis);
         d3.select(".y.axis").call(yAxis)
             .call(customYTicks);
+
     }
 
     /**
@@ -197,6 +208,15 @@ $().ready(function() {
                 $(document).trigger("slider-" + sliderName, newValue);
                 value = newValue;
             }
+
+        }
+
+        function updateSelection() {
+            var startX = $(".range-start .slider-thumb").position().left,
+                endX = $(".range-end .slider-thumb").position().left;
+
+            selection.attr("x", startX);
+            selection.attr("width", endX - startX);
         }
 
         // add the scroll thumb. using jQ Draggable in order to have it outside the svg bounds
@@ -205,14 +225,17 @@ $().ready(function() {
             start : function() {
                 $(this).closest(".slider").addClass("drag");
                 marker.classed("drag", true);
+                updateSelection();
             },
             drag: function(event) {
                 updateSlider($(this).position().left);
+                updateSelection();
             },
             stop : function() {
                 $(this).closest(".slider").removeClass("drag");
                 marker.classed("drag", false);
                 updateSlider($(this).position().left);
+                updateSelection();
             },
             containment: "svg"
         });

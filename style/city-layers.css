@@ -80,6 +80,12 @@ path.area {
   stroke-dasharray: 2,2;
 }
 
+.selection {
+    cursor: move;
+    fill: #0099ff;
+    opacity: 0.2;
+}
+
 
 .marker .guideline {
     stroke: gray;
