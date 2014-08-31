@@ -128,8 +128,8 @@ $().ready(function() {
      */
     function buildRange(canvas, data) {
 
-        var endSlider = buildSlider("range-end", canvas, data);
-        var startSlider = buildSlider("range-start", canvas, data);
+        var startSlider = buildSlider(0, "range-start", canvas, data),
+            endSlider = buildSlider(20, "range-end", canvas, data);
 
         var dragBehavior = d3.behavior.drag()
             .on("drag", onSelectionDrag);
@@ -137,10 +137,14 @@ $().ready(function() {
         // build the selection window
         var selection = canvas.append("rect")
             .attr("class", "selection")
+            .attr("x", startSlider.pos())
             .attr("y", 0 - margin.top)
             .attr("height", height + margin.top)
-            .attr("width", 0)
+            .attr("width", endSlider.pos() - startSlider.pos())
             .call(dragBehavior);
+
+
+        selection.transition().styleTween("color", function() { return d3.interpolate("green", "red"); });
 
         /**
          * Updates the bounds of the selection marquee according to the positions of the sliders
@@ -154,7 +158,6 @@ $().ready(function() {
          * Handles dragging of the selection window
          */
         function onSelectionDrag() {
-
             var $this = d3.select(this),
                 currentX = +$this.attr("x"),
                 sWidth = +$this.attr("width"),
@@ -172,7 +175,7 @@ $().ready(function() {
         /**
          * Builds a slider attached to the specified canvas
          */
-        function buildSlider(sliderName, canvas, data) {
+        function buildSlider(myPos, sliderName, canvas, data) {
 
             // build the guideline and the dot showing the current value of the slider
             var controller = d3.select("#map-controls"),
@@ -211,10 +214,10 @@ $().ready(function() {
                     .attr("class", "v-tooltip-contents"),
 
                 // the position of the slider
-                _pos = 0,
+                _pos = myPos,
 
                 // the value of the data for the current position
-                value = 0;
+                _value = 0;
 
             // add the scroll thumb. using jQ Draggable in order to have it outside the svg bounds
             $(".slider." + sliderName + " .slider-thumb").draggable({
@@ -238,7 +241,7 @@ $().ready(function() {
             });
 
             //init the marker:
-            updateSlider(0);
+            updateSlider(_pos, true);
 
 
             /**
@@ -275,9 +278,9 @@ $().ready(function() {
                 sliderThumb.html(newValue);
 
                 // fire update event, if year has changed:
-                if (value != newValue) {
+                if (_value != newValue) {
                     $(document).trigger("slider-" + sliderName, newValue);
-                    value = newValue;
+                    _value = newValue;
                 }
 
                 // update the div thumb, if the flag is set.
@@ -291,7 +294,7 @@ $().ready(function() {
              * returns the current value of the slider
              */
             function value() {
-                return value;
+                return _value;
             }
 
             function pos() {

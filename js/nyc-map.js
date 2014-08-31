@@ -110,6 +110,7 @@ $().ready(function() {
          * Shows all buildings up until the specified year
          */
         function showAllBetween(startYear, endYear) {
+            console.log(startYear, endYear);
             for(var i = startYear; i < endYear; i++) {
                 showByYear(i, true);
             }
