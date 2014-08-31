@@ -128,10 +128,19 @@ $().ready(function() {
      */
     function buildRange(canvas, data) {
 
+        var endSlider = buildSlider("range-end", canvas, data);
+        var startSlider = buildSlider("range-start", canvas, data);
+
         var dragBehavior = d3.behavior.drag()
             .on("drag", function(d) {
-                var x = +d3.select(this).attr("x");
-                d3.select(this).attr("x", x + d3.event.dx);
+                var $this = d3.select(this),
+                    currentX = +$this.attr("x"),
+                    width = +$this.attr("width"),
+                    newX = currentX + d3.event.dx;
+                d3.select(this).attr("x", newX);
+
+                startSlider.update(newX, true);
+                endSlider.update(newX + width, true);
             });
 
         // build the selection window
@@ -141,9 +150,6 @@ $().ready(function() {
             .attr("height", height + margin.top)
             .attr("width", 0)
             .call(dragBehavior);
-
-        buildSlider("range-end", canvas, data);
-        buildSlider("range-start", canvas, data);
 
         function updateSelection() {
             var startX = $(".range-start .slider-thumb").position().left,
@@ -224,7 +230,7 @@ $().ready(function() {
             /**
              * Updates the guideline & the tooltip to match the current position of the slider.
              */
-            function updateSlider(posX) {
+            function updateSlider(posX, updateThumb) {
                 if (posX < 0 || posX > width) return;
 
                 var x0 = x.invert(posX),
@@ -254,7 +260,16 @@ $().ready(function() {
                     value = newValue;
                 }
 
+                // update the div thumb, if the flag is set.
+                // this happens when update() is not called from the thumb itself
+                if (updateThumb) {
+                    $(".slider." + sliderName + " .slider-thumb").css({left: posX});
+                }
             }
+
+            return {
+                update: updateSlider
+            };
 
         }//buildSlider
 
