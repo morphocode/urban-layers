@@ -16,7 +16,7 @@
             steps: [
               {
                 element: document.querySelector('#map-controls'),
-                intro: "This graph shows when were the buildings of Manhattan built.",
+                intro: "This graph shows when were the current buildings of Manhattan built.",
                 position: 'bottom'
               },
               {

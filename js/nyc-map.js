@@ -112,15 +112,26 @@ $().ready(function() {
         function showAllBetween(startYear, endYear) {
             //return;
             console.log(startYear, endYear);
+            var classes = [];
             for(var i = startYear; i < endYear; i++) {
-                showByYear(i, true);
+                //showByYear(i, true);
+                classes.push("active-" + i);
             }
+            console.log(classes);
+            map.style.addClasses(classes);
+
+
+            // remove inactive years
+            classes = [];
             for(var j = minYear; j < startYear; j++) {
-                showByYear(j, false);
+                //showByYear(j, false);
+                classes.push("active-" + j);
             }
             for(var j = endYear; j < maxYear; j++) {
-                showByYear(j, false);
+                //showByYear(j, false);
+                classes.push("active-" + j);
             }
+            map.style.removeClasses(classes);
         }
 
         /**
