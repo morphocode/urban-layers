@@ -95,7 +95,7 @@ $().ready(function() {
             clearTimeout(updateTimeout);
             updateTimeout = setTimeout(function() {
                 showAllBetween(startYear, endYear);
-            }, 20);
+            }, 10);
         });
 
         $(document).bind("slider-range-start", function(event, year) {
@@ -103,7 +103,7 @@ $().ready(function() {
             clearTimeout(updateTimeout);
             updateTimeout = setTimeout(function() {
                 showAllBetween(startYear, endYear);
-            }, 20);
+            }, 10);
         });
 
         /**

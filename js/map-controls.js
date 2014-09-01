@@ -161,6 +161,7 @@ $().ready(function() {
                             iEnd = eI(t);
                         startSlider.update(iStart, true);
                         endSlider.update(iEnd, true);
+                        updateSelection();
                     }
                 });
         }
@@ -189,6 +190,8 @@ $().ready(function() {
 
             // check bounds:
             if (newX < 0 || newX+sWidth > width) return;
+
+            selection.attr("x", newX);
 
             // update the slider, they will update the selection
             startSlider.update(newX, true);
@@ -248,14 +251,17 @@ $().ready(function() {
                 start : function() {
                     $(this).closest(".slider").addClass("drag");
                     marker.classed("drag", true);
+                    updateSelection();
                 },
                 drag: function(event) {
                     updateSlider($(this).position().left);
+                    updateSelection();
                 },
                 stop : function() {
                     $(this).closest(".slider").removeClass("drag");
                     marker.classed("drag", false);
                     updateSlider($(this).position().left);
+                    updateSelection();
                 },
                 containment: "svg"
             });
@@ -309,7 +315,7 @@ $().ready(function() {
                     $(".slider." + sliderName + " .slider-thumb").css({left: posX});
                 }
 
-                updateSelection();
+                //updateSelection();
             }
 
             /**
