@@ -111,13 +111,12 @@ $().ready(function() {
          */
         function showAllBetween(startYear, endYear) {
             //return;
-            console.log(startYear, endYear);
+            //console.log(startYear, endYear);
             var classes = [];
             for(var i = startYear; i < endYear; i++) {
                 //showByYear(i, true);
                 classes.push("active-" + i);
             }
-            console.log(classes);
             map.style.addClasses(classes);
 
 

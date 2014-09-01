@@ -1,12 +1,37 @@
 (function() {
     'use strict';
 
+    urbanmap.ui.build = build;
     urbanmap.ui.showIntro = showIntro;
-    urbanmap.ui.buildIntro = buildIntro;
-    urbanmap.ui.buildToolbar = buildToolbar;
+    urbanmap.ui.welcome = welcome;
 
+
+    /**
+     * Called when the user opens the page
+     */
+    function welcome() {
+        $('#about-dialog').modal('show');
+    }
+
+    /**
+     * Build the different UI components
+     */
+    function build() {
+        buildIntro();
+        buildToolbar();
+
+        $("#show-map").on("click", function() {
+            $('#about-dialog').modal('hide');
+
+            //show intro only, if the User hasn't seen it yet
+            showIntro(false);
+        });
+
+    }
+
+
+    // INTRO --------------------------------------------------------------------
     var intro;
-
     /**
      * Using intro.js to introduce the User to the map
      */
@@ -48,6 +73,8 @@
         intro.start();
     }
 
+
+    // TOOLBAR ----------------------------------------------------------------------------
     /**
      * Wire the buttons
      */

@@ -34,13 +34,10 @@
                 }
 
                 // build the buttons
-                urbanmap.ui.buildToolbar();
+                urbanmap.ui.build();
 
-                // build the intro
-                urbanmap.ui.buildIntro();
-
-                //show intro only, if the User hasn't seen it yet
-                urbanmap.ui.showIntro(true);
+                // welcome the User
+                urbanmap.ui.welcome();
 
             });
 
@@ -74,11 +71,20 @@
                     <li><a id="layer-newest-buildings" href="#">The newest buildings in Manhattan</a></li>
                   </ul>
                 </li>
-                <li><a href="#">About</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#about-dialog">About</a></li>
                 <li><a id="help-button" href="#">Help</a></li>
+                <li class="share-menu-item"><a id="help-button" href="#">Share:</a></li>
+                <li class="share-buttons">
+                    <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+                        <a class="addthis_button_facebook"></a>
+                        <a class="addthis_button_twitter"></a>
+                        <a class="addthis_button_compact"></a>
+                    </div>
+                </li>
+
               </ul>
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Share</a></li>
+                <li></li>
               </ul>
             </div>
 
@@ -87,6 +93,53 @@
 
         <div id="map"></div>
         <div id="map-controls"></div>
+
+        <!-- Welcome Dialog -->
+        <div class="modal" id="about-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h1 class="modal-title" id="myModalLabel">Welcome!</h1>
+              </div>
+              <div class="modal-body">
+                  <blockquote>
+                ...each block is covered with several layers of phantom architecture in the form of past occupancies, aborted projects and popular fantasies that provide alternative images to the New York that exists." <br /> <br />
+                Rem Koolhaas, "Delirious New York"
+                </blockquote>
+
+                <p>
+                    <strong>Urban Layers</strong> is an interactive map created by <a href="http://morphocode.com/about/" target="_blank">Morphocode</a> that explores the structure of Manhattan's urban
+                    fabric.
+                <p>
+                The map lets you navigate through historical fragments of the city that have been preserved and are now embedded in Manhattan's densely built environment.
+                </p>
+                <p>The rigid archipelago of building blocks has been mapped as a succession of structural episodes starting from 1765.  Use the timeline sliders to identify some of Manhattan's oldest buildings; discover how the beggining of the 20th century marked the island skyline or to define the distribution of building activity over the last decades.
+
+                </p>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-xlarge" id="show-map">Show me the Map</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+    <!-- share buttons -->
+    <script type="text/javascript">
+        var addthis_config = {
+            "data_track_clickback": false
+        };
+        var addthis_share =
+        {
+           templates: {
+                twitter: 'check out {{url}} via @morphocode'
+           }
+        };
+    </script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50c5d7cd149035aa"></script>
 
 
     </body>

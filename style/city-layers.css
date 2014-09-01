@@ -209,6 +209,48 @@ path.area {
 
 
 /** custom bootstrap */
+.navbar-nav>li>a {
+    outline: 0;
+}
+
 .navbar-inverse .navbar-nav>li>a , .dropdown-menu>li>a {
     color: #666;
+}
+
+#about-dialog h1 {
+    text-align: center;
+}
+
+#about-dialog p {
+    font-size: 17.5px
+}
+
+#about-dialog blockquote {
+    color: #999;
+    font-style: italic;
+}
+
+#about-dialog .modal-footer {
+    text-align: center;
+}
+
+#about-dialog button.close {
+    margin-top: 5px;
+}
+
+.btn-xlarge {
+    padding: 18px 28px;
+    font-size: 16px;
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+}
+
+.nav>li.share-menu-item a {
+    padding-right: 5;
+}
+
+.addthis_16x16_style {
+    padding-top: 17px;
 }
