@@ -12,7 +12,10 @@
         <script src="lib/jquery/jquery-2.1.1.min.js"></script>
         <script src="lib/jquery/jquery-ui-draggable.min.js"></script>
 
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <script src="lib/intro-js/intro.js"></script>
+        <link href='lib/intro-js/introjs.css' rel='stylesheet' />
+
+        <link rel="stylesheet" href="lib/bootstrap/lumen.bootstrap.min.css">
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
         <script src="js/map-controls.js"></script>
@@ -24,7 +27,53 @@
                 if (getParameterByName("show") != "true") {
                     $("body").html("Under Construction");
                 }
+
+                $("#help-button").on("click", function() {
+                    startIntro();
+                });
+
+                $("#layer-oldest-buildings").on("click", function() {
+                    urbanmap.ui.slideTo(0, 100, 1000);
+                });
+
+                $("#layer-most-buildings").on("click", function() {
+                    urbanmap.ui.slideTo(400, 600, 2000);
+                });
+
+                $("#layer-newest-buildings").on("click", function() {
+                    urbanmap.ui.slideTo(1400, 1500, 1000);
+                });
             });
+
+        </script>
+
+        <script>
+
+            function startIntro(){
+            var intro = introJs();
+              intro.setOptions({
+                steps: [
+                  {
+                    element: document.querySelector('#map-controls'),
+                    intro: "This graph shows how many buildings were built in Manhattan across the years.",
+                    position: 'bottom'
+                  },
+                  {
+                    element: document.querySelector('.range-end .slider-thumb'),
+                    intro: "Drag the sliders to change the time period.",
+                    position: 'bottom'
+                  },
+                  {
+                    element: document.querySelector('.explore-menu'),
+                    intro: "Click here to explore some of the urban layers",
+                    position: 'bottom'
+                  },
+                ]
+              });
+
+              intro.start();
+            }
+
 
         </script>
 
@@ -33,7 +82,7 @@
 
     <body>
 
-        <nav class="navbar navbar-default" role="navigation">
+        <nav class="navbar navbar-inverse" role="navigation">
           <div class="container-fluid">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -47,8 +96,18 @@
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
+                <li class="explore-menu dropdown">
+                  <a href="#" data-toggle="dropdown">Explore <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a id="layer-oldest-buildings" href="#">The 100 oldest buildings</a></li>
+                    <li class="divider"></li>
+                    <li><a id="layer-most-buildings" href="#">The most build-intense decade</a></li>
+                    <li class="divider"></li>
+                    <li><a id="layer-newest-buildings" href="#">The newest buildings in Manhattan</a></li>
+                  </ul>
+                </li>
                 <li><a href="#">About</a></li>
-                <li><a href="#">Take the Course</a></li>
+                <li><a id="help-button" href="#">Help</a></li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Share</a></li>
@@ -61,5 +120,7 @@
         <div id="map"></div>
         <div id="map-controls">
         </div>
+
+
     </body>
 </html>

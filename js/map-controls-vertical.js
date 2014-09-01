@@ -1,14 +1,10 @@
-var urbanmap = {
-    ui: {}
-};
-
 $().ready(function() {
     "use strict";
 
     // Set the dimensions of the canvas / graph
     var margin = {top: 20, right: 25, bottom: 15, left: 25},
-        width = $(window).width() - 0 - margin.left - margin.right,
-        height = 130 - margin.top - margin.bottom;
+        width = 350 - margin.left - margin.right,
+        height = $(window).height() - 100 - margin.top - margin.bottom;
 
     var bisectDate = d3.bisector(function(d) { return d.year; }).left;
 
@@ -22,26 +18,27 @@ $().ready(function() {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // Set the ranges
-    var x = d3.scale.linear().range([0, width]);
-    var y = d3.scale.pow().exponent(.3).range([height, 0]);
+    var x = d3.scale.pow().exponent(.3).range([0, width]);
+    var y = d3.scale.ordinal().rangeRoundBands([height, 0], .1);
+    //var y = d3.scale.linear().range([height, 0]);
 
     // Define the axes
     var xAxis = d3.svg.axis().scale(x)
         .orient("bottom")
         .tickSize(-height)
         .tickFormat(function(d) {
-            return d;
+            return d === 8000 ? d + " buildings" : d;
         })
-        .tickSubdivide(true);
+        .tickValues([200, 2000, 8000]);
 
     // build the Y axis
     var yAxis = d3.svg.axis()
         .scale(y)
-        .tickValues([200, 2000, 8000])
         .tickSize(width)
         .orient("right")
+        .ticks(100)
         .tickFormat(function(d) {
-            return d === 8000 ? d + " buildings" : d;
+            return d;
         });
 
     // Add the clip path.
@@ -56,7 +53,7 @@ $().ready(function() {
      */
     function customYTicks(g) {
       g.selectAll("text")
-          .attr("x", 4)
+          .attr("x", width)
           .attr("dy", -4);
     }
 
@@ -75,15 +72,15 @@ $().ready(function() {
         // An area generator, for the light fill.
         var area = d3.svg.area()
             .interpolate("monotone")
-            .x(function(d) { return x(d.year); })
-            .y0(height)
-            .y1(function(d) { return y(d.count); });
+            .x(function(d) { return x(d.count); })
+            .y0(0)
+            .y1(function(d) { return y(d.year); });
 
         // A line generator, for the dark stroke.
         var valueline = d3.svg.line()
             .interpolate("monotone")
-            .x(function(d) { return x(d.year); })
-            .y(function(d) { return y(d.count); });
+            .x(function(d) { return x(d.count); })
+            .y(function(d) { return y(d.year); });
 
             data.forEach(function(d) {
                 d.year = +d.year;
@@ -91,8 +88,8 @@ $().ready(function() {
             });
 
         // Scale the range of the data
-        x.domain(d3.extent(data, function(d) { return d.year; }));
-        y.domain([0, d3.max(data, function(d) { return d.count; })]).nice();
+        x.domain([0, d3.max(data, function(d) { return d.year; })]).nice();
+        y.domain(d3.extent(data, function(d) { return d.year; }));
 
         // Add the area path.
         canvas.append("path")
@@ -125,17 +122,23 @@ $().ready(function() {
         d3.select(".y.axis").call(yAxis)
             .call(customYTicks);
 
-    }
+        canvas.selectAll(".bar")
+              .data(data)
+            .enter().append("rect")
+              .attr("class", "bar")
+              .attr("x", function(d) { return x(d.count); })
+              .attr("height", y.rangeBand())
+              .attr("y", function(d) { return y(d.year); })
+              .attr("width", function(d) { return width - x(d.count); });
+            }
 
     /**
      * builds the Range slider composed of two seprate slider and a selection marquee
      */
     function buildRange(canvas, data) {
 
-        urbanmap.ui.slideTo = slideTo;
-
-        var startSlider = buildSlider(30, "range-start", canvas, data),
-            endSlider = buildSlider(150, "range-end", canvas, data);
+        var startSlider = buildSlider(0, "range-start", canvas, data),
+            endSlider = buildSlider(20, "range-end", canvas, data);
 
         var dragBehavior = d3.behavior.drag()
             .on("drag", onSelectionDrag);
@@ -149,34 +152,13 @@ $().ready(function() {
             .attr("width", endSlider.pos() - startSlider.pos())
             .call(dragBehavior);
 
-        function slideTo(newStart, newEnd, duration) {
-            var duration = duration || 2000;
-            d3.transition()
-                .duration(duration)
-                //.ease("linear")
-                .tween("moveTween", function () {
-                    var sI = d3.interpolateRound(startSlider.pos(), newStart),
-                        eI = d3.interpolateRound(endSlider.pos(), newEnd),
-                        _width = d3.select(this).attr("width");
 
-                    return function(t) {
-                        var iStart = sI(t),
-                            iEnd = eI(t);
-                        startSlider.update(iStart, true);
-                        endSlider.update(iEnd, true);
-                    }
-                });
-        }
-
-        slideTo(0, 300, 2000);
-
+        selection.transition().style("fill", "red");
 
         /**
          * Updates the bounds of the selection marquee according to the positions of the sliders
          */
         function updateSelection() {
-            if (!selection) return;
-
             selection.attr("x", startSlider.pos());
             selection.attr("width", endSlider.pos() - startSlider.pos());
         }
@@ -193,7 +175,8 @@ $().ready(function() {
             // check bounds:
             if (newX < 0 || newX+sWidth > width) return;
 
-            // update the slider, they will update the selection
+            $this.attr("x", newX);
+
             startSlider.update(newX, true);
             endSlider.update(newX + sWidth, true);
         }
@@ -251,14 +234,17 @@ $().ready(function() {
                 start : function() {
                     $(this).closest(".slider").addClass("drag");
                     marker.classed("drag", true);
+                    updateSelection();
                 },
                 drag: function(event) {
                     updateSlider($(this).position().left);
+                    updateSelection();
                 },
                 stop : function() {
                     $(this).closest(".slider").removeClass("drag");
                     marker.classed("drag", false);
                     updateSlider($(this).position().left);
+                    updateSelection();
                 },
                 containment: "svg"
             });
@@ -311,8 +297,6 @@ $().ready(function() {
                 if (updateThumb) {
                     $(".slider." + sliderName + " .slider-thumb").css({left: posX});
                 }
-
-                updateSelection();
             }
 
             /**

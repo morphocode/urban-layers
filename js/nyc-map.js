@@ -28,7 +28,7 @@ $().ready(function() {
             container: 'map',
             style: style,
             center: [40.77499462,-73.98909694],
-            zoom: 11
+            zoom: 12
         });
 
         var basemap = new mapboxgl.Source({
@@ -88,14 +88,14 @@ $().ready(function() {
 
         // listen for yearUpdate event:
         var startYear = minYear,
-            endYear = maxYear;
+            endYear = minYear;
         var updateTimeout;
         $(document).bind("slider-range-end", function(event, year) {
             endYear = year;
             clearTimeout(updateTimeout);
             updateTimeout = setTimeout(function() {
                 showAllBetween(startYear, endYear);
-            }, 10);
+            }, 20);
         });
 
         $(document).bind("slider-range-start", function(event, year) {
@@ -103,13 +103,14 @@ $().ready(function() {
             clearTimeout(updateTimeout);
             updateTimeout = setTimeout(function() {
                 showAllBetween(startYear, endYear);
-            }, 10);
+            }, 20);
         });
 
         /**
          * Shows all buildings up until the specified year
          */
         function showAllBetween(startYear, endYear) {
+            //return;
             console.log(startYear, endYear);
             for(var i = startYear; i < endYear; i++) {
                 showByYear(i, true);
