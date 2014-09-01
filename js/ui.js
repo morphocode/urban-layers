@@ -24,7 +24,7 @@
             $('#about-dialog').modal('hide');
 
             //show intro only, if the User hasn't seen it yet
-            showIntro(false);
+            showIntro(true);
         });
 
     }

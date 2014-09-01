@@ -227,6 +227,7 @@ path.area {
 
 #about-dialog blockquote {
     color: #999;
+    font-size: 14px;
     font-style: italic;
 }
 
@@ -253,4 +254,13 @@ path.area {
 
 .addthis_16x16_style {
     padding-top: 17px;
+}
+
+.nav>li a#button-project-of {
+    color: #999;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+    padding-top: 18px;
+    padding-right: 0;
 }
