@@ -1,6 +1,3 @@
-var urbanmap = {
-    ui: {}
-};
 
 $().ready(function() {
     "use strict";
