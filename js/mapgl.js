@@ -22,6 +22,8 @@ $().ready(function() {
 
         // generate layers for all buildings
         generateAllLayers(minYear, maxYear);
+        //fix for non-mapped buildings:
+        generateLayer(0);
 
         var map = new mapboxgl.Map({
             container: 'map',
@@ -116,8 +118,10 @@ $().ready(function() {
             for(var i = startYear; i < endYear; i++) {
                 classes.push("active-" + i);
             }
+            //FIX for non-mapped buildings
+            classes.push("active-0");
+            // show the selected layers
             map.style.addClasses(classes);
-
 
             // remove inactive years
             classes = [];

@@ -12,6 +12,7 @@
         0,
         3
     ],
+    "attribution": "Sources: Esri, HERE, DeLorme, MapmyIndia, © OpenStreetMap contributors, and the GIS user community",
     "description": "",
     "id": "stamen-toner",
     "maxzoom": 19,
