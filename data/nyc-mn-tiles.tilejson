@@ -3,11 +3,11 @@
 
     "name": "compositing",
 
-    "description": "A simple, light grey world.",
+    "description": "NYC Buildings",
 
     "version": "1.0.0",
 
-    "attribution": "<a href='http://openstreetmap.org'>OSM contributors</a>",
+    "attribution": "Pluto Data Set",
 
     "legend": "Dangerous zones are red, safe zones are green",
 
