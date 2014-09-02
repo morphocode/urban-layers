@@ -23,7 +23,7 @@
             if (!isTourTaken()) {
                 startTour();
             } else {
-                urbanmap.ui.timeline.demo();
+                showDemo();
             }
         });
 
@@ -89,9 +89,9 @@
          */
         function tourTaken() {
             $.cookie('tour-taken', 'yes');
-
             // start the timeline demo, once the tour is over:
-            urbanmap.ui.timeline.demo();
+            showDemo();
+
         }
     }
 
@@ -107,6 +107,14 @@
      */
     function startTour() {
         tour.start();
+    }
+
+    var demoShown = false;
+    function showDemo() {
+        if (!demoShown) {
+            urbanmap.ui.timeline.demo();
+            demoShown = true;
+        }
     }
 
 
