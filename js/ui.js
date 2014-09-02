@@ -26,7 +26,6 @@
             //show intro only, if the User hasn't seen it yet
             showIntro(true);
         });
-
     }
 
 

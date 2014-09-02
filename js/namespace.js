@@ -1,3 +1,5 @@
 var urbanmap = {
-    ui: {}
+    ui: {
+        graph: {}
+    }
 };

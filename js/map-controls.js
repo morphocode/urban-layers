@@ -1,67 +1,70 @@
-
-$().ready(function() {
+(function() {
     "use strict";
 
-    // Set the dimensions of the canvas / graph
-    var margin = {top: 20, right: 25, bottom: 15, left: 25},
-        width = $(window).width() - 0 - margin.left - margin.right,
-        height = 130 - margin.top - margin.bottom;
+    urbanmap.ui.graph.build = build;
 
-    var bisectDate = d3.bisector(function(d) { return d.year; }).left;
-
-    // Add an SVG element with the desired dimensions and margin.
-    var svg = d3.select("#map-controls")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .attr("class", "graph")
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    // Set the ranges
-    var x = d3.scale.linear().range([0, width]);
-    var y = d3.scale.pow().exponent(.3).range([height, 0]);
-
-    // Define the axes
-    var xAxis = d3.svg.axis().scale(x)
-        .orient("bottom")
-        .tickSize(-height)
-        .tickFormat(function(d) {
-            return d;
-        })
-        .tickSubdivide(true);
-
-    // build the Y axis
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .tickValues([200, 2000, 8000])
-        .tickSize(width)
-        .orient("right")
-        .tickFormat(function(d) {
-            return d === 8000 ? d + " buildings" : d;
-        });
-
-    // Add the clip path.
-    svg.append("clipPath")
-      .attr("id", "clip")
-      .append("rect")
-      .attr("width", width)
-      .attr("height", height);
+    var margin,
+        width,
+        height,
+        bisectDate = d3.bisector(function(d) { return d.year; }).left,
+        x, xAxis,
+        y, yAxis;
 
     /**
-     * Adjusts the position of the ticks on the Y axis
+     * Builds the base DOM structure for the Graph.
+     * Loads the data and populates the UI when ready.
      */
-    function customYTicks(g) {
-      g.selectAll("text")
-          .attr("x", 4)
-          .attr("dy", -4);
-    }
+    function build() {
+        // Set the dimensions of the canvas / graph
+        margin = {top: 20, right: 25, bottom: 15, left: 25},
+            width = $(window).width() - 0 - margin.left - margin.right,
+            height = 130 - margin.top - margin.bottom;
 
-    // Get the data
-    d3.csv("data/buildings_mn_year.csv", function(error, data) {
-        buildGraph(svg, data);
-        buildRange(svg, data);
-    });
+        // Add an SVG element with the desired dimensions and margin.
+        var canvas = d3.select("#map-controls")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .attr("class", "graph")
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        // Set the ranges
+        x = d3.scale.linear().range([0, width]);
+        y = d3.scale.pow().exponent(.3).range([height, 0]);
+
+        // Define the axes
+        xAxis = d3.svg.axis().scale(x)
+            .orient("bottom")
+            .tickSize(-height)
+            .tickFormat(function(d) {
+                return d;
+            })
+            .tickSubdivide(true);
+
+        // build the Y axis
+        yAxis = d3.svg.axis()
+            .scale(y)
+            .tickValues([200, 2000, 8000])
+            .tickSize(width)
+            .orient("right")
+            .tickFormat(function(d) {
+                return d === 8000 ? d + " buildings" : d;
+            });
+
+        // Add the clip path.
+        canvas.append("clipPath")
+          .attr("id", "clip")
+          .append("rect")
+          .attr("width", width)
+          .attr("height", height);
+
+        // Load the data & populate UIs
+        d3.csv("data/buildings_mn_year.csv", function(error, data) {
+            buildRange(canvas, data);
+            buildGraph(canvas, data);
+        });
+    }
 
 
     /**
@@ -122,6 +125,16 @@ $().ready(function() {
         d3.select(".y.axis").call(yAxis)
             .call(customYTicks);
 
+
+        /**
+         * Adjusts the position of the ticks on the Y axis
+         */
+        function customYTicks(g) {
+          g.selectAll("text")
+              .attr("x", 4)
+              .attr("dy", -4);
+        }
+
     }
 
     /**
@@ -129,7 +142,7 @@ $().ready(function() {
      */
     function buildRange(canvas, data) {
 
-        urbanmap.ui.slideTo = slideTo;
+        urbanmap.ui.graph.slideTo = slideTo;
 
         var startSlider = buildSlider(30, "range-start", canvas, data),
             endSlider = buildSlider(150, "range-end", canvas, data);
@@ -201,7 +214,7 @@ $().ready(function() {
         /**
          * Builds a slider attached to the specified canvas
          */
-        function buildSlider(myPos, sliderName, canvas, data) {
+        function buildSlider(myPos, sliderName, canvas, myData) {
 
             // build the guideline and the dot showing the current value of the slider
             var controller = d3.select("#map-controls"),
@@ -238,6 +251,8 @@ $().ready(function() {
 
                 tooltipContents = tooltip.append("div")
                     .attr("class", "v-tooltip-contents"),
+
+                _data = myData,
 
                 // the position of the slider
                 _pos = myPos,
@@ -284,9 +299,9 @@ $().ready(function() {
 
                 var x0 = x.invert(posX),
                     newValue = Math.round(x0),
-                    i = bisectDate(data, x0, 1),
-                    d0 = data[i - 1],
-                    d1 = data[i],
+                    i = bisectDate(_data, x0, 1),
+                    d0 = _data[i - 1],
+                    d1 = _data[i],
                     d = x0 - d0.year > d1.year - x0 ? d1 : d0,
                     posY = y(d.count);
                 marker.attr("transform", "translate(" + posX + "," + posY + ")");
@@ -329,7 +344,15 @@ $().ready(function() {
                 return _pos;
             }
 
+            /**
+             * Sets the data related to the slider
+             */
+            function data(data) {
+                _data = data;
+            }
+
             return {
+                data: data,
                 update: updateSlider,
                 value: value,
                 pos: pos
@@ -341,4 +364,4 @@ $().ready(function() {
 
 
 
-});
+})();

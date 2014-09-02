@@ -33,6 +33,9 @@
                     $("body").html("Under Construction");
                 }
 
+                // build the graph:
+                urbanmap.ui.graph.build();
+
                 // build the buttons
                 urbanmap.ui.build();
 
@@ -81,6 +84,9 @@
                         <a class="addthis_button_compact"></a>
                     </div>
                 </li>
+                <li>
+                    <a class="addthis_button_twitter_follow_native" tw:screen_name="morphocode"></a>
+                </li>
 
               </ul>
               <ul class="nav navbar-nav navbar-right">
@@ -115,7 +121,7 @@
                 <p>
                 The map lets you navigate through historical fragments of the city that have been preserved and are now embedded in Manhattan's densely built environment.
                 </p>
-                <p>The rigid archipelago of building blocks has been mapped as a succession of structural episodes starting from 1765.  Use the timeline sliders to identify some of Manhattan's oldest buildings; discover how the beggining of the 20th century marked the island skyline or to define the distribution of building activity over the last decades.
+                <p>The rigid archipelago of building blocks has been mapped as a succession of structural episodes starting from 1765.  Use the timeline sliders to identify some of Manhattan's oldest buildings; discover how the beginning of the 20th century marked the island skyline or to define the distribution of building activity over the last decades.
 
                 </p>
 
@@ -141,6 +147,18 @@
         };
     </script>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-50c5d7cd149035aa"></script>
+
+    <!-- analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-20080950-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
 
 
     </body>
