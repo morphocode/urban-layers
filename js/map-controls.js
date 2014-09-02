@@ -31,8 +31,9 @@
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-        var graphLayer = canvas.append('g'),
-            sliderLayer = canvas.append('g');
+        var graphLayer = canvas.append('g').attr("class", "graph-layer"),
+            axesLayer = canvas.append('g').attr("class", "axes-layer"),
+            sliderLayer = canvas.append('g').attr("class", "slider-layer");
 
         // Set the ranges
         x = d3.scale.linear().range([0, width]);
@@ -65,13 +66,13 @@
           .attr("height", height);
 
         // Add the X Axis
-        var gx = canvas.append("g")
+        var gx = axesLayer.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis);
 
         // Add the Y Axis
-        var gy = canvas.append("g")
+        var gy = axesLayer.append("g")
             .attr("class", "y axis")
             //.attr("transform", "translate(" + width + ",0)")
             .call(yAxis);
@@ -99,7 +100,7 @@
     /**
      * Builds the graph on the canvas using the supplied data
      */
-    function buildGraph(canvas, data) {
+    function buildGraph(graphics, data) {
 
         // An area generator, for the light fill.
         var area = d3.svg.area()
@@ -125,14 +126,21 @@
 
         yAxis.tickValues([200, 2000, 8000]);
 
+        // NOTE: clip the ticks with the graph
+        var axesLayer = d3.select(".axes-layer");
+        axesLayer.append("path")
+            .attr("class", "line")
+            .attr("clip-path", "url(#clip)")
+            .attr("d", valueline(data));
+
         // Add the area path.
-        canvas.append("path")
+        graphics.append("path")
           .attr("class", "area")
           .attr("clip-path", "url(#clip)")
           .attr("d", area(data));
 
         // Add the valueline path.
-        canvas.append("path")
+        graphics.append("path")
             .attr("class", "line")
             .attr("clip-path", "url(#clip)")
             .attr("d", valueline(data));
@@ -153,12 +161,12 @@
     }
 
     /**
-     * builds the Range slider composed of two seprate slider and a selection marquee
+     * builds the Range slider composed of two separate sliders and a selection marquee
      */
     function buildRangeSlider(canvas) {
 
-        var startSlider = buildSlider(width/2, "range-start", canvas),
-            endSlider = buildSlider(width/2 + 100, "range-end", canvas);
+        var startSlider = buildSlider(width/2 - 100, "range-start", canvas),
+            endSlider = buildSlider(width/2 , "range-end", canvas);
 
         var dragBehavior = d3.behavior.drag()
             .on("drag", onSelectionDrag);
@@ -180,6 +188,9 @@
             endSlider.data(myData);
         }
 
+        /**
+         * Slides the two sliders to the new positions using a transition
+         */
         function slideTo(newStart, newEnd, duration) {
             var duration = duration || 2000;
             d3.transition()

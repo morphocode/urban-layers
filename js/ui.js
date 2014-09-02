@@ -19,16 +19,33 @@
      * Build the Dialog functionality
      */
     function buildDialogs() {
-        $("#show-map").on("click", function() {
-            $('#about-dialog').modal('hide');
+        $('#about-dialog').on('hidden.bs.modal', function () {
 
-            //show intro only, if the User hasn't seen it yet
             if (!isTourTaken()) {
                 startTour();
             } else {
                 urbanmap.ui.timeline.demo();
             }
         });
+
+        // center the modal dialog
+        $('#about-dialog').on('shown.bs.modal', function() {
+            var initModalHeight = $('#about-dialog .modal-dialog').outerHeight(); //give an id to .mobile-dialog
+            var userScreenHeight = $(document).outerHeight();
+            if (initModalHeight > userScreenHeight) {
+                $('#about-dialog .modal-dialog').css('overflow', 'auto'); //set to overflow if no fit
+            } else {
+                $('#about-dialog .modal-dialog').css('margin-top',
+                (userScreenHeight / 2) - (initModalHeight/2)); //center it if it does fit
+            }
+        });
+
+
+        // close the dialog, when the User clicks show me the Map
+        $("#about-dialog #show-map").on("click", function() {
+            $('#about-dialog').modal('hide');
+        });
+
     }
 
 
