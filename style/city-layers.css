@@ -26,6 +26,17 @@ nav {
 }
 
 
+.mapboxgl-ctrl-nav {
+    bottom: 10px;
+    top: auto;
+    left: 10px;
+    right: auto;
+}
+
+.mapboxgl-ctrl-nav a.mapboxgl-ctrl-nav-zoom-in, .mapboxgl-ctrl-nav a.mapboxgl-ctrl-nav-zoom-out {
+    display: none;
+}
+
 
 /** Map Controls ========================================== */
 
@@ -280,4 +291,23 @@ path.area {
 
 .navbar-right {
     max-height: 50px;
+}
+
+#attribution-dialog h1 {
+    margin-top: 0;
+    text-align: center;
+}
+
+#attribution-dialog ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#attribution-dialog li {
+    border-bottom: 1px solid #dddddd;
+    padding: 15px 0;
+}
+
+#attribution-dialog li:last-child {
+    border: 0;
 }

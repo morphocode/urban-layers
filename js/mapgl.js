@@ -2,8 +2,8 @@ var bMap;
 $().ready(function() {
     "use strict";
 
-    //mapboxgl.accessToken = 'pk.eyJ1IjoibW9ycGhvY29kZSIsImEiOiJVMnRPS0drIn0.QrB-bpBR5Tgnxa6nc9TqmQ';
-    mapboxgl.accessToken = 'pk.eyJ1IjoibW9ycGhvY29kZSIsImEiOiJVMnRPS0drIn0.QrB-bpBR5Tgnxa6nc9TqmQ';
+    var minYear = 1765,
+        maxYear = 2014;
 
     mapboxgl.util.getJSON('data/nyc-style.json', function (err, style) {
         if (err) throw err;
@@ -21,24 +21,26 @@ $().ready(function() {
         });
 
         // generate layers for all buildings
-        var minYear = 1800, maxYear = 2014;//2015;
         generateAllLayers(minYear, maxYear);
 
         var map = new mapboxgl.Map({
             container: 'map',
             style: style,
             center: [40.77499462,-73.98909694],
-            zoom: 12
+            minZoom: 8,
+            zoom: 12,
+            maxZoom: 14
         });
+
+        // add the compass
+        map.addControl(new mapboxgl.Navigation());
 
         var basemap = new mapboxgl.Source({
             type: 'raster',
-            //url: 'http://localhost:8000/stamen-toner.tilejson',
             url: 'http://io.morphocode.com/city-layers/data/esri-light-gray.tilejson',
             "tileSize": 256
         });
         map.addSource('basemap', basemap);
-
 
         /**
          * Generates a layer containing all buildings built during the specified year.

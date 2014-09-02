@@ -20,7 +20,6 @@
      */
     function buildDialogs() {
         $('#about-dialog').on('hidden.bs.modal', function () {
-
             if (!isTourTaken()) {
                 startTour();
             } else {
@@ -44,6 +43,9 @@
         $("#about-dialog #show-map").on("click", function() {
             $('#about-dialog').modal('hide');
         });
+
+        //attribution
+        //mapboxgl-ctrl-attrib
 
     }
 

@@ -18,7 +18,7 @@
      */
     function build() {
         // Set the dimensions of the canvas / graph
-        margin = {top: 20, right: 25, bottom: 15, left: 25},
+        margin = {top: 20, right: 50, bottom: 15, left: 50},
             width = $(window).width() - 0 - margin.left - margin.right,
             height = 130 - margin.top - margin.bottom;
 
