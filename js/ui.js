@@ -40,7 +40,6 @@
             }
         });
 
-
         // close the dialog, when the User clicks show me the Map
         $("#about-dialog #show-map").on("click", function() {
             $('#about-dialog').modal('hide');
@@ -78,8 +77,20 @@
 
         // set a cookie to mark that this user has taken the tour
         tour.onexit(function() {
-            $.cookie('tour-taken', 'yes');
+            tourTaken();
+        }).oncomplete(function() {
+            tourTaken();
         });
+
+        /**
+         * Set a cookie to mark that this tour was taken by the user. Don't show it again on refresh.
+         */
+        function tourTaken() {
+            $.cookie('tour-taken', 'yes');
+
+            // start the timeline demo, once the tour is over:
+            urbanmap.ui.timeline.demo();
+        }
     }
 
     /**

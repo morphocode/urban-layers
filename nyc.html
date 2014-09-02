@@ -11,17 +11,17 @@
         <script src="lib/d3js/d3.js"></script>
         <script src="lib/jquery/jquery-2.1.1.min.js"></script>
         <script src="lib/jquery/jquery-ui-draggable.min.js"></script>
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+        <script src="lib/jquery/jquery.cookie.min.js"></script>
 
         <script src="lib/intro-js/intro.js"></script>
         <link href='lib/intro-js/introjs.css' rel='stylesheet' />
 
         <link rel="stylesheet" href="lib/bootstrap/lumen.bootstrap.min.css">
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="lib/bootstrap/bootstrap.min.js"></script>
 
         <script src="js/namespace.js"></script>
-        <script src="js/map-controls.js"></script>
-        <script src="js/nyc-map.js"></script>
+        <script src="js/timeline.js"></script>
+        <script src="js/mapgl.js"></script>
         <script src="js/ui.js"></script>
         <script src="js/util.js"></script>
 
@@ -38,6 +38,7 @@
                 urbanmap.ui.buildDialogs();
                 urbanmap.ui.timeline.build();
                 // the tour has to be built after the timeline, in order for selectors to work
+                // or use cusomt intro.onbeforechange callback
                 urbanmap.ui.buildTour();
 
                 // welcome the User
