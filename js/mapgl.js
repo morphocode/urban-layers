@@ -37,7 +37,7 @@ $().ready(function() {
 
         var basemap = new mapboxgl.Source({
             type: 'raster',
-            url: 'http://io.morphocode.com/city-layers/data/esri-light-gray.tilejson',
+            url: 'http://io.morphocode.com/urban-layers/data/esri-light-gray.tilejson',
             "tileSize": 256
         });
         map.addSource('basemap', basemap);

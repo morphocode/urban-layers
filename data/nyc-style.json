@@ -9,7 +9,7 @@
   "sources": {
     "nycBuildings": {
       "type": "vector",
-      "url": "http://io.morphocode.com/city-layers/data/nyc-mn-tiles.tilejson",
+      "url": "http://io.morphocode.com/urban-layers/data/nyc-mn-tiles.tilejson",
       "maxZoom": 15
     }
   },
