@@ -18,7 +18,7 @@
      */
     function build() {
         // Set the dimensions of the canvas / graph
-        margin = {top: 20, right: 50, bottom: 15, left: 50},
+        margin = {top: 20, right: 30, bottom: 15, left: 30},
             width = $(window).width() - 0 - margin.left - margin.right,
             height = 130 - margin.top - margin.bottom;
 
@@ -168,6 +168,17 @@
         var startSlider = buildSlider(width/2 - 100, "range-start", canvas),
             endSlider = buildSlider(width/2 , "range-end", canvas);
 
+        // constrain the start slider to not go beyond the end slider
+        startSlider.constrain(function(event, ui) {
+            ui.position.left = Math.min(ui.position.left, endSlider.pos() + margin.left);
+            ui.position.left = Math.max(margin.left, ui.position.left);
+        });
+
+        endSlider.constrain(function(event, ui) {
+            ui.position.left = Math.max(ui.position.left, startSlider.pos() + margin.left);
+            ui.position.left = Math.min(margin.left + width, ui.position.left);
+        });
+
         var dragBehavior = d3.behavior.drag()
             .on("drag", onSelectionDrag);
 
@@ -241,12 +252,27 @@
         }
 
         /**
-         * Builds a slider attached to the specified canvas
+         * Builds a slider.
+         * The slider is a combination of draggable div(the thumb) & svg guideline driven with d3.js.
+         * There's two-way bind between the div and svg.
+         * If the user drags the thumb div, the svg graphics will be updated.
+         * If the svg guideline is being updated (we're using d3 transitions), the div is also updated.
          */
         function buildSlider(myPos, sliderName, canvas, myData) {
 
             // build the guideline and the dot showing the current value of the slider
-            var controller = d3.select("#map-controls"),
+            var _data = myData || {},
+
+                // the position of the slider
+                _pos = myPos,
+
+                // the value of the data for the current position
+                _value = 0,
+
+                // a function used to constrain drag movement
+                _constrain,
+
+                controller = d3.select("#map-controls"),
 
                 marker = canvas.append("g")
                     .attr("class", "marker " + sliderName),
@@ -271,7 +297,8 @@
 
                 sliderThumb = slider
                     .append("div")
-                    .attr("class", "slider-thumb"),
+                    .attr("class", "slider-thumb")
+                    .style("left", _pos + margin.left + "px"),
 
                 // build the tooltip. tooltips are also divs
                 tooltip = slider
@@ -279,15 +306,8 @@
                     .attr("class", "v-tooltip"),
 
                 tooltipContents = tooltip.append("div")
-                    .attr("class", "v-tooltip-contents"),
+                    .attr("class", "v-tooltip-contents");
 
-                _data = myData || {},
-
-                // the position of the slider
-                _pos = myPos,
-
-                // the value of the data for the current position
-                _value = 0;
 
             // add the scroll thumb. using jQ Draggable in order to have it outside the svg bounds
             $(".slider." + sliderName + " .slider-thumb").draggable({
@@ -297,17 +317,21 @@
                     marker.classed("drag", true);
                     updateSelection();
                 },
-                drag: function(event) {
-                    updateSlider($(this).position().left);
+                drag: function(event, ui) {
+                    // check for constraints
+                    if (_constrain) {
+                        _constrain(event, ui);
+                    }
+
+                    updateSlider($(this).position().left - margin.left);
                     updateSelection();
                 },
                 stop : function() {
                     $(this).closest(".slider").removeClass("drag");
                     marker.classed("drag", false);
-                    updateSlider($(this).position().left);
+                    updateSlider($(this).position().left - margin.left);
                     updateSelection();
-                },
-                containment: "svg"
+                }
             });
 
             //init the marker:
@@ -329,7 +353,7 @@
                 // update the div thumb, if the flag is set.
                 // this happens when update() is not called from the thumb itself
                 if (updateThumb) {
-                    $(".slider." + sliderName + " .slider-thumb").css({left: posX});
+                    $(".slider." + sliderName + " .slider-thumb").css({left: posX + margin.left});
                 }
 
                 marker.attr("transform", "translate(" + posX + "," + 0 + ")");
@@ -377,6 +401,13 @@
             }
 
             /**
+             * Sets a new constrain callback
+             */
+            function constrain(dragConstrain) {
+                _constrain = dragConstrain;
+            }
+
+            /**
              * Sets the data related to the slider
              */
             function data(data) {
@@ -385,6 +416,7 @@
             }
 
             return {
+                constrain: constrain,
                 data: data,
                 update: updateSlider,
                 value: value,

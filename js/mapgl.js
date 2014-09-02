@@ -27,9 +27,9 @@ $().ready(function() {
             container: 'map',
             style: style,
             center: [40.77499462,-73.98909694],
-            minZoom: 8,
+            minZoom: 10,
             zoom: 12,
-            maxZoom: 14
+            maxZoom: 15
         });
 
         // add the compass

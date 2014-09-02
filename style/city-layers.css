@@ -142,11 +142,11 @@ path.area {
 }
 
 .range-start .v-tooltip-contents {
-    right: 0;
+    left: 0;
 }
 
 .range-end .v-tooltip-contents {
-    left: 0;
+    right: 0;
 }
 
 .slider-thumb {
@@ -171,11 +171,11 @@ path.area {
 }
 
 .slider.range-end .slider-thumb {
-    margin-left: 24px;
+    margin-left: 0;
 }
 
 .slider.range-start .slider-thumb {
-    margin-left: -4px;
+    margin-left: -30px;
 }
 
 .slider .slider-thumb:before {
