@@ -33,11 +33,12 @@
                     $("body").html("Under Construction");
                 }
 
-                // build the graph:
-                urbanmap.ui.graph.build();
-
                 // build the buttons
-                urbanmap.ui.build();
+                urbanmap.ui.buildToolbar();
+                urbanmap.ui.buildDialogs();
+                urbanmap.ui.timeline.build();
+                // the tour has to be built after the timeline, in order for selectors to work
+                urbanmap.ui.buildTour();
 
                 // welcome the User
                 urbanmap.ui.welcome();

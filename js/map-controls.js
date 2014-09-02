@@ -1,14 +1,16 @@
 (function() {
     "use strict";
 
-    urbanmap.ui.graph.build = build;
+    urbanmap.ui.timeline.build = build;
+    urbanmap.ui.timeline.demo = demo;
 
     var margin,
         width,
         height,
         bisectDate = d3.bisector(function(d) { return d.year; }).left,
         x, xAxis,
-        y, yAxis;
+        y, yAxis,
+        rangeSlider;
 
     /**
      * Builds the base DOM structure for the Graph.
@@ -29,6 +31,9 @@
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+        var graphLayer = canvas.append('g'),
+            sliderLayer = canvas.append('g');
+
         // Set the ranges
         x = d3.scale.linear().range([0, width]);
         y = d3.scale.pow().exponent(.3).range([height, 0]);
@@ -45,7 +50,7 @@
         // build the Y axis
         yAxis = d3.svg.axis()
             .scale(y)
-            .tickValues([200, 2000, 8000])
+            .tickValues([0, 1])
             .tickSize(width)
             .orient("right")
             .tickFormat(function(d) {
@@ -59,11 +64,35 @@
           .attr("width", width)
           .attr("height", height);
 
+        // Add the X Axis
+        var gx = canvas.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(xAxis);
+
+        // Add the Y Axis
+        var gy = canvas.append("g")
+            .attr("class", "y axis")
+            //.attr("transform", "translate(" + width + ",0)")
+            .call(yAxis);
+            //.call(customYTicks);
+
+        rangeSlider = buildRangeSlider(sliderLayer);
+
         // Load the data & populate UIs
         d3.csv("data/buildings_mn_year.csv", function(error, data) {
-            buildRange(canvas, data);
-            buildGraph(canvas, data);
+            buildGraph(graphLayer, data);
+            rangeSlider.data(data);
         });
+    }
+
+    /**
+     * Show a quick demo by animating the sliders a bit
+     */
+    function demo() {
+        var cStart = rangeSlider.start().pos(),
+            cEnd = rangeSlider.end().pos();
+        rangeSlider.slideTo(cStart, cEnd + 200, 2000);
     }
 
 
@@ -94,25 +123,13 @@
         x.domain(d3.extent(data, function(d) { return d.year; }));
         y.domain([0, d3.max(data, function(d) { return d.count; })]).nice();
 
+        yAxis.tickValues([200, 2000, 8000]);
+
         // Add the area path.
         canvas.append("path")
           .attr("class", "area")
           .attr("clip-path", "url(#clip)")
           .attr("d", area(data));
-
-
-        // Add the X Axis
-        var gx = canvas.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
-
-        // Add the Y Axis
-        var gy = canvas.append("g")
-            .attr("class", "y axis")
-            //.attr("transform", "translate(" + width + ",0)")
-            .call(yAxis)
-            .call(customYTicks);
 
         // Add the valueline path.
         canvas.append("path")
@@ -125,7 +142,6 @@
         d3.select(".y.axis").call(yAxis)
             .call(customYTicks);
 
-
         /**
          * Adjusts the position of the ticks on the Y axis
          */
@@ -134,18 +150,15 @@
               .attr("x", 4)
               .attr("dy", -4);
         }
-
     }
 
     /**
      * builds the Range slider composed of two seprate slider and a selection marquee
      */
-    function buildRange(canvas, data) {
+    function buildRangeSlider(canvas) {
 
-        urbanmap.ui.graph.slideTo = slideTo;
-
-        var startSlider = buildSlider(30, "range-start", canvas, data),
-            endSlider = buildSlider(150, "range-end", canvas, data);
+        var startSlider = buildSlider(width/2, "range-start", canvas),
+            endSlider = buildSlider(width/2 + 100, "range-end", canvas);
 
         var dragBehavior = d3.behavior.drag()
             .on("drag", onSelectionDrag);
@@ -158,6 +171,14 @@
             .attr("height", height + margin.top)
             .attr("width", endSlider.pos() - startSlider.pos())
             .call(dragBehavior);
+
+        /**
+         * Called when the data is set for this range slider
+         */
+        function data(myData) {
+            startSlider.data(myData);
+            endSlider.data(myData);
+        }
 
         function slideTo(newStart, newEnd, duration) {
             var duration = duration || 2000;
@@ -178,9 +199,6 @@
                     }
                 });
         }
-
-        slideTo(0, 300, 2000);
-
 
         /**
          * Updates the bounds of the selection marquee according to the positions of the sliders
@@ -252,7 +270,7 @@
                 tooltipContents = tooltip.append("div")
                     .attr("class", "v-tooltip-contents"),
 
-                _data = myData,
+                _data = myData || {},
 
                 // the position of the slider
                 _pos = myPos,
@@ -297,6 +315,17 @@
                 // update the slider x:
                 _pos = posX;
 
+                // update the div thumb, if the flag is set.
+                // this happens when update() is not called from the thumb itself
+                if (updateThumb) {
+                    $(".slider." + sliderName + " .slider-thumb").css({left: posX});
+                }
+
+                marker.attr("transform", "translate(" + posX + "," + 0 + ")");
+
+                // don't update the data values, if no data is present
+                if (!_data[0]) return;
+
                 var x0 = x.invert(posX),
                     newValue = Math.round(x0),
                     i = bisectDate(_data, x0, 1),
@@ -304,30 +333,22 @@
                     d1 = _data[i],
                     d = x0 - d0.year > d1.year - x0 ? d1 : d0,
                     posY = y(d.count);
-                marker.attr("transform", "translate(" + posX + "," + posY + ")");
+
+                // update the dot
+                dot.attr("transform", "translate(" + 0 + "," + posY + ")");
 
                 // update the position of the tooltip
                 tooltip
                     .style("left", posX + margin.left + "px")
                     .style("top",  posY + margin.top + "px");
-                    //.style("top",  "20px");
                 tooltipContents.html(d.count + " buildings");
 
-                // update the position of the guideline
-                //guideline.attr("x1", posX)
-                //    .attr("x2", posX);
                 sliderThumb.html(newValue);
 
                 // fire update event, if year has changed:
                 if (_value != newValue) {
                     $(document).trigger("slider-" + sliderName, newValue);
                     _value = newValue;
-                }
-
-                // update the div thumb, if the flag is set.
-                // this happens when update() is not called from the thumb itself
-                if (updateThumb) {
-                    $(".slider." + sliderName + " .slider-thumb").css({left: posX});
                 }
 
                 //updateSelection();
@@ -349,6 +370,7 @@
              */
             function data(data) {
                 _data = data;
+                updateSlider(_pos, _data);
             }
 
             return {
@@ -359,6 +381,14 @@
             };
 
         }//buildSlider
+
+        // RangeSlider interface
+        return {
+            slideTo: slideTo,
+            data: data,
+            start: function() { return startSlider; },
+            end: function() { return endSlider; }
+        }
 
     }// buildRange
 

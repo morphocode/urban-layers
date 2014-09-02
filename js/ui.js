@@ -1,8 +1,10 @@
 (function() {
     'use strict';
 
-    urbanmap.ui.build = build;
-    urbanmap.ui.showIntro = showIntro;
+    urbanmap.ui.buildDialogs = buildDialogs;
+    urbanmap.ui.buildToolbar = buildToolbar;
+    urbanmap.ui.buildTour = buildTour;
+    urbanmap.ui.startTour = startTour;
     urbanmap.ui.welcome = welcome;
 
 
@@ -14,33 +16,34 @@
     }
 
     /**
-     * Build the different UI components
+     * Build the Dialog functionality
      */
-    function build() {
-        buildIntro();
-        buildToolbar();
-
+    function buildDialogs() {
         $("#show-map").on("click", function() {
             $('#about-dialog').modal('hide');
 
             //show intro only, if the User hasn't seen it yet
-            showIntro(true);
+            if (!isTourTaken()) {
+                startTour();
+            } else {
+                urbanmap.ui.timeline.demo();
+            }
         });
     }
 
 
     // INTRO --------------------------------------------------------------------
-    var intro;
+    var tour;
     /**
      * Using intro.js to introduce the User to the map
      */
-    function buildIntro() {
-        intro = introJs();
-        intro.setOptions({
+    function buildTour() {
+        tour = introJs();
+        tour.setOptions({
             steps: [
               {
                 element: document.querySelector('#map-controls'),
-                intro: "This graph shows when were the current buildings of Manhattan built.",
+                intro: "This graph shows when were current buildings of Manhattan built.",
                 position: 'bottom'
               },
               {
@@ -57,19 +60,23 @@
         });
 
         // set a cookie to mark that this user has taken the tour
-        intro.onexit(function() {
-            $.cookie('intro-taken', 'yes');
+        tour.onexit(function() {
+            $.cookie('tour-taken', 'yes');
         });
     }
 
     /**
-     * Shows an intro to the user, only if that's his first time on this site
+     * Is this the first time this User is here
      */
-    function showIntro(firstTime) {
-        if (firstTime && $.cookie('intro-taken')) {
-            return;
-        }
-        intro.start();
+    function isTourTaken() {
+        return $.cookie('tour-taken') == 'yes';
+    }
+
+    /**
+     * Starts a tour around the site functionality.
+     */
+    function startTour() {
+        tour.start();
     }
 
 
@@ -79,19 +86,19 @@
      */
     function buildToolbar() {
        $("#help-button").on("click", function() {
-            urbanmap.ui.showIntro();
+            urbanmap.ui.startTour();
         });
 
         $("#layer-oldest-buildings").on("click", function() {
-            urbanmap.ui.slideTo(0, 100, 1000);
+            //urbanmap.ui.timeline.slideTo(0, 100, 1000);
         });
 
         $("#layer-most-buildings").on("click", function() {
-            urbanmap.ui.slideTo(400, 600, 2000);
+            //urbanmap.ui.slideTo(400, 600, 2000);
         });
 
         $("#layer-newest-buildings").on("click", function() {
-            urbanmap.ui.slideTo(1400, 1500, 1000);
+            //urbanmap.ui.slideTo(1400, 1500, 1000);
         });
     }
 

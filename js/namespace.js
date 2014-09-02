@@ -1,5 +1,5 @@
 var urbanmap = {
     ui: {
-        graph: {}
+        timeline: {}
     }
 };

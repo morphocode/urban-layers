@@ -110,11 +110,8 @@ $().ready(function() {
          * Shows all buildings up until the specified year
          */
         function showAllBetween(startYear, endYear) {
-            //return;
-            //console.log(startYear, endYear);
             var classes = [];
             for(var i = startYear; i < endYear; i++) {
-                //showByYear(i, true);
                 classes.push("active-" + i);
             }
             map.style.addClasses(classes);
@@ -123,26 +120,12 @@ $().ready(function() {
             // remove inactive years
             classes = [];
             for(var j = minYear; j < startYear; j++) {
-                //showByYear(j, false);
                 classes.push("active-" + j);
             }
             for(var j = endYear; j < maxYear; j++) {
-                //showByYear(j, false);
                 classes.push("active-" + j);
             }
             map.style.removeClasses(classes);
-        }
-
-        /**
-         * Shows the layer, containing buildings built during the specified year
-         */
-        function showByYear(year, enable) {
-            var selector = "active-" + year;
-            if (enable) {
-                map.style.addClass(selector);
-            } else {
-                map.style.removeClass(selector);
-            }
         }
 
         bMap = map;
