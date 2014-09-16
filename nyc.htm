@@ -53,108 +53,113 @@
 
     <body>
 
-        <nav class="navbar navbar-inverse" role="navigation">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="http://morphocode.com">Morphocode</a>
-            </div>
-
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
-                <li class="explore-menu dropdown">
-                  <a href="#" data-toggle="dropdown">Explore <span class="caret"></span></a>
-                  <ul class="dropdown-menu" role="menu">
-                    <li><a id="layer-oldest-buildings" href="#">The 100 oldest buildings</a></li>
-                    <li class="divider"></li>
-                    <li><a id="layer-most-buildings" href="#">The most build-intense decade</a></li>
-                    <li class="divider"></li>
-                    <li><a id="layer-newest-buildings" href="#">The newest buildings in Manhattan</a></li>
-                  </ul>
-                </li>
-                <li><a href="#" data-toggle="modal" data-target="#about-dialog">About</a></li>
-                <li><a id="help-button" href="#">Help</a></li>
-                <li><a id="button-attribution" href="" data-toggle="modal" data-target="#attribution-dialog">Attribution</a></li>
-                <li class="share-menu-item"><a id="help-button" href="#">Share:</a></li>
-                <li class="share-buttons">
-                    <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
-                        <a class="addthis_button_facebook"></a>
-                        <a class="addthis_button_twitter"></a>
-                        <a class="addthis_button_compact"></a>
-                    </div>
-                </li>
-                <li class="follow-buttons">
-                    <a class="addthis_button_twitter_follow_native" tw:screen_name="morphocode"></a>
-                </li>
-
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li><a id="button-project-of" href="#">A project of:</a></li>
-                <li><a id="button-morphocode" href="http://morphocode.com/about/" target="_blank"><img src="images/morphocode-logo.jpg" /></a></li>
-              </ul>
-            </div>
-
-          </div>
-        </nav>
-
         <div id="map"></div>
         <div id="map-controls"></div>
 
-        <!-- Welcome Screen -->
-        <div id="welcome">
-            <div id="welcome-header">
-                <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                                    <h1>Layers of NYC</h1>
-                                    <h2>Explore the structure of Manhattan’s urban fabric.</h2>
-                                    <button type="button" class="btn btn-primary btn-xlarge" id="show-map">Explore</button>
-                            </div>
+        <div id="main-wrapper">
+            <nav class="navbar navbar-inverse" role="navigation">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="http://morphocode.com">Morphocode</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                    <li class="explore-menu dropdown">
+                      <a href="#" data-toggle="dropdown">Explore <span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a id="layer-oldest-buildings" href="#">The 100 oldest buildings</a></li>
+                        <li class="divider"></li>
+                        <li><a id="layer-most-buildings" href="#">The most build-intense decade</a></li>
+                        <li class="divider"></li>
+                        <li><a id="layer-newest-buildings" href="#">The newest buildings in Manhattan</a></li>
+                      </ul>
+                    </li>
+                    <li><a href="#" data-toggle="modal" data-target="#about-dialog">About</a></li>
+                    <li><a id="help-button" href="#">Help</a></li>
+                    <li><a id="button-attribution" href="" data-toggle="modal" data-target="#attribution-dialog">Attribution</a></li>
+                    <li class="share-menu-item"><a id="help-button" href="#">Share:</a></li>
+                    <li class="share-buttons">
+                        <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+                            <a class="addthis_button_facebook"></a>
+                            <a class="addthis_button_twitter"></a>
+                            <a class="addthis_button_compact"></a>
                         </div>
+                    </li>
+                    <li class="follow-buttons">
+                        <a class="addthis_button_twitter_follow_native" tw:screen_name="morphocode"></a>
+                    </li>
+
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a id="button-project-of" href="#">A project of:</a></li>
+                    <li><a id="button-morphocode" href="http://morphocode.com/about/" target="_blank"><img src="images/morphocode-logo.jpg" /></a></li>
+                  </ul>
+                </div>
+
+              </div>
+            </nav>
+
+            <!-- Welcome Screen -->
+            <div id="welcome">
+                <div class="row-wrapper">
+                    <div id="welcome-header">
+                        <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                            <h1>Layers of NYC</h1>
+                                            <h2>Explore the structure of Manhattan’s urban fabric.</h2>
+                                            <button type="button" class="btn btn-primary btn-xlarge" id="show-map">Explore</button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-wrapper">
+                    <div id="welcome-details">
+                        <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4 info">
+                                        <i class="fa fa-map-marker lead-icon"></i>
+                                        <h3>The Project</h3>
+                                        <p>
+                                            Layers of NYC is an interactive map created by Morphocode that explores the structure of Manhattan’s urban fabric.
+                                        </p>
+                                        <p class="more">
+                                            <a href="#">Read More <i class="fa fa-angle-right"></i> </a>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4 info">
+                                        <i class="fa fa-graduation-cap lead-icon"></i>
+                                        <h3>Learn</h3>
+                                        <p>
+                                            We’ve used Mapbox GL, d3.js and data from PLUTO to show dynamically more than 45 000 buildings.
+                                        </p>
+                                        <p class="more">
+                                            <a href="#">Read More <i class="fa fa-angle-right"></i> </a>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4 info">
+                                        <i class="fa fa-circle-o lead-icon"></i>
+                                        <h3>About Us</h3>
+                                        <p>
+                                            Morphocode is an Architectural Practice working at the Intersection of Design and Technology.
+                                        </p>
+                                        <p class="more">
+                                            <a href="#">Visit Us <i class="fa fa-angle-right"></i> </a>
+                                        </p>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="welcome-details">
-                <div class="container">
-                        <div class="row">
-                            <div class="col-md-4 info">
-                                <i class="fa fa-map-marker lead-icon"></i>
-                                <h3>The Project</h3>
-                                <p>
-                                    Layers of NYC is an interactive map created by Morphocode that explores the structure of Manhattan’s urban fabric.
-                                </p>
-                                <p class="more">
-                                    <a href="#">Read More <i class="fa fa-angle-right"></i> </a>
-                                </p>
-                            </div>
-                            <div class="col-md-4 info">
-                                <i class="fa fa-graduation-cap lead-icon"></i>
-                                <h3>Learn</h3>
-                                <p>
-                                    We’ve used Mapbox GL, d3.js and data from PLUTO to show dynamically more than 45 000 buildings.
-                                </p>
-                                <p class="more">
-                                    <a href="#">Read More <i class="fa fa-angle-right"></i> </a>
-                                </p>
-                            </div>
-                            <div class="col-md-4 info">
-                                <i class="fa fa-circle-o lead-icon"></i>
-                                <h3>About Us</h3>
-                                <p>
-                                    Morphocode is an Architectural Practice working at the Intersection of Design and Technology.
-                                </p>
-                                <p class="more">
-                                    <a href="#">Visit Us <i class="fa fa-angle-right"></i> </a>
-                                </p>
-                            </div>
-                        </div>
-                </div>
-            </div>
-            <div id="height-fix"></div>
         </div>
 
 

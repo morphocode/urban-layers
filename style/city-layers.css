@@ -265,6 +265,10 @@ path.area {
     outline: 0;
 }
 
+.navbar {
+    margin-bottom: 0;
+}
+
 .navbar-inverse .navbar-nav>li>a , .dropdown-menu>li>a {
     color: #666;
 }
@@ -353,17 +357,32 @@ path.area {
     border: 0;
 }
 
-/** Welcome */
-#welcome {
+/** This wraps the menu and the welcome page, providing scroll overflow (our body has hidden overflow because of the map) */
+#main-wrapper {
     position: absolute;
-    top: 54px;
+    top: 0;
     bottom: 0;
     width: 100%;
+    height: 100%;
     overflow: auto;
+}
+
+/** Welcome */
+/** We're using table, table-row and table-cell in order to fill all of the available space */
+#welcome {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: calc(100% - 54px);
+}
+
+#welcome .row-wrapper {
+    display: table-row;
 }
 
 #welcome-header {
     background-color: rgba(82, 186, 213, 0.9);
+    display: table-cell;
     padding: 80px;
     text-align: center;
 }
@@ -395,6 +414,7 @@ path.area {
 
 #welcome-details {
     background-color: rgba(255, 255, 255, 0.9);
+    display: table-cell;
     padding: 50px;
 }
 
