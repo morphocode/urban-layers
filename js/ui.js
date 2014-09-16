@@ -13,6 +13,8 @@
      */
     function welcome() {
         //$('#about-dialog').modal('show');
+        //showContent("the-project");
+        showContent("welcome");
     }
 
     /**
@@ -46,10 +48,7 @@
 
         //attribution
         //mapboxgl-ctrl-attrib
-
-
     }
-
 
     // INTRO --------------------------------------------------------------------
     var tour;
@@ -119,6 +118,11 @@
     }
 
 
+    function showContent(section) {
+        $("#main-wrapper").removeClass();
+        $("#main-wrapper").addClass(section);
+    }
+
     // TOOLBAR ----------------------------------------------------------------------------
     /**
      * Wire the buttons
@@ -139,6 +143,11 @@
         $("#layer-newest-buildings").on("click", function() {
             //urbanmap.ui.slideTo(1400, 1500, 1000);
         });
+
+        $("#btn-the-project").on("click", function() {
+            showContent("the-project");
+        });
+
     }
 
 })();

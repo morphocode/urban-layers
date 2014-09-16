@@ -56,55 +56,57 @@
         <div id="map"></div>
         <div id="map-controls"></div>
 
+        <nav class="navbar navbar-inverse" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="">Morphocode</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li class="explore-menu dropdown">
+                  <a href="#" data-toggle="dropdown">Explore <span class="caret"></span></a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a id="layer-oldest-buildings" href="#">The 100 oldest buildings</a></li>
+                    <li class="divider"></li>
+                    <li><a id="layer-most-buildings" href="#">The most build-intense decade</a></li>
+                    <li class="divider"></li>
+                    <li><a id="layer-newest-buildings" href="#">The newest buildings in Manhattan</a></li>
+                  </ul>
+                </li>
+                <li><a href="#" data-toggle="modal" data-target="#about-dialog">About</a></li>
+                <li><a id="help-button" href="#">Help</a></li>
+                <li><a id="button-attribution" href="" data-toggle="modal" data-target="#attribution-dialog">Attribution</a></li>
+                <li class="share-menu-item"><a id="help-button" href="#">Share:</a></li>
+                <li class="share-buttons">
+                    <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
+                        <a class="addthis_button_facebook"></a>
+                        <a class="addthis_button_twitter"></a>
+                        <a class="addthis_button_compact"></a>
+                    </div>
+                </li>
+                <li class="follow-buttons">
+                    <a class="addthis_button_twitter_follow_native" tw:screen_name="morphocode"></a>
+                </li>
+
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a id="button-project-of" href="#">A project of:</a></li>
+                <li><a id="button-morphocode" href="http://morphocode.com/about/" target="_blank"><img src="images/morphocode-logo.jpg" /></a></li>
+              </ul>
+            </div>
+
+          </div>
+        </nav>
+
+        <!-- wraps content part -->
         <div id="main-wrapper">
-            <nav class="navbar navbar-inverse" role="navigation">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                  </button>
-                  <a class="navbar-brand" href="http://morphocode.com">Morphocode</a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                  <ul class="nav navbar-nav">
-                    <li class="explore-menu dropdown">
-                      <a href="#" data-toggle="dropdown">Explore <span class="caret"></span></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a id="layer-oldest-buildings" href="#">The 100 oldest buildings</a></li>
-                        <li class="divider"></li>
-                        <li><a id="layer-most-buildings" href="#">The most build-intense decade</a></li>
-                        <li class="divider"></li>
-                        <li><a id="layer-newest-buildings" href="#">The newest buildings in Manhattan</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="#" data-toggle="modal" data-target="#about-dialog">About</a></li>
-                    <li><a id="help-button" href="#">Help</a></li>
-                    <li><a id="button-attribution" href="" data-toggle="modal" data-target="#attribution-dialog">Attribution</a></li>
-                    <li class="share-menu-item"><a id="help-button" href="#">Share:</a></li>
-                    <li class="share-buttons">
-                        <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
-                            <a class="addthis_button_facebook"></a>
-                            <a class="addthis_button_twitter"></a>
-                            <a class="addthis_button_compact"></a>
-                        </div>
-                    </li>
-                    <li class="follow-buttons">
-                        <a class="addthis_button_twitter_follow_native" tw:screen_name="morphocode"></a>
-                    </li>
-
-                  </ul>
-                  <ul class="nav navbar-nav navbar-right">
-                    <li><a id="button-project-of" href="#">A project of:</a></li>
-                    <li><a id="button-morphocode" href="http://morphocode.com/about/" target="_blank"><img src="images/morphocode-logo.jpg" /></a></li>
-                  </ul>
-                </div>
-
-              </div>
-            </nav>
 
             <!-- Welcome Screen -->
             <div id="welcome">
@@ -132,7 +134,7 @@
                                             Layers of NYC is an interactive map created by Morphocode that explores the structure of Manhattan’s urban fabric.
                                         </p>
                                         <p class="more">
-                                            <a href="#">Read More <i class="fa fa-angle-right"></i> </a>
+                                            <a href="#" id="btn-the-project">Read More <i class="fa fa-angle-right"></i> </a>
                                         </p>
                                     </div>
                                     <div class="col-md-4 info">
@@ -142,7 +144,7 @@
                                             We’ve used Mapbox GL, d3.js and data from PLUTO to show dynamically more than 45 000 buildings.
                                         </p>
                                         <p class="more">
-                                            <a href="#">Read More <i class="fa fa-angle-right"></i> </a>
+                                            <a href="#">Learn More <i class="fa fa-angle-right"></i> </a>
                                         </p>
                                     </div>
                                     <div class="col-md-4 info">
@@ -152,7 +154,7 @@
                                             Morphocode is an Architectural Practice working at the Intersection of Design and Technology.
                                         </p>
                                         <p class="more">
-                                            <a href="#">Visit Us <i class="fa fa-angle-right"></i> </a>
+                                            <a href="http://morphocode.com/about/" target="_blank">Visit Us <i class="fa fa-angle-right"></i> </a>
                                         </p>
                                     </div>
                                 </div>
@@ -160,7 +162,60 @@
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div id="the-project">
+                <div class="section blue">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <h1>About</h1>
+
+                                <p>
+                                    <strong>Layers of NYC</strong> is an interactive map created by <strong><a href="http://morphocode.com/about/" target="_blank">Morphocode</a></strong> that explores the structure of <strong>Manhattan</strong>'s urban fabric.
+                                <p>
+                                The map lets you navigate through historical fragments of the city that have been preserved and are now embedded in Manhattan's densely built environment. The rigid archipelago of building blocks has been mapped as a succession of structural episodes starting from 1765.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <blockquote id="koolhaas-quote">
+                                "...each block is covered with several layers of phantom architecture in the form of past occupancies, aborted projects and popular fantasies that provide alternative images to the New York that exists."
+                                <footer>
+                                Rem Koolhaas, "Delirious New York"
+                                </footer>
+                                </blockquote>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section gray">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <h2>Interface</h2>
+                                <p>
+                                Use the timeline sliders to identify some of Manhattan's oldest buildings; discover how the beginning of the 20th century marked the island skyline or to define the distribution of building activity over the last decades.
+                                </p>
+
+                                <h2>Press Downloads</h2>
+
+
+                                <h2>Technical Development</h2>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!--main wrapper -->
 
 
 
