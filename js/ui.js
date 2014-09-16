@@ -74,6 +74,11 @@
                 intro: "Click here to explore some of the urban layers",
                 position: 'bottom'
               },
+              {
+                element: document.querySelector('#help-button'),
+                intro: "Click Help if you want to see this Tutorial again.",
+                position: 'bottom'
+              }
             ]
         });
 
@@ -144,8 +149,14 @@
             //urbanmap.ui.slideTo(1400, 1500, 1000);
         });
 
-        $("#btn-the-project").on("click", function() {
+        $(".btn-the-project").on("click", function(e) {
+            e.preventDefault();
             showContent("the-project");
+        });
+
+        $("#btn-home").on("click", function(e) {
+            e.preventDefault();
+            showContent("welcome");
         });
 
     }
