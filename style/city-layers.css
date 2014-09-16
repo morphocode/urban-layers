@@ -381,7 +381,7 @@ path.area {
 }
 
 #welcome-header {
-    background-color: rgba(82, 186, 213, 0.9);
+    background-color: rgba(82, 186, 213, 0.85);
     display: table-cell;
     padding: 80px;
     text-align: center;
@@ -413,13 +413,9 @@ path.area {
 }
 
 #welcome-details {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.75);
     display: table-cell;
     padding: 50px;
-}
-
-#height-fix {
-    background-color: rgba(255, 255, 255, 0.9);
 }
 
 #welcome-details .info {
