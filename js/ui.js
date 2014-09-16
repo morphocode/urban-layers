@@ -12,7 +12,7 @@
      * Called when the user opens the page
      */
     function welcome() {
-        $('#about-dialog').modal('show');
+        //$('#about-dialog').modal('show');
     }
 
     /**

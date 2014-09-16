@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta charset='utf-8' />
-        <title>City Layers Map. Layers of Manhattan. Project by Morphocode.</title>
-        <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+        <title>Layers of NYC. Explore the structure of Manhattan’s urban fabric. | MORPHOCODE</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
         <script src='lib/mapbox-gl-js/dist/mapbox-gl-dev.js'></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.2.2/mapbox-gl.css' rel='stylesheet' />
@@ -16,6 +16,7 @@
         <script src="lib/intro-js/intro.js"></script>
         <link href='lib/intro-js/introjs.css' rel='stylesheet' />
 
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="lib/bootstrap/lumen.bootstrap.min.css">
         <script src="lib/bootstrap/bootstrap.min.js"></script>
 
@@ -103,6 +104,60 @@
 
         <div id="map"></div>
         <div id="map-controls"></div>
+
+        <!-- Welcome Screen -->
+        <div id="welcome">
+            <div id="welcome-header">
+                <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                    <h1>Layers of NYC</h1>
+                                    <h2>Explore the structure of Manhattan’s urban fabric.</h2>
+                                    <button type="button" class="btn btn-primary btn-xlarge" id="show-map">Explore</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div id="welcome-details">
+                <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 info">
+                                <i class="fa fa-map-marker lead-icon"></i>
+                                <h3>The Project</h3>
+                                <p>
+                                    Layers of NYC is an interactive map created by Morphocode that explores the structure of Manhattan’s urban fabric.
+                                </p>
+                                <p class="more">
+                                    <a href="#">Read More <i class="fa fa-angle-right"></i> </a>
+                                </p>
+                            </div>
+                            <div class="col-md-4 info">
+                                <i class="fa fa-graduation-cap lead-icon"></i>
+                                <h3>Learn</h3>
+                                <p>
+                                    We’ve used Mapbox GL, d3.js and data from PLUTO to show dynamically more than 45 000 buildings.
+                                </p>
+                                <p class="more">
+                                    <a href="#">Read More <i class="fa fa-angle-right"></i> </a>
+                                </p>
+                            </div>
+                            <div class="col-md-4 info">
+                                <i class="fa fa-circle-o lead-icon"></i>
+                                <h3>About Us</h3>
+                                <p>
+                                    Morphocode is an Architectural Practice working at the Intersection of Design and Technology.
+                                </p>
+                                <p class="more">
+                                    <a href="#">Visit Us <i class="fa fa-angle-right"></i> </a>
+                                </p>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div id="height-fix"></div>
+        </div>
+
+
 
         <!-- Welcome Dialog -->
         <div class="modal" id="about-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
