@@ -372,6 +372,10 @@ ul.attribution li:last-child {
     display: none;
 }
 
+#main-wrapper.map {
+    display: none;
+}
+
 /** Welcome */
 /** We're using table, table-row and table-cell in order to fill all of the available space */
 #welcome {
@@ -457,19 +461,33 @@ ul.attribution li:last-child {
 
 .section {
     padding: 30px 0;
-    background-color: rgba(255,255,255,0.8);
+    background-color: rgb(255,255,255);
+}
+
+.section.about-the-project {
+    background-color: rgba(82, 186, 213, 0.75);
+}
+
+.section.layers-of-architecture {
+    background-color: rgba(255,255,255, 1);
 }
 
 .blue {
     /*background-color: rgb(44, 154, 183);*/
     /*background-color: rgb(82, 186, 213);*/
-    background-color: rgba(109, 197, 220, 0.9);
+    /*background-color: rgba(109, 197, 220, 0.9);*/
+    background: linear-gradient(to right, #49c4db 0%, #64e6fe 100%);
     /*background-color: rgb(114, 193, 176);*/
-    color: white;
+    /*color: white;*/
+    color: #1d767f;
 }
 
 .blue h1 {
     color: white;
+}
+
+.blue h1 span {
+    color: #1d767f;
 }
 
 .blue a {
@@ -477,7 +495,7 @@ ul.attribution li:last-child {
 }
 
 .gray {
-    background-color: rgba(242, 243, 242, 0.8);
+    background-color: rgb(242, 243, 242);
 }
 
 blockquote  {
@@ -494,12 +512,8 @@ blockquote footer {
 }
 
 
-.rem-koolhaas-quote .avatar {
-    margin-top: 40px;
-}
-
 #btn-morphocode {
-    opacity: 0.6;
+    opacity: 0.75;
 }
 
 #btn-morphocode:hover {

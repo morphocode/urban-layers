@@ -1,8 +1,7 @@
 (function() {
     'use strict';
 
-    urbanmap.ui.buildDialogs = buildDialogs;
-    urbanmap.ui.buildToolbar = buildToolbar;
+    urbanmap.ui.build = build;
     urbanmap.ui.buildTour = buildTour;
     urbanmap.ui.startTour = startTour;
     urbanmap.ui.welcome = welcome;
@@ -12,9 +11,54 @@
      * Called when the user opens the page
      */
     function welcome() {
-        //$('#about-dialog').modal('show');
-        //showContent("the-project");
-        showContent("welcome");
+        showContent("the-project");
+        //showContent("welcome");
+    }
+
+    /**
+     * Builds the Base UI: buttons, dialogs, etc.
+     */
+    function build() {
+
+       $("#help-button").on("click", function() {
+            urbanmap.ui.startTour();
+        });
+
+        $("#layer-oldest-buildings").on("click", function() {
+            //urbanmap.ui.timeline.slideTo(0, 100, 1000);
+        });
+
+        $("#layer-most-buildings").on("click", function() {
+            //urbanmap.ui.slideTo(400, 600, 2000);
+        });
+
+        $("#layer-newest-buildings").on("click", function() {
+            //urbanmap.ui.slideTo(1400, 1500, 1000);
+        });
+
+        $(".btn-the-project").on("click", function(e) {
+            e.preventDefault();
+            showContent("the-project");
+        });
+
+        $("#btn-home").on("click", function(e) {
+            e.preventDefault();
+            showContent("welcome");
+        });
+
+        $("#btn-explore").on("click", function(e) {
+            e.preventDefault();
+            showContent("map");
+        });
+
+    }
+
+    /**
+     * Shows/Hide different content parts: welcome, map, about, etc.
+     */
+    function showContent(section) {
+        $("#main-wrapper").removeClass();
+        $("#main-wrapper").addClass(section);
     }
 
     /**
@@ -123,42 +167,6 @@
     }
 
 
-    function showContent(section) {
-        $("#main-wrapper").removeClass();
-        $("#main-wrapper").addClass(section);
-    }
 
-    // TOOLBAR ----------------------------------------------------------------------------
-    /**
-     * Wire the buttons
-     */
-    function buildToolbar() {
-       $("#help-button").on("click", function() {
-            urbanmap.ui.startTour();
-        });
-
-        $("#layer-oldest-buildings").on("click", function() {
-            //urbanmap.ui.timeline.slideTo(0, 100, 1000);
-        });
-
-        $("#layer-most-buildings").on("click", function() {
-            //urbanmap.ui.slideTo(400, 600, 2000);
-        });
-
-        $("#layer-newest-buildings").on("click", function() {
-            //urbanmap.ui.slideTo(1400, 1500, 1000);
-        });
-
-        $(".btn-the-project").on("click", function(e) {
-            e.preventDefault();
-            showContent("the-project");
-        });
-
-        $("#btn-home").on("click", function(e) {
-            e.preventDefault();
-            showContent("welcome");
-        });
-
-    }
 
 })();

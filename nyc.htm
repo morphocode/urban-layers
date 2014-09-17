@@ -28,6 +28,24 @@
 
         <link href='style/city-layers.css' rel='stylesheet' />
 
+        <link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+            #mc_embed_signup form {
+                padding: 0;
+            }
+            #mc_embed_signup input.email {
+                width: 70%;
+                height: 40px;
+                float: left;
+            }
+            #mc_embed_signup input.button {
+                clear: none;
+                float: left;
+                height: 40px;
+                width: 20%;
+            }
+        </style>
+
         <script>
             $().ready(function() {
                 if (getParameterByName("show") != "true") {
@@ -35,11 +53,10 @@
                 }
 
                 // build the buttons
-                urbanmap.ui.buildToolbar();
-                urbanmap.ui.buildDialogs();
+                urbanmap.ui.build();
                 urbanmap.ui.timeline.build();
                 // the tour has to be built after the timeline, in order for selectors to work
-                // or use cusomt intro.onbeforechange callback
+                // or use custom intro.onbeforechange callback
                 urbanmap.ui.buildTour();
 
                 // welcome the User
@@ -118,7 +135,7 @@
                                     <div class="col-md-12">
                                             <h1>Layers of NYC</h1>
                                             <h2>Explore the structure of Manhattan’s urban fabric.</h2>
-                                            <button type="button" class="btn btn-primary btn-xlarge" id="show-map">Explore</button>
+                                            <button type="button" class="btn btn-primary btn-xlarge" id="btn-explore">Explore</button>
                                     </div>
                                 </div>
                         </div>
@@ -164,24 +181,28 @@
                 </div>
             </div>
 
+            <!-- About the Project ======================================= -->
             <div id="the-project">
-                <div class="section blue">
+                <div class="section blue about-the-project">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-                                <h1>About</h1>
+                                <h1>About the Project</h1>
 
                                 <p>
-                                    <strong>Layers of NYC</strong> is an interactive map created by <strong><a href="http://morphocode.com/about/" target="_blank">Morphocode</a></strong> that explores the structure of <strong>Manhattan</strong>'s urban fabric.
+                                    <a href="http://io.morphocode.com/urban-layers/nyc.htm">Layers of NYC</a> is an interactive visualization created by <a href="http://morphocode.com/about/" target="_blank">Morphocode</a> that explores the structure of Manhattan's urban fabric.
                                 <p>
                                 The map lets you navigate through historical fragments of the city that have been preserved and are now embedded in Manhattan's densely built environment. The rigid archipelago of building blocks has been mapped as a succession of structural episodes starting from 1765.
                                 </p>
 
+                                <p>
+                                Use the timeline sliders to identify some of Manhattan's oldest buildings; discover how the beginning of the 20th century marked the island skyline or to define the distribution of building activity over the last decades.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="section rem-koolhaas-quote">
+                <div class="section layers-of-architecture">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
@@ -200,23 +221,77 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-                                <h2>Interface</h2>
-                                <p>
-                                Use the timeline sliders to identify some of Manhattan's oldest buildings; discover how the beginning of the 20th century marked the island skyline or to define the distribution of building activity over the last decades.
-                                </p>
-
                                 <h2>Press Downloads</h2>
+                                <p>
+                                The material on this web site can be used freely in any publication provided that it is duly credited as a project by <a href="http://morphocode.com/" target="_blank">Morphocode</a>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="section subscribe">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <h2>Subscribe for Updates</h2>
+                                <div id="mc_embed_signup">
+                                    <form action="//morphocode.us9.list-manage.com/subscribe/post?u=92a85e8e154b24ed522605326&amp;id=c08f455190" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                                        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+                                        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                        <div style="position: absolute; left: -5000px;"><input type="text" name="b_92a85e8e154b24ed522605326_c08f455190" tabindex="-1" value=""></div>
+                                        <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section gray technical-development">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <h2>The Making Of</h2>
+                                <p>The basis of <strong>Layers of NYC</strong> is the <a href="http://www.codeforamerica.org/blog/2013/07/25/epic-win-for-nycs-open-data-community-pluto-is-free/">PLUTO</a> data set. It was released to the public in 2013 and contains information about the age of NYC's buildings. Each building is identified by it's unique number - the BIN.
+                                </p>
+                                <p>
+                                The building footprints were obtained from the <a href="https://data.cityofnewyork.us/">NYC Open Data portal</a> in the form of a shape file. We then imported the file into a <a href="http://postgis.net/">PostGIS</a> database using <a href="http://suite.opengeo.org/4.1/dataadmin/pgGettingStarted/shp2pgsql.html">shp2pgsql</a>.
+                                Each building footprint is matched to a row in the PLUTO database by BIN.
+                                </p>
+                                <p>Since PLUTO is missing a BIN column, the PAD database is used as an intermediate step - approach described by <a href="http://bdon.org/">Brandon Liu</a>. The two databases are matched against each other by 3 fields: borocode, block and lot. This approach allows us to match around 90% of the footprints to their corresponding rows in PLUTO. The other 10% of the buildings are left unmatched due to missing or invalid information in the PAD database. These buildings are shown in gray on the map.
+                                </p>
+                                <p>There are more than 1 000 000 buildings in NYC. This prooved to be too much to display at once, se we've selected only the buildings that are located in Manhattan. Manhattan alone contains more than 40 000 buildings.
+                                </p>
+                                <p>Displaying big data in the browser is not easy. There are three standard solutions: <strong>raster tiles, svg and canvas:</strong>.
+                                </p>
+                                <p> <strong>Raster map tiles</strong> are good for static maps with basic mouse-over interactivity. It was clear, that they are not a good fit for the high interactivity required in Layers of NYC.
+                                </p>
+                                <p><strong>SVGs</strong> are a good choice: d3.js is based on SVG and has a nice <a href="https://github.com/mbostock/d3/wiki/Geo-Projections">support for geo data</a>. <a href="http://leafletjs.com/">Leaflet.js</a> provides support for vector layers based on SVG/Canvas. A typical solution would be to convert the NYC footprints to GeoJSON and show them on a map. Unfortunately, it turned out that the performance with so many polygons is not that good.
+                                </p>
+                                <p><strong>HTML5 Canvas</strong> is usually performing well. CartoDB have successfully used canvas in the great Torquee library. Unfortunately most of the solutions, we've found draw dots, not polygons.
+                                </p>
+                                <p>As you probably have guessed, there's only one viable option left - <strong>WebGL</strong>.
+                                </p>
+                                <p>
+                                Meet <strong>Mapbox GL</strong> - a project recently announced by Mapbox. It uses WebGL to display maps in the browser. Since it's using your video card, the performance is great. The only downside is that it's only supported in Chrome and Firefox on the desktop. IE9+ support is coming.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section attribution">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
                                 <h2>Attribution</h2>
-                                 <ul class="attribution">
+                                <ul class="attribution">
                                     <li><strong>Data: </strong> Pluto Data Set provided by Department of City Planning (DCP)</li>
                                     <li><strong>Basemap: </strong> <a href="http://www.arcgis.com/home/item.html?id=ed712cb1db3e4bae9e85329040fb9a49" target="_blank">Light Gray Canvas Map</a>, Sources: Esri, HERE, DeLorme, MapmyIndia, © OpenStreetMap contributors, and the GIS user community </li>
                                     <li><strong>UI Controls: </strong> The graph and the sliders were built using the great <a href="http://d3js.org/" target="_blank">d3.js</a> library. </li>
                                     <li><strong>Map UI: </strong> We used the ultra impressive <a href="https://www.mapbox.com/mapbox-gl/"> Mapbox GL JS</a> library to draw the large amount of buildings and to show/hide the layers.</li>
-                                  </ul>
-
-                                <h2>Technical Development</h2>
-
+                                </ul>
                             </div>
                         </div>
                     </div>
