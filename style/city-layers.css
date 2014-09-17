@@ -460,17 +460,17 @@ ul.attribution li:last-child {
 }
 
 .section {
-    padding: 30px 0;
+    padding: 30px 0 40px 0;
     background-color: rgb(255,255,255);
 }
 
 .section.about-the-project {
-    background-color: rgba(82, 186, 213, 1);
+
 }
 
 .section.layers-of-architecture {
-    background-color: rgba(255,255,255, 0.7);
-    padding: 100px 0;
+    padding: 140px 0;
+    text-align: center;
 }
 
 .blue {
@@ -479,8 +479,13 @@ ul.attribution li:last-child {
     /*background-color: rgba(109, 197, 220, 0.9);*/
     /*background: linear-gradient(to right, #49c4db 0%, #64e6fe 100%);*/
     /*background-color: rgb(114, 193, 176);*/
+    background-color: rgba(82, 186, 213, 0.8);
     color: white;
     /*color: #1d767f;*/
+}
+
+.blue blockquote footer {
+    color: white;
 }
 
 .blue h1 {
