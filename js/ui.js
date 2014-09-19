@@ -11,7 +11,7 @@
      * Called when the user opens the page
      */
     function welcome() {
-        showContent("the-project");
+        showContent("about");
         //showContent("welcome");
     }
 
@@ -20,8 +20,11 @@
      */
     function build() {
 
-       $("#help-button").on("click", function() {
-            urbanmap.ui.startTour();
+       $("#help-button").on("click", function(e) {
+            e.preventDefault();
+            showContent("intro");
+
+            urbanmap.ui.startTour();            
         });
 
         $("#layer-oldest-buildings").on("click", function() {
@@ -36,10 +39,20 @@
             //urbanmap.ui.slideTo(1400, 1500, 1000);
         });
 
-        $(".btn-the-project").on("click", function(e) {
+        $(".btn-about").on("click", function(e) {
             e.preventDefault();
-            showContent("the-project");
+            showContent("about");
         });
+
+        $(".btn-team").on("click", function(e) {
+            e.preventDefault();
+            showContent("team");
+        });
+
+        $(".btn-learn").on("click", function(e) {
+            e.preventDefault();
+            showContent("learn");
+        });        
 
         $("#btn-home").on("click", function(e) {
             e.preventDefault();
@@ -57,8 +70,8 @@
      * Shows/Hide different content parts: welcome, map, about, etc.
      */
     function showContent(section) {
-        $("#main-wrapper").removeClass();
-        $("#main-wrapper").addClass(section);
+        $("body").removeClass();
+        $("body").addClass(section+'-mode');
     }
 
     /**

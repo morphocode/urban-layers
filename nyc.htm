@@ -97,9 +97,9 @@
                     <li><a id="layer-newest-buildings" href="#">The newest buildings in Manhattan</a></li>
                   </ul>
                 </li>
-                <li><a href="#" class="btn-the-project">About</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#about-dialog">Learn</a></li>
-                <li><a href="#">Team</a></li>
+                <li><a href="#" class="btn-about">About</a></li>
+                <li><a href="#" class="btn-learn">Learn</a></li>
+                <li><a href="#" class="btn-team">Team</a></li>
                 <li><a id="help-button" href="#">Help</a></li>
                 <li class="share-menu-item"><a id="help-button" href="#">Share:</a></li>
                 <li class="share-buttons">
@@ -124,10 +124,10 @@
         </nav>
 
         <!-- wraps content part -->
-        <div id="main-wrapper">
+        <div id="content-wrapper">
 
             <!-- Welcome Screen -->
-            <div id="welcome">
+            <div id="welcome" class="content-page">
                 <div class="row-wrapper">
                     <div id="welcome-header">
                         <div class="container">
@@ -152,7 +152,7 @@
                                             Layers of NYC is an interactive map created by Morphocode that explores the structure of Manhattan’s urban fabric.
                                         </p>
                                         <p class="more">
-                                            <a href="#" class="btn-the-project">Read More <i class="fa fa-angle-right"></i> </a>
+                                            <a class="btn-about" href="#">Read More <i class="fa fa-angle-right"></i> </a>
                                         </p>
                                     </div>
                                     <div class="col-md-4 info">
@@ -162,7 +162,7 @@
                                             We’ve used Mapbox GL, d3.js and data from PLUTO to show dynamically more than 45 000 buildings.
                                         </p>
                                         <p class="more">
-                                            <a href="#">Learn More <i class="fa fa-angle-right"></i> </a>
+                                            <a class="btn-learn" href="#">Learn More <i class="fa fa-angle-right"></i> </a>
                                         </p>
                                     </div>
                                     <div class="col-md-4 info">
@@ -172,7 +172,7 @@
                                             Morphocode is an Architectural Practice working at the Intersection of Design and Technology.
                                         </p>
                                         <p class="more">
-                                            <a href="http://morphocode.com/about/" target="_blank">Visit Us <i class="fa fa-angle-right"></i> </a>
+                                            <a class="btn-team" href="#">Visit Us <i class="fa fa-angle-right"></i> </a>
                                         </p>
                                     </div>
                                 </div>
@@ -182,7 +182,7 @@
             </div>
 
             <!-- About the Project ======================================= -->
-            <div id="the-project">
+            <div id="about" class="content-page">
                 <div class="section blue layers-of-architecture">
                     <div class="container">
                         <div class="row">
@@ -302,7 +302,31 @@
                 </div>
             </div>
 
-        </div><!--main wrapper -->
+            <div id="learn" class="content-page">
+                <div class="section blue">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+
+            <div id="team" class="content-page">
+                <div class="section blue">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                     
+
+        </div><!--content wrapper -->
 
 
     <!-- share buttons -->

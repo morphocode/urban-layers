@@ -275,37 +275,6 @@ path.area {
 }
 
 
-#about-dialog h1 {
-    margin-top: 0;
-    text-align: center;
-}
-
-#about-dialog h1 span {
-    display: none;
-}
-
-#about-dialog p {
-    font-size: 17.5px
-}
-
-#about-dialog blockquote {
-    color: #999;
-    font-size: 14px;
-    font-style: italic;
-}
-
-#about-dialog .modal-body {
-    padding: 20px 30px;
-}
-
-#about-dialog .modal-footer {
-    text-align: center;
-}
-
-#about-dialog button.close {
-    margin-top: 5px;
-}
-
 .btn-xlarge {
     padding: 18px 28px;
     font-size: 16px;
@@ -339,23 +308,18 @@ path.area {
     max-height: 50px;
 }
 
-ul.attribution {
-    font-size: 1.4em;
-    list-style-type: none;
-    padding: 0;
+/** Toolbar */
+
+#btn-morphocode {
+    opacity: 0.75;
 }
 
-ul.attribution li {
-    border-bottom: 1px solid #dddddd;
-    padding: 15px 0;
-}
-
-ul.attribution li:last-child {
-    border: 0;
+#btn-morphocode:hover {
+    opacity: 1.0;
 }
 
 /** This wraps the content part providing scroll overflow (our body has hidden overflow because of the map) */
-#main-wrapper {
+#content-wrapper {
     position: absolute;
     top: 54px;
     bottom: 0;
@@ -364,22 +328,89 @@ ul.attribution li:last-child {
     overflow: auto;
 }
 
-#main-wrapper.welcome #the-project {
+/** Application Modes: Control what is visible and what is not */
+
+.map-mode #content-wrapper {
     display: none;
 }
 
-#main-wrapper.the-project #welcome {
-    display: none;
+.map-mode #map-controls, .intro-mode #map-controls {
+    display: block;
 }
 
-#main-wrapper.map {
+
+/** Content Sections */
+.section {
+    padding: 30px 0 40px 0;
+    background-color: rgb(255,255,255);
+}
+
+.section.about-the-project {
+
+}
+
+.section.layers-of-architecture {
+    padding: 140px 0;
+    text-align: center;
+}
+
+.blue {
+    /*background-color: rgb(44, 154, 183);*/
+    /*background-color: rgb(82, 186, 213);*/
+    /*background-color: rgba(109, 197, 220, 0.9);*/
+    /*background: linear-gradient(to right, #49c4db 0%, #64e6fe 100%);*/
+    /*background-color: rgb(114, 193, 176);*/
+    background-color: rgba(82, 186, 213, 0.8);
+    color: white;
+    /*color: #1d767f;*/
+}
+
+.blue blockquote footer {
+    color: white;
+}
+
+.blue h1 {
+    color: white;
+}
+
+.blue h1 span {
+    color: #1d767f;
+}
+
+.blue a {
+    color: white;
+    font-weight: 700;
+}
+
+.gray {
+    background-color: rgb(242, 243, 242);
+}
+
+blockquote  {
+    font-size: 1.4em;
+    border-left: 0;
+    padding: 20px 0;
+}
+
+blockquote footer {
+    margin-top: 30px;
+    font-size: 100%;
+    font-weight: bold;
+    color: rgb(183, 183, 183);
+}
+
+/** Content pages are not visible by default. The corresponding mode should be enabled in order to see them */
+.content-page {
     display: none;
 }
 
 /** Welcome */
 /** We're using table, table-row and table-cell in order to fill all of the available space */
-#welcome {
+.welcome-mode #welcome {
     display: table;
+}
+
+#welcome {
     table-layout: fixed;
     width: 100%;
     height: 100%;
@@ -440,89 +471,52 @@ ul.attribution li:last-child {
     font-size: 80px;
 }
 
-#the-project {
-    min-height: 100%;
-
+/** About the Project */
+.about-mode #about {
+    display: block;
 }
 
-#the-project p {
+#about {
+    min-height: 100%;
+}
+
+#about p {
     font-size: 1.4em;
 }
 
-#the-project h1 {
+#about h1 {
     font-weight: 100;
     font-size: 70px;
     margin-bottom: 40px;
 }
 
-#the-project h2 {
+#about h2 {
     margin-top: 40px;
 }
 
-.section {
-    padding: 30px 0 40px 0;
-    background-color: rgb(255,255,255);
+/** Learn */
+.learn-mode #learn {
+    display: block;
 }
 
-.section.about-the-project {
-
+/** Team */
+.team-mode #team {
+    display: block;
 }
 
-.section.layers-of-architecture {
-    padding: 140px 0;
-    text-align: center;
-}
-
-.blue {
-    /*background-color: rgb(44, 154, 183);*/
-    /*background-color: rgb(82, 186, 213);*/
-    /*background-color: rgba(109, 197, 220, 0.9);*/
-    /*background: linear-gradient(to right, #49c4db 0%, #64e6fe 100%);*/
-    /*background-color: rgb(114, 193, 176);*/
-    background-color: rgba(82, 186, 213, 0.8);
-    color: white;
-    /*color: #1d767f;*/
-}
-
-.blue blockquote footer {
-    color: white;
-}
-
-.blue h1 {
-    color: white;
-}
-
-.blue h1 span {
-    color: #1d767f;
-}
-
-.blue a {
-    color: white;
-    font-weight: 700;
-}
-
-.gray {
-    background-color: rgb(242, 243, 242);
-}
-
-blockquote  {
+ul.attribution {
     font-size: 1.4em;
-    border-left: 0;
-    padding: 20px 0;
+    list-style-type: none;
+    padding: 0;
 }
 
-blockquote footer {
-    margin-top: 30px;
-    font-size: 100%;
-    font-weight: bold;
-    color: rgb(183, 183, 183);
+ul.attribution li {
+    border-bottom: 1px solid #dddddd;
+    padding: 15px 0;
+}
+
+ul.attribution li:last-child {
+    border: 0;
 }
 
 
-#btn-morphocode {
-    opacity: 0.75;
-}
-
-#btn-morphocode:hover {
-    opacity: 1.0;
-}

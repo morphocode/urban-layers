@@ -44,11 +44,15 @@ $().ready(function() {
         });
         map.addSource('basemap', basemap);
 
+
         /**
          * Generates a layer containing all buildings built during the specified year.
          *
          */
         function generateLayer(yearbuilt) {
+            // use d3js interpolators for the color
+            var colorInterpolator = d3.interpolateRgb('#52bad5', '#e85c41');
+
             var layer = {
                 "id": "buildings_" + yearbuilt.toString(),
                 "source": "nycBuildings",
@@ -62,12 +66,12 @@ $().ready(function() {
                 "fill-color": "yellow",
                 "fill-opacity": "0.0"
             };
-            var color = scale(yearbuilt, minYear, maxYear, 0, 255),
-                rgbColor = "rgb(" + color + ", " + (255-color) +" , 0)";
+            var normalizedYear = scale(yearbuilt, minYear, maxYear, 0.0, 1.0),
+                color = colorInterpolator(normalizedYear);
 
             // add the active class
             layer["style.active-"+yearbuilt.toString()] = {
-                "fill-color": rgbColor,
+                "fill-color": color,
                 "fill-opacity": "1.0"
             };
 
