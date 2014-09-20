@@ -11,7 +11,7 @@
      * Called when the user opens the page
      */
     function welcome() {
-        showContent("about");
+        showContent("learn");
         //showContent("welcome");
     }
 
@@ -24,7 +24,7 @@
             e.preventDefault();
             showContent("intro");
 
-            urbanmap.ui.startTour();            
+            urbanmap.ui.startTour();
         });
 
         $("#layer-oldest-buildings").on("click", function() {
@@ -52,7 +52,7 @@
         $(".btn-learn").on("click", function(e) {
             e.preventDefault();
             showContent("learn");
-        });        
+        });
 
         $("#btn-home").on("click", function(e) {
             e.preventDefault();
