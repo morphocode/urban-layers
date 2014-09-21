@@ -358,7 +358,7 @@ path.area {
 
 /** Application Modes: Control what is visible and what is not */
 
-.map-mode #content-wrapper {
+.map-mode #content-wrapper, .intro-mode #content-wrapper {
     display: none;
 }
 
@@ -382,10 +382,6 @@ path.area {
     background-color: rgba(82, 186, 213, 0.8);
     color: white;
     /*color: #1d767f;*/
-}
-
-.blue blockquote footer {
-    color: white;
 }
 
 .blue h1 {
@@ -420,12 +416,12 @@ blockquote footer {
 
 /** Content pages are not visible by default. The corresponding mode should be enabled in order to see them */
 .content-page {
-    display: none;
+    /*display: none;*/
 }
 
 /** Welcome =========================================== */
 /** We're using table, table-row and table-cell in order to fill all of the available space */
-.welcome-mode #welcome {
+/*.welcome-mode */#welcome {
     display: table;
 }
 
@@ -440,7 +436,7 @@ blockquote footer {
 }
 
 #welcome-header {
-    background-color: rgba(82, 186, 213, 0.85);
+    background-color: rgba(82, 186, 213, 0.8);
     display: table-cell;
     padding: 80px;
     text-align: center;
@@ -473,7 +469,7 @@ blockquote footer {
 }
 
 #welcome-details {
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgba(255, 255, 255, 1);
     display: table-cell;
     padding: 50px;
 }
@@ -492,9 +488,9 @@ blockquote footer {
 }
 
 /** About the Project ===================================== */
-.about-mode #about {
+/*.about-mode */#about {
     display: block;
-}
+}*/
 
 #about {
     min-height: 100%;
@@ -508,39 +504,41 @@ blockquote footer {
     font-weight: 100;
     font-size: 80px;
     margin-bottom: 40px;
+    text-align: center;
 }
 
 #about h2 {
     margin-top: 40px;
 }
 
-.section.about-the-project {
-
-}
-
-.section.layers-of-architecture {
+.section-quote {
+    background-color: rgba(93,92,93,0.6);
+    color: white;
     padding: 140px 0;
     text-align: center;
 }
 
+.section-quote blockquote footer {
+    color: white;
+}
+
 
 /** Learn ================================================= */
-.learn-mode #learn {
+/*.learn-mode */#learn {
     display: table;
 }
 
-.learn-mode .btn-learn {
+.learn-mode .nav .btn-learn {
     color: black !important;
 }
 
 #learn {
-    background-color: rgba(255, 255, 255, 0.75);
     width: 100%;
     height: 100%;
 }
 
 .section-learn {
-    background-color: transparent;
+    background-color: white;
     display: table-row;
     text-align: center;
 }
@@ -572,13 +570,17 @@ blockquote footer {
     margin-bottom: 50px;
 }
 
+.section-making-of {
+    display: none;
+}
+
 /** Team ==================================== */
-.team-mode #team {
+/*.team-mode */#team {
     display: table;
 }
 
 #team {
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgba(255, 255, 255, 1);
     width: 100%;
     height: 100%;
 }
@@ -587,11 +589,13 @@ blockquote footer {
     background-color: transparent;
     display: table-row;
     text-align: center;
+
 }
 
 .section-team .row {
     display: table-cell;
     vertical-align: middle;
+    padding: 80px 0;
 }
 
 .section-team h1 {

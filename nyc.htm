@@ -20,6 +20,8 @@
         <link rel="stylesheet" href="lib/bootstrap/lumen.bootstrap.min.css">
         <script src="lib/bootstrap/bootstrap.min.js"></script>
 
+        <script src="lib/jquery.scrollTo/jquery.scrollTo.min.js"></script>
+
         <script src="js/namespace.js"></script>
         <script src="js/timeline.js"></script>
         <script src="js/mapgl.js"></script>
@@ -183,12 +185,11 @@
 
             <!-- About the Project ======================================= -->
             <div id="about" class="content-page">
-                <div class="section blue layers-of-architecture">
+                <div class="section layers-of-architecture section-quote">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-                                <h1>About</h1>
-                                <blockquote id="koolhaas-quote">
+                                <blockquote>
                                 "...each block is covered with several layers of phantom architecture in the form of past occupancies, aborted projects and popular fantasies that provide alternative images to the New York that exists."
                                 <footer>
                                 Rem Koolhaas, "Delirious New York"
@@ -203,7 +204,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-                                <h2>The Project</h2>
+                                <h1>About</h1>
 
                                 <p>
                                     <a href="http://io.morphocode.com/urban-layers/nyc.htm">Layers of NYC</a> is an interactive visualization created by <a href="http://morphocode.com/about/" target="_blank">Morphocode</a> that explores the structure of Manhattan's urban fabric.
@@ -216,12 +217,13 @@
                                 </p>
 
                                 <p>
-                                <a href="#" id="how-it-s-made">How it's made?</a>
+                                <a href="#" class="btn-link btn-learn">How it's works? <i class="fa fa-angle-right"></i></a>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="section gray">
                     <div class="container">
                         <div class="row">
@@ -235,25 +237,56 @@
                     </div>
                 </div>
 
-                <div class="section subscribe">
+                <div class="section attribution">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
-                                <h2>Subscribe for Updates</h2>
-                                <div id="mc_embed_signup">
-                                    <form action="//morphocode.us9.list-manage.com/subscribe/post?u=92a85e8e154b24ed522605326&amp;id=c08f455190" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                                        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
-                                        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                                        <div style="position: absolute; left: -5000px;"><input type="text" name="b_92a85e8e154b24ed522605326_c08f455190" tabindex="-1" value=""></div>
-                                        <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
-                                    </form>
-                                </div>
+                                <h2>Attribution</h2>
+                                <ul class="attribution">
+                                    <li><strong>Data: </strong> Pluto Data Set provided by Department of City Planning (DCP)</li>
+                                    <li><strong>Basemap: </strong> <a href="http://www.arcgis.com/home/item.html?id=ed712cb1db3e4bae9e85329040fb9a49" target="_blank">Light Gray Canvas Map</a>, Sources: Esri, HERE, DeLorme, MapmyIndia, © OpenStreetMap contributors, and the GIS user community </li>
+                                    <li><strong>Graph: </strong> <a href="http://d3js.org/" target="_blank">d3.js</a> by <a href="http://bost.ocks.org/mike/">Mike Bostock</a> was used to build the graph. </li>
+                                    <li><strong>Map: </strong> <a href="https://www.mapbox.com/mapbox-gl/">Mapbox GL JS</a> by <a href="http://mapbox.com">Mapbox</a> was used to draw the urban layers.</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="section gray technical-development">
+                <div class="section le-corbusier section-quote">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <blockquote>
+                                "New York is not a finished or completed city. It gushes up. On my next trip it will be different. Those of us who have visited it are asked this question:  "When you were there in 1939, or in 1928, or in 1926, or in 1920, was such and such already there? Oh, really, you don't know then what an effect that makesl"  Such is the rhythm of the city."
+                                <footer>
+                                Le Corbusier, "When the Cathedrals were white"
+                                </footer>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Learn =============================================================== -->
+            <div id="learn" class="content-page">
+                <div class="section section-learn">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <h1>How it works?</h1>
+                            <h2>Urban Planners, Civil Hackers, Map Makers -That’s for you!</h2>
+                            <img src="images/making-of-diagram.png" width="100%"/>
+                            <div class="buttons">
+                                <button type="button" class="btn btn-primary btn-xlarge">Read Full Story</button>
+                                <button type="button" class="btn btn-default btn-xlarge">Take the Course</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section section-making-of">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
@@ -285,40 +318,8 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="section attribution">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-8 col-md-offset-2">
-                                <h2>Attribution</h2>
-                                <ul class="attribution">
-                                    <li><strong>Data: </strong> Pluto Data Set provided by Department of City Planning (DCP)</li>
-                                    <li><strong>Basemap: </strong> <a href="http://www.arcgis.com/home/item.html?id=ed712cb1db3e4bae9e85329040fb9a49" target="_blank">Light Gray Canvas Map</a>, Sources: Esri, HERE, DeLorme, MapmyIndia, © OpenStreetMap contributors, and the GIS user community </li>
-                                    <li><strong>UI Controls: </strong> The graph and the sliders were built using the great <a href="http://d3js.org/" target="_blank">d3.js</a> library. </li>
-                                    <li><strong>Map UI: </strong> We used the ultra impressive <a href="https://www.mapbox.com/mapbox-gl/"> Mapbox GL JS</a> library to draw the large amount of buildings and to show/hide the layers.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
-            <!-- Learn =============================================================== -->
-            <div id="learn" class="content-page">
-                <div class="section section-learn">
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2">
-                            <h1>How it works?</h1>
-                            <h2>Urban Planners, Civil Hackers, Map Makers -That’s for you!</h2>
-                            <img src="images/making-of-diagram.png" width="100%"/>
-                            <div class="buttons">
-                                <button type="button" class="btn btn-primary btn-xlarge">Read Full Story</button>
-                                <button type="button" class="btn btn-default btn-xlarge">Take the Course</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div id="team" class="content-page">
                 <div class="section section-team">
@@ -333,6 +334,25 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="section subscribe">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <h2>Subscribe for Updates</h2>
+                                <div id="mc_embed_signup">
+                                    <form action="//morphocode.us9.list-manage.com/subscribe/post?u=92a85e8e154b24ed522605326&amp;id=c08f455190" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                                        <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+                                        <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                                        <div style="position: absolute; left: -5000px;"><input type="text" name="b_92a85e8e154b24ed522605326_c08f455190" tabindex="-1" value=""></div>
+                                        <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div><!--content wrapper -->

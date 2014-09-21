@@ -70,8 +70,11 @@
      * Shows/Hide different content parts: welcome, map, about, etc.
      */
     function showContent(section) {
+        var isContentActive = $("#content-wrapper").is(":visible");
         $("body").removeClass();
         $("body").addClass(section+'-mode');
+
+        $("#content-wrapper").scrollTo("#"+section, isContentActive ? 1000 : 0);
     }
 
     /**
