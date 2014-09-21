@@ -11,8 +11,8 @@
      * Called when the user opens the page
      */
     function welcome() {
-        showContent("team");
-        //showContent("welcome");
+        //showContent("team");
+        showContent("welcome");
     }
 
     /**
