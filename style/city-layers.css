@@ -397,6 +397,18 @@ path.area {
     font-weight: 700;
 }
 
+.blue .btn.btn-primary {
+    background: transparent;
+    border-color: white;
+    color: white;
+}
+
+.blue .btn.btn-primary:hover {
+    background: white;
+    border-color: white;
+    color: rgb(82, 186, 213);
+}
+
 .gray {
     background-color: rgb(242, 243, 242);
 }
@@ -455,17 +467,8 @@ blockquote footer {
     font-weight: 100;
 }
 
-#welcome-header .btn.btn-primary {
-    background: transparent;
-    border-color: white;
-    color: white;
+#welcome-header .btn {
     margin-top: 50px;
-}
-
-#welcome-header .btn.btn-primary:hover {
-    background: white;
-    border-color: white;
-    color: rgb(82, 186, 213);
 }
 
 #welcome-details {
@@ -496,7 +499,7 @@ blockquote footer {
     min-height: 100%;
 }
 
-#about p {
+p {
     font-size: 1.4em;
 }
 
@@ -520,6 +523,15 @@ blockquote footer {
 
 .section-quote blockquote footer {
     color: white;
+}
+
+.gallery img {
+    width: 100%;
+}
+
+.gallery p {
+    font-size: 1.2em;
+    margin: 10px 0;
 }
 
 
@@ -580,7 +592,7 @@ blockquote footer {
 }
 
 #team {
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(82, 186, 213, 0.8);
     width: 100%;
     height: 100%;
 }
@@ -599,7 +611,7 @@ blockquote footer {
 }
 
 .section-team h1 {
-    color: rgb(82, 186, 213);
+    color: white;
     font-size: 80px;
     font-weight: 100;
 }
@@ -609,7 +621,7 @@ blockquote footer {
 }
 
 .section-team h2 {
-    color: rgb(93, 92, 93);
+    color: rgb(242, 242, 242);
     font-size: 24px;
     font-weight: 300;
     margin-bottom: 30px;
@@ -631,4 +643,41 @@ ul.attribution li:last-child {
     border: 0;
 }
 
+.section.subscribe h2 {
+    text-align: center;
+}
 
+.section-morphocode {
+    color: rgb(93, 92, 93);
+    background-color: rgb(242, 242, 242);
+    padding: 150px 0;
+    text-align: center;
+}
+
+.section-morphocode h2 {
+    text-transform: uppercase;
+    color: rgb(183,183,183);
+    font-size: 1em;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.subscribe-form {
+    border-top: 1px solid #ccc;
+    margin-top: 60px;
+    padding-top: 40px;
+}
+
+.subscribe-form h2 {
+    margin-bottom: 20px;
+}
+
+.social a {
+    font-size: 1.2em;
+    color: rgb(183, 183, 183);
+    padding: 0;
+}
+
+.social a:hover {
+    color: rgb(93, 92, 93);
+}
