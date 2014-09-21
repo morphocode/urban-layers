@@ -22,9 +22,7 @@
 
        $("#help-button").on("click", function(e) {
             e.preventDefault();
-            showContent("intro");
-
-            urbanmap.ui.startTour();
+            startTour();
         });
 
         $("#layer-oldest-buildings").on("click", function() {
@@ -61,34 +59,34 @@
 
         $("#btn-explore").on("click", function(e) {
             e.preventDefault();
-            showContent("map");
+            showMap();
         });
-
     }
 
     /**
      * Shows/Hide different content parts: welcome, map, about, etc.
      */
     function showContent(section) {
-        var isContentActive = $("#content-wrapper").is(":visible");
+        var isContentActive = $("#content-wrapper").css("visibility") == "visible";
         $("body").removeClass();
         $("body").addClass(section+'-mode');
 
         $("#content-wrapper").scrollTo("#"+section, isContentActive ? 1000 : 0);
     }
 
+    function showMap() {
+        if (!isTourTaken()) {
+            startTour();
+        } else {
+            showDemo();
+        }
+        showContent('map');
+    }
+
     /**
      * Build the Dialog functionality
      */
     function buildDialogs() {
-        $('#about-dialog').on('hidden.bs.modal', function () {
-            if (!isTourTaken()) {
-                startTour();
-            } else {
-                showDemo();
-            }
-        });
-
         // center the modal dialog
         $('#about-dialog').on('shown.bs.modal', function() {
             var initModalHeight = $('#about-dialog .modal-dialog').outerHeight(); //give an id to .mobile-dialog
@@ -106,8 +104,6 @@
             $('#about-dialog').modal('hide');
         });
 
-        //attribution
-        //mapboxgl-ctrl-attrib
     }
 
     // INTRO --------------------------------------------------------------------
@@ -171,6 +167,7 @@
      * Starts a tour around the site functionality.
      */
     function startTour() {
+        showContent("intro");
         tour.start();
     }
 

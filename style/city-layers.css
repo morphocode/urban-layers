@@ -273,6 +273,7 @@ path.area {
     border: 2px solid;
     margin-left: 10px;
     margin-right: 10px;
+    outline: none;
 }
 
 .btn:hover {
@@ -354,12 +355,20 @@ path.area {
     width: 100%;
     height: calc(100% - 54px);
     overflow: auto;
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
 }
 
 /** Application Modes: Control what is visible and what is not */
-
 .map-mode #content-wrapper, .intro-mode #content-wrapper {
-    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 0s ease-out 0.2s, opacity 0.2s ease-out;
+    -webkit-transition: visibility 0s ease-out 0.2s, opacity 0.2s ease-out;
+    -moz-transition: visibility 0s ease-out 0.2s, opacity 0.2s ease-out;
+    -o-transition: visibility 0s ease-out 0.2s, opacity 0.2s ease-out;
+    -ms-transition: visibility 0s ease-out 0.2s, opacity 0.2s ease-out;
 }
 
 .map-mode #map-controls, .intro-mode #map-controls {
