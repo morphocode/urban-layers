@@ -56,7 +56,7 @@ $().ready(function() {
                 gray1 = d3.rgb(93, 92, 93).toString(),
                 gray2 = d3.rgb(183, 183, 183).toString(),
                 red = d3.rgb(219, 58, 27).toString(),
-                palette0 = [gray0, 'rgb(68, 154, 136)', red, 'rgb(44, 154, 183)', gray],
+                palette0 = [gray0, 'rgb(68, 154, 136)', red, 'rgb(44, 154, 183)', gray0],
                 palette1 = [red, 'rgb(199,233,180)', 'rgb(127,205,187)', 'rgb(65,182,196)', 'rgb(29,145,192)', 'rgb(34,94,168)', 'rgb(12,44,132)'],
 
                 colorScale = d3.scale.quantile()
