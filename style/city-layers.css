@@ -103,6 +103,10 @@ path.area {
   fill: #e7e7e7;
 }
 
+path.area#active-area {
+  fill: rgb(177, 224, 236);
+}
+
 .axis {
   shape-rendering: crispEdges;
 }
@@ -131,12 +135,12 @@ path.area {
 
 .selection {
     cursor: move;
-    fill: #0099ff;
-    opacity: 0.2;
+    fill: white;
+    opacity: 0.5;
 }
 
 .marker .guideline {
-    stroke: gray;
+    stroke: black;
     stroke-width: 0.5px;
 }
 
@@ -186,7 +190,7 @@ path.area {
 }
 
 .slider-thumb {
-    background-color: #999;
+    background-color: rgb(93, 92, 93);
     bottom: 3px;
     color: white;
     cursor: e-resize;
@@ -199,7 +203,7 @@ path.area {
 }
 
 .slider.drag .slider-thumb, .slider-thumb:hover {
-    background-color: #0099ff;
+    background-color: rgb(254, 190, 18);
 }
 
 .slider.drag .v-tooltip, .slider:hover .v-tooltip {
@@ -225,23 +229,23 @@ path.area {
 }
 
 .slider.range-end .slider-thumb:before {
-    border-color: #999 transparent transparent transparent;
+    border-color: rgb(93, 92, 93) transparent transparent transparent;
     border-width: 20px 30px 0 0;
     right: 0px;
 }
 
 .slider.range-end  .slider-thumb:hover:before, .slider.range-end.drag .slider-thumb:before {
-    border-color: #0099ff transparent transparent transparent;
+    border-color: rgb(254, 190, 18) transparent transparent transparent;
 }
 
 .slider.range-start .slider-thumb:before {
-    border-color: transparent #999 transparent transparent;
+    border-color: transparent rgb(93, 92, 93) transparent transparent;
     border-width: 0 30px 20px 0;
     right: 0px;
 }
 
 .slider.range-start  .slider-thumb:hover:before, .slider.range-start.drag .slider-thumb:before {
-    border-color: transparent #0099ff transparent transparent;
+    border-color: transparent rgb(254, 190, 18) transparent transparent;
 }
 
 

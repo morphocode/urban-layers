@@ -139,6 +139,12 @@
           .attr("clip-path", "url(#clip)")
           .attr("d", area(data));
 
+        graphics.append("path")
+            .attr("id", "active-area")
+            .attr("class", "area")
+            .attr("clip-path", "url(#selection)")
+            .attr("d", area(data));
+
         // Add the valueline path.
         graphics.append("path")
             .attr("class", "line")
@@ -184,6 +190,7 @@
 
         // build the selection window
         var selection = canvas.append("rect")
+            .attr("id", "selection")
             .attr("class", "selection")
             .attr("x", startSlider.pos())
             .attr("y", 0 - margin.top)
