@@ -255,9 +255,10 @@ path.area#active-area {
     display: none;
 }
 
-.explore-menu {
-    font-weight: bold;
+.map-mode nav .btn-explore, .team-mode nav .btn-team, .about-mode nav .btn-about, .learn-mode nav .btn-learn {
+    color: rgb(55, 55, 55) !important;
 }
+
 
 
 /** layout ============================================================================== */
@@ -271,14 +272,15 @@ path.area#active-area {
 }
 
 .navbar-inverse .navbar-nav>li>a , .dropdown-menu>li>a {
-    color: #666;
+    font-weight: bold;
+    color: #999;
 }
 
 .btn {
     border: 2px solid;
     margin-left: 10px;
     margin-right: 10px;
-    outline: none;
+    outline: none !important;
 }
 
 .btn:hover {
@@ -412,12 +414,24 @@ path.area#active-area {
 }
 
 .blue .btn.btn-primary {
+    background: white;
+    border-color: white;
+    color: rgb(82, 186, 213);
+}
+
+.blue .btn.btn-primary:hover {
+    background: rgb(242, 242, 242);
+    border-color: rgb(242, 242, 242);
+    color: rgb(93, 92, 93);
+}
+
+.blue .btn.btn-default {
     background: transparent;
     border-color: white;
     color: white;
 }
 
-.blue .btn.btn-primary:hover {
+.blue .btn.btn-default:hover {
     background: white;
     border-color: white;
     color: rgb(82, 186, 213);
@@ -531,7 +545,7 @@ p {
 .section-quote {
     background-color: rgba(93,92,93,0.6);
     color: white;
-    padding: 140px 0;
+    padding: 100px 0;
     text-align: center;
 }
 
@@ -552,10 +566,6 @@ p {
 /** Learn ================================================= */
 /*.learn-mode */#learn {
     display: table;
-}
-
-.learn-mode .nav .btn-learn {
-    color: black !important;
 }
 
 #learn {
@@ -635,7 +645,7 @@ p {
 }
 
 .section-team h2 {
-    color: rgb(242, 242, 242);
+    color: white;
     font-size: 24px;
     font-weight: 300;
     margin-bottom: 30px;

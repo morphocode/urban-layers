@@ -74,12 +74,18 @@
         $("#content-wrapper").scrollTo("#"+section, isContentActive ? 1000 : 0);
     }
 
+    var isFirstTime = true;
+    /**
+     * Show the map to the user
+     */
     function showMap() {
-        if (!isTourTaken()) {
+        if (isFirstTime) {
             startTour();
-        } else {
+
+            isFirstTime = false;
+        } /*else {
             showDemo();
-        }
+        }*/
         showContent('map');
     }
 
@@ -175,6 +181,7 @@
     function showDemo() {
         if (!demoShown) {
             urbanmap.ui.timeline.demo();
+            bMap.flyTo([40.774066683777875, -73.97723823183378], 13, -61);
             demoShown = true;
         }
     }

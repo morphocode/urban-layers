@@ -126,7 +126,6 @@
 
         yAxis.tickValues([200, 2000, 8000]);
 
-        // NOTE: clip the ticks with the graph
         var axesLayer = d3.select(".axes-layer");
         axesLayer.append("path")
             .attr("class", "line")
@@ -144,11 +143,13 @@
           .attr("clip-path", "url(#clip)")
           .attr("d", area(data));
 
+        /*
         graphics.append("path")
             .attr("id", "active-area")
             .attr("class", "area")
             .attr("clip-path", "url(#selection-clip)")
             .attr("d", area(data));
+            */
 
         // Add the valueline path.
         graphics.append("path")
@@ -203,6 +204,7 @@
             .attr("width", endSlider.pos() - startSlider.pos())
             .call(dragBehavior);
 
+        /*
         var selectionClip = canvas.append("clipPath")
             .attr("id", "selection-clip")
             .append("rect")
@@ -210,6 +212,7 @@
             .attr("y", 0 - margin.top)
             .attr("height", height + margin.top)
             .attr("width", endSlider.pos() - startSlider.pos());
+            */
 
         /**
          * Called when the data is set for this range slider
@@ -252,8 +255,8 @@
             selection.attr("width", endSlider.pos() - startSlider.pos());
 
             // update the clip path, used to clip the area ... we want different color between the sliders
-            selectionClip.attr("x", startSlider.pos());
-            selectionClip.attr("width", endSlider.pos() - startSlider.pos());
+            //selectionClip.attr("x", startSlider.pos());
+            //selectionClip.attr("width", endSlider.pos() - startSlider.pos());
 
         }
 
@@ -270,7 +273,7 @@
             if (newX < 0 || newX+sWidth > width) return;
 
             selection.attr("x", newX);
-            selectionClip.attr("x", newX);
+            //selectionClip.attr("x", newX);
 
             // update the slider, they will update the selection
             startSlider.update(newX, true);
@@ -325,6 +328,9 @@
                     .append("div")
                     .attr("class", "slider-thumb")
                     .style("left", _pos + margin.left + "px"),
+
+                yearSpan = sliderThumb.append("span")
+                    .attr("class", "year"),
 
                 // build the tooltip. tooltips are also divs
                 tooltip = slider
@@ -404,7 +410,7 @@
                     .style("top",  posY + margin.top + "px");
                 tooltipContents.html(d.count + " buildings");
 
-                sliderThumb.html(newValue);
+                yearSpan.html(newValue);
 
                 // fire update event, if year has changed:
                 if (_value != newValue) {

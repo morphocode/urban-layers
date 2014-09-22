@@ -29,9 +29,9 @@ $().ready(function() {
         var map = new mapboxgl.Map({
             container: 'map',
             style: style,
-            center: [40.77499462,-73.98909694],
+            center: [40.774066683777875, -73.97723823183378],
             minZoom: 10,
-            zoom: 12,
+            zoom: 11,
             maxZoom: 15
         });
 
@@ -56,8 +56,9 @@ $().ready(function() {
                 gray1 = d3.rgb(93, 92, 93).toString(),
                 gray2 = d3.rgb(183, 183, 183).toString(),
                 red = d3.rgb(219, 58, 27).toString(),
+                red1 = d3.rgb(238, 131, 110).toString(),
                 palette0 = [gray0, 'rgb(68, 154, 136)', red, 'rgb(44, 154, 183)', gray0],
-                palette1 = [red, yellow, /*'rgb(199,233,180)',*/ 'rgb(127,205,187)', 'rgb(65,182,196)', 'rgb(29,145,192)', 'rgb(34,94,168)', 'rgb(12,44,132)'],
+                palette1 = [red, red1, /*'rgb(199,233,180)',*/ 'rgb(127,205,187)', 'rgb(65,182,196)', 'rgb(29,145,192)', 'rgb(34,94,168)', 'rgb(12,44,132)'],
 
                 colorScale = d3.scale.quantile()
                                 .domain(d3.range(1850, maxYear))
