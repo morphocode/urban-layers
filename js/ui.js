@@ -127,7 +127,7 @@
                 position: 'bottom'
               },
               {
-                element: document.querySelector('.range-end .slider-thumb'),
+                element: document.querySelector('.range-start .slider-thumb'),
                 intro: "Drag the sliders to change the time period.",
                 position: 'bottom'
               },

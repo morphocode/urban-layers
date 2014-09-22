@@ -93,7 +93,7 @@
     function demo() {
         var cStart = rangeSlider.start().pos(),
             cEnd = rangeSlider.end().pos();
-        rangeSlider.slideTo(cStart, cEnd + 200, 2000);
+        rangeSlider.slideTo(cStart - width/6, cEnd, 2000);
     }
 
 
@@ -177,8 +177,8 @@
      */
     function buildRangeSlider(canvas) {
 
-        var startSlider = buildSlider(width/2 - 100, "range-start", canvas),
-            endSlider = buildSlider(width/2 , "range-end", canvas);
+        var startSlider = buildSlider(width - width / 10, "range-start", canvas),
+            endSlider = buildSlider(width , "range-end", canvas);
 
         // constrain the start slider to not go beyond the end slider
         startSlider.constrain(function(event, ui) {
