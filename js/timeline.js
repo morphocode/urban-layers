@@ -93,7 +93,7 @@
     function demo() {
         var cStart = rangeSlider.start().pos(),
             cEnd = rangeSlider.end().pos();
-        rangeSlider.slideTo(cStart - width/6, cEnd, 2000);
+        rangeSlider.slideTo(cStart - width/6, cEnd - width/6, 2000);
     }
 
 
