@@ -52,7 +52,14 @@ $().ready(function() {
          */
         function generateLayer(yearbuilt) {
             // use d3js interpolators for the color
-            var colorInterpolator = d3.interpolateRgb('#52bad5', '#e85c41');
+            //var colorInterpolator = d3.interpolateRgb('#52bad5', '#e85c41');
+            var colorScale = d3.scale.quantile()
+                                .domain(d3.range(minYear, maxYear))
+                                //.range(colorbrewer.RdYlBu[9]);
+                                //.range(colorbrewer.Spectral[9]);
+                                //.range(d3.scale.category10().range());
+                                //.range(d3.scale.category20b().range());
+                                .range(['red', 'red', 'rgb(245, 183, 171)', 'rgb(219, 58, 27)', 'rgb(68, 154, 136)', 'rgb(254, 190, 18)', 'rgb(44, 154, 183)', 'rgb(93, 92, 93)']);
 
             var layer = {
                 "id": "buildings_" + yearbuilt.toString(),
@@ -67,8 +74,13 @@ $().ready(function() {
                 "fill-color": "yellow",
                 "fill-opacity": "0.0"
             };
-            var normalizedYear = scale(yearbuilt, minYear, maxYear, 0.0, 1.0),
-                color = yearbuilt == 0 ? 'rgb(183, 183, 183)' : colorInterpolator(normalizedYear);
+            //var normalizedYear = scale(yearbuilt, minYear, maxYear, 0.0, 1.0),
+            //    color = yearbuilt == 0 ? 'rgb(183, 183, 183)' : colorInterpolator(normalizedYear);
+            var color = colorScale(yearbuilt);
+
+            if (yearbuilt == 0) {
+                color = 'rgb(183, 183, 183)';
+            }
 
             // add the active class
             layer["style.active-"+yearbuilt.toString()] = {
