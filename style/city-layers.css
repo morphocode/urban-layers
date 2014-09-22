@@ -104,7 +104,8 @@ path.area {
 }
 
 path.area#active-area {
-  fill: rgb(177, 224, 236);
+  /*fill: rgb(177, 224, 236);*/
+  fill: #eee;
 }
 
 .axis {
@@ -135,8 +136,8 @@ path.area#active-area {
 
 .selection {
     cursor: move;
-    fill: white;
-    opacity: 0.5;
+    fill: rgb(255, 232, 170);
+    opacity: 0.1;
 }
 
 .marker .guideline {
@@ -203,7 +204,7 @@ path.area#active-area {
 }
 
 .slider.drag .slider-thumb, .slider-thumb:hover {
-    background-color: rgb(254, 190, 18);
+    background-color: rgb(82, 186, 213);
 }
 
 .slider.drag .v-tooltip, .slider:hover .v-tooltip {
@@ -235,7 +236,7 @@ path.area#active-area {
 }
 
 .slider.range-end  .slider-thumb:hover:before, .slider.range-end.drag .slider-thumb:before {
-    border-color: rgb(254, 190, 18) transparent transparent transparent;
+    border-color: rgb(82, 186, 213) transparent transparent transparent;
 }
 
 .slider.range-start .slider-thumb:before {
@@ -245,7 +246,7 @@ path.area#active-area {
 }
 
 .slider.range-start  .slider-thumb:hover:before, .slider.range-start.drag .slider-thumb:before {
-    border-color: transparent rgb(254, 190, 18) transparent transparent;
+    border-color: transparent rgb(82, 186, 213) transparent transparent;
 }
 
 

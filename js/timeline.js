@@ -140,9 +140,14 @@
           .attr("d", area(data));
 
         graphics.append("path")
+          .attr("class", "area")
+          .attr("clip-path", "url(#clip)")
+          .attr("d", area(data));
+
+        graphics.append("path")
             .attr("id", "active-area")
             .attr("class", "area")
-            .attr("clip-path", "url(#selection)")
+            .attr("clip-path", "url(#selection-clip)")
             .attr("d", area(data));
 
         // Add the valueline path.
@@ -189,7 +194,7 @@
             .on("drag", onSelectionDrag);
 
         // build the selection window
-        var selection = canvas.append("rect")
+        var selection =  canvas.append("rect")
             .attr("id", "selection")
             .attr("class", "selection")
             .attr("x", startSlider.pos())
@@ -197,6 +202,14 @@
             .attr("height", height + margin.top)
             .attr("width", endSlider.pos() - startSlider.pos())
             .call(dragBehavior);
+
+        var selectionClip = canvas.append("clipPath")
+            .attr("id", "selection-clip")
+            .append("rect")
+            .attr("x", startSlider.pos())
+            .attr("y", 0 - margin.top)
+            .attr("height", height + margin.top)
+            .attr("width", endSlider.pos() - startSlider.pos());
 
         /**
          * Called when the data is set for this range slider
@@ -237,6 +250,11 @@
 
             selection.attr("x", startSlider.pos());
             selection.attr("width", endSlider.pos() - startSlider.pos());
+
+            // update the clip path, used to clip the area ... we want different color between the sliders
+            selectionClip.attr("x", startSlider.pos());
+            selectionClip.attr("width", endSlider.pos() - startSlider.pos());
+
         }
 
         /**
@@ -252,6 +270,7 @@
             if (newX < 0 || newX+sWidth > width) return;
 
             selection.attr("x", newX);
+            selectionClip.attr("x", newX);
 
             // update the slider, they will update the selection
             startSlider.update(newX, true);
