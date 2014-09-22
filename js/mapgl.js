@@ -23,7 +23,8 @@ $().ready(function() {
         // generate layers for all buildings
         generateAllLayers(minYear, maxYear);
         //fix for non-mapped buildings:
-        generateLayer(0);
+        var nonMappedLayer = generateLayer(0);
+        style.layers.push(nonMappedLayer);
 
         var map = new mapboxgl.Map({
             container: 'map',
@@ -67,7 +68,7 @@ $().ready(function() {
                 "fill-opacity": "0.0"
             };
             var normalizedYear = scale(yearbuilt, minYear, maxYear, 0.0, 1.0),
-                color = colorInterpolator(normalizedYear);
+                color = yearbuilt == 0 ? 'rgb(183, 183, 183)' : colorInterpolator(normalizedYear);
 
             // add the active class
             layer["style.active-"+yearbuilt.toString()] = {
