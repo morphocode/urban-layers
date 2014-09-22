@@ -51,17 +51,24 @@ $().ready(function() {
          *
          */
         function generateLayer(yearbuilt) {
-            // use d3js interpolators for the color
-            //var colorInterpolator = d3.interpolateRgb('#52bad5', '#e85c41');
-            var colorScale = d3.scale.quantile()
-                                .domain(d3.range(minYear, maxYear))
-                                //.range(colorbrewer.RdYlBu[9]);
-                                //.range(colorbrewer.Spectral[9]);
-                                //.range(d3.scale.category10().range());
-                                //.range(d3.scale.category20b().range());
-                                .range(['red', 'red', 'rgb(245, 183, 171)', 'rgb(219, 58, 27)', 'rgb(68, 154, 136)', 'rgb(254, 190, 18)', 'rgb(44, 154, 183)', 'rgb(93, 92, 93)']),
+            var yellow = d3.rgb(254, 190, 18).toString(),
+                gray0 = d3.rgb(55, 55, 55).toString(),
+                gray1 = d3.rgb(93, 92, 93).toString(),
+                gray2 = d3.rgb(183, 183, 183).toString(),
+                red = d3.rgb(219, 58, 27).toString(),
+                palette0 = [gray0, 'rgb(68, 154, 136)', red, 'rgb(44, 154, 183)', gray],
+                palette1 = [red, 'rgb(199,233,180)', 'rgb(127,205,187)', 'rgb(65,182,196)', 'rgb(29,145,192)', 'rgb(34,94,168)', 'rgb(12,44,132)'],
 
-                color = (yearbuilt > 0) ? colorScale(yearbuilt) : 'rgb(183, 183, 183)';
+                colorScale = d3.scale.quantile()
+                                .domain(d3.range(1850, maxYear))
+                                //.range(colorbrewer.RdYlBu[9]),
+                                //.range(colorbrewer.Spectral[9]),
+                                //.range(colorbrewer.BrBG[9]),
+                                //.range(d3.scale.category10().range()),
+                                //.range(d3.scale.category20b().range()),
+                                .range(palette1),
+
+                color = (yearbuilt > 0) ? colorScale(yearbuilt) : gray2;
 
             var layer = {
                 "id": "buildings_" + yearbuilt.toString(),
