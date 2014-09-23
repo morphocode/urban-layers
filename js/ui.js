@@ -132,7 +132,7 @@
               },
               {
                 element: document.querySelector('#help-button'),
-                intro: "<strong>See this Tutorial again.</strong>",
+                intro: "<strong>Click here if you want to see this tutorial again.</strong>",
                 position: 'bottom'
               }
             ]
@@ -143,6 +143,9 @@
             tourTaken();
         }).oncomplete(function() {
             tourTaken();
+        }).onbeforechange(function(targetElem) {
+            var isLastStep = targetElem.id == 'help-button';
+            $("body").toggleClass("intro-last", isLastStep);
         });
 
         /**

@@ -297,6 +297,17 @@ path.area#active-area {
     display: none;
 }
 
+.intro-last .introjs-skipbutton {
+    display: inline;
+    float: right;
+    background: rgb(114, 193, 176);
+    color: white;
+}
+
+.intro-last .introjs-skipbutton:hover {
+    background: rgb(68, 154, 136);
+}
+
 .introjs-button.introjs-disabled {
     display: none;
 }
