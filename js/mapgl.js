@@ -29,7 +29,12 @@
         options = {transition: false};
 
 
+    /**
+     * returns promise
+     */
     function build() {
+        var dfd = new jQuery.Deferred();
+
         mapboxgl.util.getJSON('data/nyc-style.json', function (err, style) {
             if (err) throw err;
 
@@ -95,7 +100,11 @@
                 }, 10);
             });
 
+            dfd.resolve(_map);
+
         });
+
+        return dfd;
     }
 
     /**

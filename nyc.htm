@@ -58,11 +58,14 @@
 
                 // build the buttons
                 urbanmap.ui.build();
-                urbanmap.map.build();
                 urbanmap.ui.timeline.build();
-                // the tour has to be built after the timeline, in order for selectors to work
-                // or use custom intro.onbeforechange callback
-                urbanmap.ui.buildTour();
+
+                $.when(urbanmap.map.build())
+                    .then(function() {
+                        // the tour has to be built after the timeline & the map, in order for selectors to work
+                        // or use custom intro.onbeforechange callback
+                        urbanmap.ui.buildTour();
+                    });
 
                 // welcome the User
                 urbanmap.ui.welcome();
