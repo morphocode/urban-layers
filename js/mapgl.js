@@ -24,7 +24,9 @@
                         //.range(colorbrewer.BrBG[9]),
                         //.range(d3.scale.category10().range()),
                         //.range(d3.scale.category20b().range()),
-                        .range(palette1);
+                        .range(palette1),
+
+        options = {transition: false};
 
 
     function build() {
@@ -72,19 +74,25 @@
             });
             _map.addSource('basemap', basemap);
 
-
             // Update the _map, when the time period has been changed:
             var startYear = minYear,
-                endYear = minYear;
+                endYear = minYear,
+                updateTimeout;
 
             $(document).bind("slider-range-end", function(event, year) {
                 endYear = year;
-                showAllBetween(startYear, endYear);
+                clearTimeout(updateTimeout);
+                updateTimeout = setTimeout(function() {
+                    showAllBetween(startYear, endYear);
+                }, 10);
             });
 
             $(document).bind("slider-range-start", function(event, year) {
                 startYear = year;
-                showAllBetween(startYear, endYear);
+                clearTimeout(updateTimeout);
+                updateTimeout = setTimeout(function() {
+                    showAllBetween(startYear, endYear);
+                }, 10);
             });
 
         });
@@ -130,31 +138,15 @@
         return layers;
     }
 
-    var updateTimeout,
-        needsUpdate = true,
-        lastStartYear,
-        lastEndYear;
+    var updating = false;
 
     /**
      * Shows all buildings for the specified period
      */
     function showAllBetween(startYear, endYear) {
 
-        /** Ensure that we're updating the map at a maximum ot 100ms due to performance issues */
-        lastStartYear = startYear;
-        lastEndYear = endYear;
-        if (!needsUpdate) return;
-        console.log(Date.now());
-
-        needsUpdate = false;
-        updateTimeout = setTimeout(function() {
-            needsUpdate = true;
-            if (lastEndYear != endYear || lastStartYear != startYear) {
-                showAllBetween(lastStartYear, lastEndYear);
-            }
-        }, 100);
-
-        console.log("Show all between: " + startYear + " and " + endYear);
+        //console.log(Date.now());
+        //console.log("Show all between: " + startYear + " and " + endYear);
         var classes = [];
         for(var i = startYear; i < endYear; i++) {
             classes.push("active-" + i);
@@ -172,8 +164,8 @@
             classes.push("active-" + j);
         }
         _map.style.removeClasses(classes);
+        _map.style.update(options);
 
-        _map.style.update({transition: false});
     }
 
     /**
