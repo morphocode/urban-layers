@@ -103,6 +103,8 @@
                 }, 1);
             });
 
+            buildLegend();
+
             dfd.resolve(_map);
 
         });
@@ -199,6 +201,26 @@
         _map.style.removeClasses(classes);
         _map.style.update(options);
 
+    }
+
+    /**
+     * Build the legend
+     */
+    function buildLegend() {
+        var legend = d3.select('#legend')
+          .append('ul')
+            .attr('class', 'list-inline');
+
+        var keys = legend.selectAll('li.key')
+            .data(colorScale.range());
+
+        keys.enter().append('li')
+            .attr('class', 'key')
+            .style('border-top-color', String)
+            .text(function(d) {
+                var r = colorScale.invertExtent(d);
+                return Math.round(r[0]);
+            });
     }
 
     /**

@@ -833,3 +833,26 @@ a#morphocode-logo:hover {
 .social a:hover {
     color: rgb(93, 92, 93);
 }
+
+
+#legend {
+    padding: 10px;
+    position: absolute;
+    bottom: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    left: 20px;
+    width: 400px;
+}
+
+#legend ul {
+    margin: 0;
+    padding: 10px 0 0 0 ;
+}
+
+#legend li.key {
+    border-top-width: 5px;
+    border-top-style: solid;
+    font-size: .75em;
+    width: 12.5%;
+    padding: 0;
+}
