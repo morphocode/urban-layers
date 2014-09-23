@@ -63,6 +63,7 @@ nav {
 }
 
 .mapboxgl-ctrl-nav {
+    display: none;
     top: 210px;
     left: 30px;
     right: auto;
@@ -261,9 +262,55 @@ path.area#active-area {
     display: none;
 }
 
+.introjs-tooltiptext {
+    text-align: center;
+}
+
+ .introjs-tooltipbuttons {
+    margin-top: 20px;
+    text-align: right;
+ }
+
+.introjs-button {
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 1em;
+    margin: 0 2px;
+    text-transform: uppercase;
+    text-shadow: none;
+    outline: none !important;
+}
+
+.introjs-nextbutton, .introjs-nextbutton:focus {
+    background: rgb(82, 186, 213);
+    border-color: #999;
+    color: white;
+    text-decoration: none;
+}
+
+.introjs-nextbutton:hover {
+    background: rgb(44, 154, 183);
+    color: white;
+}
+
+.introjs-skipbutton {
+    display: none;
+}
+
+.introjs-button.introjs-disabled {
+    display: none;
+}
+
+.introjs-tooltip {
+    min-width: 300px;
+    max-width: 300px;
+}
+
 .map-mode nav .btn-explore, .team-mode nav .btn-team, .about-mode nav .btn-about, .learn-mode nav .btn-learn {
     color: rgb(55, 55, 55) !important;
 }
+
+
 
 
 
@@ -392,7 +439,8 @@ li.explore-menu, li.share-menu-item {
     -ms-transition: visibility 0s ease-out 0.2s, opacity 0.2s ease-out;
 }
 
-.map-mode #map-controls, .intro-mode #map-controls {
+.map-mode #map-controls, .intro-mode #map-controls,
+.map-mode .mapboxgl-ctrl-nav, .intro-mode .mapboxgl-ctrl-nav {
     display: block;
 }
 
@@ -530,6 +578,15 @@ blockquote footer {
 #welcome-details .info .lead-icon {
     color: rgb(183, 183, 183);
     font-size: 80px;
+}
+
+/** Not Supported =========================================== */
+#not-supported {
+    display: none;
+}
+
+.not-supported #not-supported {
+    display: block;
 }
 
 /** About the Project ===================================== */

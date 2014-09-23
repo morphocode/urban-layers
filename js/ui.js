@@ -25,18 +25,6 @@
             startTour();
         });
 
-        $("#layer-oldest-buildings").on("click", function() {
-            //urbanmap.ui.timeline.slideTo(0, 100, 1000);
-        });
-
-        $("#layer-most-buildings").on("click", function() {
-            //urbanmap.ui.slideTo(400, 600, 2000);
-        });
-
-        $("#layer-newest-buildings").on("click", function() {
-            //urbanmap.ui.slideTo(1400, 1500, 1000);
-        });
-
         $(".btn-about").on("click", function(e) {
             e.preventDefault();
             showContent("about");
@@ -52,6 +40,11 @@
             showContent("learn");
         });
 
+        $(".btn-subscribe").on("click", function(e) {
+            e.preventDefault();
+            showContent("subscribe");
+        });
+
         $("#btn-home").on("click", function(e) {
             e.preventDefault();
             showContent("welcome");
@@ -60,6 +53,19 @@
         $("#btn-explore").on("click", function(e) {
             e.preventDefault();
             showMap();
+        });
+
+
+        $("#layer-oldest-buildings").on("click", function() {
+            //urbanmap.ui.timeline.slideTo(0, 100, 1000);
+        });
+
+        $("#layer-most-buildings").on("click", function() {
+            //urbanmap.ui.slideTo(400, 600, 2000);
+        });
+
+        $("#layer-newest-buildings").on("click", function() {
+            //urbanmap.ui.slideTo(1400, 1500, 1000);
         });
     }
 
@@ -71,6 +77,7 @@
         $("body").removeClass();
         $("body").addClass(section+'-mode');
 
+        // scroll to the content section, if we're not coming from the map
         $("#content-wrapper").scrollTo("#"+section, isContentActive ? 1000 : 0);
     }
 
@@ -89,29 +96,6 @@
         showContent('map');
     }
 
-    /**
-     * Build the Dialog functionality
-     */
-    function buildDialogs() {
-        // center the modal dialog
-        $('#about-dialog').on('shown.bs.modal', function() {
-            var initModalHeight = $('#about-dialog .modal-dialog').outerHeight(); //give an id to .mobile-dialog
-            var userScreenHeight = $(document).outerHeight();
-            if (initModalHeight > userScreenHeight) {
-                $('#about-dialog .modal-dialog').css('overflow', 'auto'); //set to overflow if no fit
-            } else {
-                $('#about-dialog .modal-dialog').css('margin-top',
-                (userScreenHeight / 2) - (initModalHeight/2)); //center it if it does fit
-            }
-        });
-
-        // close the dialog, when the User clicks show me the Map
-        $("#about-dialog #show-map").on("click", function() {
-            $('#about-dialog').modal('hide');
-        });
-
-    }
-
     // INTRO --------------------------------------------------------------------
     var tour;
     /**
@@ -123,13 +107,13 @@
             steps: [
               {
                 element: document.querySelector('#map-controls'),
-                intro: "This graph shows when were current buildings of Manhattan built.",
+                intro: "<strong>This graph shows when were current buildings of Mahnattan built.</strong> <br /><br /> The x axis represents the year of construction, where the y axis gives the number of buildings built during the selected time period.",
                 position: 'bottom'
               },
               {
                 element: document.querySelector('.range-start .slider-thumb'),
-                intro: "Drag the sliders to change the time period.",
-                position: 'bottom'
+                intro: "<strong>Drag the sliders to control which buildings are visible.</strong> <br /> <br /> The left slider controls the start of the period. The right slider - it's end.",
+                position: 'left'
               },/*
               {
                 element: document.querySelector('.explore-menu'),
@@ -138,12 +122,17 @@
               },*/
               {
                 element: document.querySelector('.mapboxgl-ctrl-nav'),
-                intro: "Use the map controls to zoom in/out or rotate the map.",
+                intro: "<strong>Use the map controls to zoom in/out or rotate the map.</strong>",
+                position: 'bottom'
+              },
+              {
+                element: document.querySelector('.nav .btn-about'),
+                intro: "<strong>Learn more about the project.</strong>",
                 position: 'bottom'
               },
               {
                 element: document.querySelector('#help-button'),
-                intro: "Click Help if you want to see this Tutorial again.",
+                intro: "<strong>See this Tutorial again.</strong>",
                 position: 'bottom'
               }
             ]

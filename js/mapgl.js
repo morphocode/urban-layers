@@ -90,7 +90,7 @@
                 clearTimeout(updateTimeout);
                 updateTimeout = setTimeout(function() {
                     showAllBetween(startYear, endYear);
-                }, 20);
+                }, 10);
             });
 
             $(document).bind("slider-range-start", function(event, year) {
@@ -99,7 +99,7 @@
                 clearTimeout(updateTimeout);
                 updateTimeout = setTimeout(function() {
                     showAllBetween(startYear, endYear);
-                }, 20);
+                }, 10);
             });
 
             dfd.resolve(_map);

@@ -59,19 +59,24 @@
                 // build the buttons
                 urbanmap.ui.build();
 
-                $.when(urbanmap.map.build())
-                    .then(function() {
+                if (!mapboxgl.util.supported()) {
+                    console.log('Your browser does not support Mapbox GL');
+                    $('body').addClass('not-supported');
 
-                        urbanmap.ui.timeline.build();
+                } else {
+                    $.when(urbanmap.map.build())
+                        .then(function() {
 
-                        // the tour has to be built after the timeline & the map, in order for selectors to work
-                        // or use custom intro.onbeforechange callback
-                        urbanmap.ui.buildTour();
-                    });
+                            urbanmap.ui.timeline.build();
 
+                            // the tour has to be built after the timeline & the map, in order for selectors to work
+                            // or use custom intro.onbeforechange callback
+                            urbanmap.ui.buildTour();
+                        });
 
-                // welcome the User
-                urbanmap.ui.welcome();
+                    // welcome the User
+                    urbanmap.ui.welcome();
+                }
 
             });
 
@@ -111,6 +116,7 @@
                 <li><a href="#" class="btn-about hidden-md">About</a></li>
                 <li><a href="#" class="btn-learn">Learn</a></li>
                 <li><a href="#" class="btn-team">Team</a></li>
+                <li><a href="#" class="btn-subscribe">Subscribe</a></li>
                 <li><a id="help-button" href="#">Help</a></li>
                 <li class="share-menu-item"><a id="help-button" href="#">Share:</a></li>
                 <li class="share-buttons">
@@ -187,6 +193,19 @@
                                         </p>
                                     </div>
                                 </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Not-Supported Insturctions =================================== -->
+            <div id="not-supported" class="content-page">
+                <div class="section section-not-supported">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2">
+                                <h1>Oh! No!</h1>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -371,7 +390,7 @@
                 </div>
             </div>
 
-            <div class="section section-morphocode">
+            <div id="subscribe" class="section section-morphocode">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
