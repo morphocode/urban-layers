@@ -69,6 +69,13 @@ nav {
     right: auto;
 }
 
+.mapboxgl-ctrl-attrib {
+    font-size: 11px;
+    color: #888;
+    width: 100%;
+    padding-left: 30px;
+}
+
 /*
 .mapboxgl-ctrl-nav a.mapboxgl-ctrl-nav-zoom-in, .mapboxgl-ctrl-nav a.mapboxgl-ctrl-nav-zoom-out {
     display: none;
@@ -838,9 +845,9 @@ a#morphocode-logo:hover {
 #legend {
     padding: 10px;
     position: absolute;
-    bottom: 20px;
+    bottom: 30px;
     background: rgba(255, 255, 255, 0.7);
-    left: 20px;
+    left: 30px;
     width: 400px;
 }
 
