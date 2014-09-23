@@ -345,41 +345,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="section section-making-of">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-8 col-md-offset-2">
-                                <h2>The Making Of</h2>
-                                <p>The basis of <strong>Layers of NYC</strong> is the <a href="http://www.codeforamerica.org/blog/2013/07/25/epic-win-for-nycs-open-data-community-pluto-is-free/">PLUTO</a> data set. It was released to the public in 2013 and contains information about the age of NYC's buildings. Each building is identified by it's unique number - the BIN.
-                                </p>
-                                <p>
-                                The building footprints were obtained from the <a href="https://data.cityofnewyork.us/">NYC Open Data portal</a> in the form of a shape file. We then imported the file into a <a href="http://postgis.net/">PostGIS</a> database using <a href="http://suite.opengeo.org/4.1/dataadmin/pgGettingStarted/shp2pgsql.html">shp2pgsql</a>.
-                                Each building footprint is matched to a row in the PLUTO database by BIN.
-                                </p>
-                                <p>Since PLUTO is missing a BIN column, the PAD database is used as an intermediate step - approach described by <a href="http://bdon.org/">Brandon Liu</a>. The two databases are matched against each other by 3 fields: borocode, block and lot. This approach allows us to match around 90% of the footprints to their corresponding rows in PLUTO. The other 10% of the buildings are left unmatched due to missing or invalid information in the PAD database. These buildings are shown in gray on the map.
-                                </p>
-                                <p>There are more than 1 000 000 buildings in NYC. This prooved to be too much to display at once, se we've selected only the buildings that are located in Manhattan. Manhattan alone contains more than 40 000 buildings.
-                                </p>
-                                <p>Displaying big data in the browser is not easy. There are three standard solutions: <strong>raster tiles, svg and canvas:</strong>.
-                                </p>
-                                <p> <strong>Raster map tiles</strong> are good for static maps with basic mouse-over interactivity. It was clear, that they are not a good fit for the high interactivity required in Layers of NYC.
-                                </p>
-                                <p><strong>SVGs</strong> are a good choice: d3.js is based on SVG and has a nice <a href="https://github.com/mbostock/d3/wiki/Geo-Projections">support for geo data</a>. <a href="http://leafletjs.com/">Leaflet.js</a> provides support for vector layers based on SVG/Canvas. A typical solution would be to convert the NYC footprints to GeoJSON and show them on a map. Unfortunately, it turned out that the performance with so many polygons is not that good.
-                                </p>
-                                <p><strong>HTML5 Canvas</strong> is usually performing well. CartoDB have successfully used canvas in the great Torquee library. Unfortunately most of the solutions, we've found draw dots, not polygons.
-                                </p>
-                                <p>As you probably have guessed, there's only one viable option left - <strong>WebGL</strong>.
-                                </p>
-                                <p>
-                                Meet <strong>Mapbox GL</strong> - a project recently announced by Mapbox. It uses WebGL to display maps in the browser. Since it's using your video card, the performance is great. The only downside is that it's only supported in Chrome and Firefox on the desktop. IE9+ support is coming.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-
 
             <div id="team" class="content-page blue">
                 <div class="section section-team">
@@ -401,7 +367,9 @@
                     <div class="row">
                         <div class="col-md-8 col-md-offset-2">
                             <h2>A project by</h2>
-                            <img src="images/morphocode-logo.png" />
+                            <a id="morphocode-logo" href="http://morphocode.com" title="Morphocode">
+                                <img src="images/morphocode-logo.png" />
+                            </a>
                             <div class="social">
                                 <a href="http://twitter.com/morphocode" target="_blank"><span class="fa-stack fa-lg">
                                       <i class="fa fa-circle fa-stack-2x"></i>

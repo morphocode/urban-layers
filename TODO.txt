@@ -1,1 +1,3 @@
 - Try to Replace the custom range slider solution with jQuery-UI range slider.
+
+- (Maybe) Generate Layers only for years that really contain buildings. (A lot of the early years 1700-1800) do not actually have any buildings.

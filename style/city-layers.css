@@ -733,10 +733,6 @@ p {
     margin-bottom: 50px;
 }
 
-.section-making-of {
-    display: none;
-}
-
 /** Team ==================================== */
 /*.mode-team */#team {
     display: table;
@@ -808,6 +804,14 @@ ul.attribution li:last-child {
     font-size: 1em;
     font-weight: 700;
     margin-bottom: 0;
+}
+
+a#morphocode-logo {
+    opacity: 0.9;
+}
+
+a#morphocode-logo:hover {
+    opacity: 1;
 }
 
 .subscribe-form {
