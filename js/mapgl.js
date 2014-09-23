@@ -205,8 +205,12 @@
      * Is Mapbox gl supported
      */
     function supported() {
+        // IE 11 is still not supported: https://github.com/mapbox/mapbox-gl-js/issues/95
+        // review this one the issue is fixed
+        var isIE = navigator.appName == 'Microsoft Internet Explorer';
+
         //return false;
-        return mapboxgl.util.supported();
+        return !isIE && mapboxgl.util.supported();
     }
 
     /**
