@@ -86,25 +86,27 @@
 
             $(document).bind("slider-range-end", function(event, year) {
                 endYear = year;
+                // prevent updates if the slider moves too fast
                 clearTimeout(updateTimeout);
                 updateTimeout = setTimeout(function() {
                     showAllBetween(startYear, endYear);
-                }, 10);
+                }, 20);
             });
 
             $(document).bind("slider-range-start", function(event, year) {
                 startYear = year;
+                // prevent updates if the slider moves too fast
                 clearTimeout(updateTimeout);
                 updateTimeout = setTimeout(function() {
                     showAllBetween(startYear, endYear);
-                }, 10);
+                }, 20);
             });
 
             dfd.resolve(_map);
 
         });
 
-        return dfd;
+        return dfd.promise();
     }
 
     /**
@@ -147,15 +149,33 @@
         return layers;
     }
 
-    var updating = false;
+    var updateTimeout,
+        needsUpdate = true,
+        lastEndYear,
+        lastStartYear;
 
     /**
      * Shows all buildings for the specified period
      */
     function showAllBetween(startYear, endYear) {
 
-        //console.log(Date.now());
-        //console.log("Show all between: " + startYear + " and " + endYear);
+        // ensure updates at a max of 100ms frequency
+        lastStartYear = startYear;
+        lastEndYear = endYear;
+        if (!needsUpdate) return;
+        needsUpdate = false;
+
+        console.log(Date.now());
+        console.log("Show all between: " + startYear + " and " + endYear);
+
+        updateTimeout = setTimeout(function() {
+            needsUpdate = true;
+            if (lastStartYear != startYear || lastEndYear != endYear) {
+                showAllBetween(lastStartYear, lastEndYear);
+            }
+        }, 100);
+
+
         var classes = [];
         for(var i = startYear; i < endYear; i++) {
             classes.push("active-" + i);
