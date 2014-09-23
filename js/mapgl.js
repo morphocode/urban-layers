@@ -165,11 +165,12 @@
         if (!needsUpdate) return;
         needsUpdate = false;
 
-        console.log(Date.now());
-        console.log("Show all between: " + startYear + " and " + endYear);
+        //console.log(Date.now());
+        //console.log("Show all between: " + startYear + " and " + endYear);
 
         updateTimeout = setTimeout(function() {
             needsUpdate = true;
+
             if (lastStartYear != startYear || lastEndYear != endYear) {
                 showAllBetween(lastStartYear, lastEndYear);
             }
@@ -177,7 +178,7 @@
 
 
         var classes = [];
-        for(var i = startYear; i < endYear; i++) {
+        for(var i = startYear; i <= endYear; i++) {
             classes.push("active-" + i);
         }
 
@@ -189,9 +190,11 @@
         for(var j = minYear; j < startYear; j++) {
             classes.push("active-" + j);
         }
-        for(var j = endYear; j < maxYear; j++) {
+        for(var j = endYear+1; j < maxYear; j++) {
             classes.push("active-" + j);
         }
+
+
         _map.style.removeClasses(classes);
         _map.style.update(options);
 
