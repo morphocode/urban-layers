@@ -317,7 +317,7 @@ path.area#active-area {
     max-width: 300px;
 }
 
-.map-mode nav .btn-explore, .team-mode nav .btn-team, .about-mode nav .btn-about, .learn-mode nav .btn-learn {
+.mode-map nav .btn-explore, .mode-team nav .btn-team, .mode-about nav .btn-about, .mode-learn nav .btn-learn {
     color: rgb(55, 55, 55) !important;
 }
 
@@ -440,7 +440,7 @@ li.explore-menu, li.share-menu-item {
 }
 
 /** Application Modes: Control what is visible and what is not */
-.map-mode #content-wrapper, .intro-mode #content-wrapper {
+.mode-map #content-wrapper, .mode-intro #content-wrapper {
     opacity: 0;
     visibility: hidden;
     transition: visibility 0s ease-out 0.2s, opacity 0.2s ease-out;
@@ -450,8 +450,8 @@ li.explore-menu, li.share-menu-item {
     -ms-transition: visibility 0s ease-out 0.2s, opacity 0.2s ease-out;
 }
 
-.map-mode #map-controls, .intro-mode #map-controls,
-.map-mode .mapboxgl-ctrl-nav, .intro-mode .mapboxgl-ctrl-nav {
+.mode-map #map-controls, .mode-intro #map-controls,
+.mode-map .mapboxgl-ctrl-nav, .mode-intro .mapboxgl-ctrl-nav {
     display: block;
 }
 
@@ -460,6 +460,12 @@ li.explore-menu, li.share-menu-item {
 .section {
     padding: 30px 0 40px 0;
     background-color: rgb(255,255,255);
+}
+
+.section h1 {
+    font-size: 80px;
+    font-weight: 100;
+    text-align: center;
 }
 
 .blue {
@@ -534,7 +540,7 @@ blockquote footer {
 
 /** Welcome =========================================== */
 /** We're using table, table-row and table-cell in order to fill all of the available space */
-/*.welcome-mode */#welcome {
+/*.mode-welcome */#welcome {
     display: table;
 }
 
@@ -592,16 +598,59 @@ blockquote footer {
 }
 
 /** Not Supported =========================================== */
-#not-supported {
-    display: none;
+.mode-not-supported #not-supported {
+    display: table;
 }
 
-.not-supported #not-supported {
-    display: block;
+.mode-not-supported #map {
+    background: url('../images/urban-layers-no-support-bg.jpg');
+    background-size: cover;
+}
+
+#not-supported {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.section-not-supported {
+    background: rgba(238, 131, 110, 0.8);
+    display: table-row;
+    text-align: center;
+}
+
+.section-not-supported .container {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.section-not-supported h1 {
+    color: white;
+}
+
+.section-not-supported h2 {
+    color: white;
+    font-weight: 100;
+}
+
+.section-not-supported .btn.btn-primary {
+    background: transparent;
+    border-color: white;
+    color: white;
+}
+
+.section-not-supported .btn.btn-primary:hover {
+    background: rgb(242, 242, 242);
+    border-color: rgb(242, 242, 242);
+    color: rgb(238, 131, 110);
+}
+
+.section-not-supported .buttons {
+    margin-top: 40px;
 }
 
 /** About the Project ===================================== */
-/*.about-mode */#about {
+/*.mode-about */#about {
     display: block;
 }*/
 
@@ -614,8 +663,6 @@ p {
 }
 
 #about h1 {
-    font-weight: 100;
-    font-size: 80px;
     margin-bottom: 40px;
     text-align: center;
 }
@@ -646,7 +693,7 @@ p {
 
 
 /** Learn ================================================= */
-/*.learn-mode */#learn {
+/*.mode-learn */#learn {
     display: table;
 }
 
@@ -661,7 +708,7 @@ p {
     text-align: center;
 }
 
-.section-learn .row {
+.section-learn .container {
     display: table-cell;
     vertical-align: middle;
 }
@@ -672,8 +719,6 @@ p {
 
 .section-learn h1 {
     color: rgb(82, 186, 213);
-    font-size: 80px;
-    font-weight: 100;
 }
 
 .section-learn h2 {
@@ -693,7 +738,7 @@ p {
 }
 
 /** Team ==================================== */
-/*.team-mode */#team {
+/*.mode-team */#team {
     display: table;
 }
 
@@ -707,7 +752,6 @@ p {
     background-color: transparent;
     display: table-row;
     text-align: center;
-
 }
 
 .section-team .row {
@@ -718,8 +762,6 @@ p {
 
 .section-team h1 {
     color: white;
-    font-size: 80px;
-    font-weight: 100;
 }
 
 .section-team h1 span {

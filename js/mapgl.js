@@ -3,6 +3,7 @@
 
     urbanmap.map.build = build;
     urbanmap.map.map = map;
+    urbanmap.map.supported = supported;
 
     var minYear = 1765,
         maxYear = 2014,
@@ -198,6 +199,14 @@
         _map.style.removeClasses(classes);
         _map.style.update(options);
 
+    }
+
+    /**
+     * Is Mapbox gl supported
+     */
+    function supported() {
+        //return false;
+        return mapboxgl.util.supported();
     }
 
     /**

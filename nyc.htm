@@ -59,9 +59,9 @@
                 // build the buttons
                 urbanmap.ui.build();
 
-                if (!mapboxgl.util.supported()) {
+                if (!urbanmap.map.supported()) {
                     console.log('Your browser does not support Mapbox GL');
-                    $('body').addClass('not-supported');
+                    $('html').addClass('mode-not-supported');
 
                 } else {
                     $.when(urbanmap.map.build())
@@ -189,7 +189,7 @@
                                             Morphocode is an Architectural Practice working at the Intersection of Design and Technology.
                                         </p>
                                         <p class="more">
-                                            <a class="btn-team" href="#">Visit Us <i class="fa fa-angle-right"></i> </a>
+                                            <a class="btn-team" href="#">Meet the Team <i class="fa fa-angle-right"></i> </a>
                                         </p>
                                     </div>
                                 </div>
@@ -205,6 +205,11 @@
                         <div class="row">
                             <div class="col-md-8 col-md-offset-2">
                                 <h1>Oh! No!</h1>
+                                <h2>It appears that your browser is not supported! <br />
+                                We currently support <strong>Chrome</strong> and <strong>Firefox</strong>.</h2>
+                                <div class="buttons">
+                                    <button type="button" class="btn btn-primary btn-xlarge" id="btn-not-supported-watch-demo">Watch Video</button>
+                                </div>
                             </div>
                         </div>
                     </div>

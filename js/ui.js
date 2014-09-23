@@ -22,7 +22,11 @@
 
        $("#help-button").on("click", function(e) {
             e.preventDefault();
-            startTour();
+            if (urbanmap.map.supported()) {
+                startTour();
+            } else {
+                showContent("not-supported");
+            }
         });
 
         $(".btn-about").on("click", function(e) {
@@ -52,7 +56,11 @@
 
         $("#btn-explore").on("click", function(e) {
             e.preventDefault();
-            showMap();
+            if (urbanmap.map.supported()) {
+                showMap();
+            } else {
+                showContent("not-supported");
+            }
         });
 
 
@@ -75,7 +83,7 @@
     function showContent(section) {
         var isContentActive = $("#content-wrapper").css("visibility") == "visible";
         $("body").removeClass();
-        $("body").addClass(section+'-mode');
+        $("body").addClass('mode-' + section);
 
         // scroll to the content section, if we're not coming from the map
         $("#content-wrapper").scrollTo("#"+section, isContentActive ? 1000 : 0);
