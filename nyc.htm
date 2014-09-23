@@ -58,6 +58,7 @@
 
                 // build the buttons
                 urbanmap.ui.build();
+                urbanmap.map.build();
                 urbanmap.ui.timeline.build();
                 // the tour has to be built after the timeline, in order for selectors to work
                 // or use custom intro.onbeforechange callback
@@ -140,7 +141,6 @@
                                             <h1>Layers of NYC</h1>
                                             <h2>Explore the structure of Manhattan’s urban fabric.</h2>
                                             <button type="button" class="btn btn-primary btn-xlarge" id="btn-explore">Get Started</button>
-                                            <button type="button" class="btn btn-default btn-about btn-xlarge">Learn More</button>
                                     </div>
                                 </div>
                         </div>
@@ -357,8 +357,8 @@
                             <h1>The Team</h1>
                             <h2><span>Morphocode</span> is an Architectural Practice working at the Intersection of Design and Technology.</h2>
                             <div class="buttons">
-                                <a href="http://morphocode.com/about/" target="_blank" class="btn btn-primary btn-xlarge">Visit us</a>
-                                <a href="http://morphocode.com/contact/" target="_blank" class="btn btn-primary btn-xlarge">Contact</a>
+                                <a href="http://morphocode.com/about/" target="_blank" class="btn btn-default btn-xlarge">Visit us</a>
+                                <a href="http://morphocode.com/contact/" target="_blank" class="btn btn-default btn-xlarge">Contact</a>
                             </div>
                         </div>
                     </div>

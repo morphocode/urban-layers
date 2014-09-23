@@ -130,10 +130,15 @@
                 element: document.querySelector('.range-start .slider-thumb'),
                 intro: "Drag the sliders to change the time period.",
                 position: 'bottom'
-              },
+              },/*
               {
                 element: document.querySelector('.explore-menu'),
                 intro: "Click here to explore some of the urban layers",
+                position: 'bottom'
+              },*/
+              {
+                element: document.querySelector('.mapboxgl-ctrl-nav'),
+                intro: "Use the map controls to zoom in/out or rotate the map.",
                 position: 'bottom'
               },
               {
@@ -181,7 +186,7 @@
     function showDemo() {
         if (!demoShown) {
             urbanmap.ui.timeline.demo();
-            bMap.flyTo([40.774066683777875, -73.97723823183378], 13, -61);
+            urbanmap.map.map().flyTo([40.774066683777875, -73.97723823183378], 13, -61);
             demoShown = true;
         }
     }
