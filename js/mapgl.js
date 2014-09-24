@@ -29,6 +29,8 @@
 
         options = {transition: false};
 
+
+    patch();
     /**
      * Patch the original mapbox gl js lib in order to improve performance
      */
@@ -73,8 +75,6 @@
     function build() {
 
         var dfd = new jQuery.Deferred();
-
-        patch();
 
         mapboxgl.util.getJSON('data/nyc-style.json', function (err, style) {
             if (err) throw err;

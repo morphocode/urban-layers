@@ -1,0 +1,31 @@
+{
+    "tilejson": "2.0.0",
+
+    "name": "compositing",
+
+    "description": "NYC Buildings",
+
+    "version": "1.0.0",
+
+    "attribution": "Pluto Data Set",
+
+    "legend": "Dangerous zones are red, safe zones are green",
+
+    "scheme": "xyz",
+
+    "tiles": [
+        "http://io.morphocode.com/urban-layers/data/tiles/buildings_mn/{z}/{x}/{y}.pbf"
+    ],
+
+    "grids": [
+        "http://localhost:8888/admin/1.0.0/broadband/{z}/{x}/{y}.grid.json"
+    ],
+
+    "minzoom": 8,
+
+    "maxzoom": 14,
+
+    "bounds": [ -180, -85.05112877980659, 180, 85.0511287798066 ],
+
+    "center": [ -76.275329586789, 39.153492567373, 8 ]
+}
