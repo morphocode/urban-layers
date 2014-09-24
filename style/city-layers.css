@@ -440,7 +440,9 @@ li.explore-menu, li.share-menu-item {
     bottom: 0;
     width: 100%;
     height: calc(100% - 54px);
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
     opacity: 1;
     visibility: visible;
     transition-delay: 0s;
