@@ -29,12 +29,52 @@
 
         options = {transition: false};
 
+    /**
+     * Patch the original mapbox gl js lib in order to improve performance
+     */
+    function patch() {
+        mapboxgl.Style.prototype.update = function(options) {
+            this.cascade(options);
+        };
+
+        mapboxgl.Style.prototype.addClasses = function(n, options) {
+            var needsUpdate = false;
+            for (var i = 0, c; c = n[i]; i++) {
+                if (!this.classes[c]) needsUpdate = true; // prevent unnecessary recalculation
+
+                //console.log("Adding class: "+ c);
+                this.classes[c] = true;
+            }
+            /*
+            if (needsUpdate) {
+                this.cascade(options);
+            }*/
+        };
+
+        mapboxgl.Style.prototype.removeClasses = function(n, options) {
+            var needsUpdate = false;
+            for (var i = 0, c; c = n[i]; i++) {
+                if (this.classes[c]) needsUpdate = true; // // prevent unnecessary recalculation
+
+                //console.log("Removing class: "+ c);
+                delete this.classes[c];
+            }/*
+            if (needsUpdate) {
+                this.cascade(options);
+            }*/
+        };
+
+    }
+
 
     /**
      * returns promise
      */
     function build() {
+
         var dfd = new jQuery.Deferred();
+
+        patch();
 
         mapboxgl.util.getJSON('data/nyc-style.json', function (err, style) {
             if (err) throw err;
