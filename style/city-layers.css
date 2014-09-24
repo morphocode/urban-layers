@@ -566,7 +566,7 @@ blockquote footer {
 #welcome-header {
     background-color: rgba(82, 186, 213, 0.8);
     display: table-cell;
-    padding: 80px;
+    padding: 80px 0;
     text-align: center;
 }
 

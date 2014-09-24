@@ -21,9 +21,9 @@
         "http://localhost:8888/admin/1.0.0/broadband/{z}/{x}/{y}.grid.json"
     ],
 
-    "minzoom": 0,
+    "minzoom": 8,
 
-    "maxzoom": 11,
+    "maxzoom": 14,
 
     "bounds": [ -180, -85.05112877980659, 180, 85.0511287798066 ],
 

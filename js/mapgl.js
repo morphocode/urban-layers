@@ -75,6 +75,7 @@
 
             var basemap = new mapboxgl.Source({
                 type: 'raster',
+                //url: 'http://io.morphocode.com/urban-layers/data/stamen-toner-lite.tilejson',
                 url: 'http://io.morphocode.com/urban-layers/data/esri-light-gray.tilejson',
                 "tileSize": 256
             });

@@ -1,0 +1,29 @@
+{
+    "tilejson": "2.0.0",
+    "autoscale": true,
+    "bounds": [
+        -180,
+        -85,
+        180,
+        85
+    ],
+    "center": [
+        0,
+        0,
+        3
+    ],
+    "attribution": "Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL",
+    "description": "",
+    "id": "stamen-toner",
+    "maxzoom": 19,
+    "minzoom": 0,
+    "name": "Stamen Toner",
+    "private": true,
+    "scheme": "xyz",
+    "tilejson": "2.0.0",
+    "tiles": [
+        "https:\/\/stamen-tiles-a.a.ssl.fastly.net\/toner-lite\/{z}\/{x}\/{y}.png"
+    ],
+    "webpage": ""
+}
+
