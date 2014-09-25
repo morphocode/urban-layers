@@ -559,6 +559,36 @@ blockquote footer {
     height: 100%;
 }
 
+.start-wrapper {
+    height: 70px;
+    margin-top: 70px;
+}
+
+#btn-explore {
+    display: none;
+}
+
+.tiles-loaded #btn-explore {
+    display: inline-block;
+}
+
+#preloader {
+    text-align: center;
+}
+
+#preloader .fa {
+    font-size: 4em;
+}
+
+#preloader .loading {
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+.tiles-loaded #preloader {
+    display: none;
+}
+
 #welcome .row-wrapper {
     display: table-row;
 }
@@ -581,10 +611,6 @@ blockquote footer {
     color: white;
     font-size: 30px;
     font-weight: 100;
-}
-
-#welcome-header .btn {
-    margin-top: 50px;
 }
 
 #welcome-details {

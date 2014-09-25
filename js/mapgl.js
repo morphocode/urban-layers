@@ -118,6 +118,18 @@
             // add the compass
             _map.addControl(new mapboxgl.Navigation());
 
+            var buildingsSource = _map.sources['nycBuildings'];
+
+            var loadedTiles = [];
+            buildingsSource.on('tile.load', function(event) {
+                var tileId = event.tile.id;
+                loadedTiles.push(tileId);
+                console.log("Tile loaded: ", tileId);
+                if (tileId == 1) {
+                    $('html').toggleClass("tiles-loaded", true);
+                }
+            });
+
             var basemap = new mapboxgl.Source({
                 type: 'raster',
                 //url: 'http://io.morphocode.com/urban-layers/data/stamen-toner-lite.tilejson',
