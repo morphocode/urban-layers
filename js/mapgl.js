@@ -3,7 +3,6 @@
 
     urbanmap.map.build = build;
     urbanmap.map.map = map;
-    urbanmap.map.supported = supported;
 
     var minYear = 1765,
         maxYear = 2014,
@@ -79,6 +78,12 @@
         mapboxgl.util.getJSON('data/nyc-style.json', function (err, style) {
             if (err) throw err;
 
+            // enable more details ... this prooved to break rendering with some browsers
+            // so we only enable it conditionally
+            if (urbanmap.util.detailMode()) {
+                style.sources["nycBuildings"].url = "http://io.morphocode.com/urban-layers/data/nyc-mn-tiles-details.tilejson";
+            }
+
             // style for the basemap
             style.layers.push({
                 "id": "basemap",
@@ -104,7 +109,7 @@
                 center: [40.774066683777875, -73.97723823183378],
                 minZoom: 10,
                 zoom: 11,
-                maxZoom: 15
+                maxZoom: (urbanmap.util.detailMode()) ? 15 : 14
             });
 
             // always show non-_mapped buildings
@@ -238,7 +243,6 @@
             classes.push("active-" + j);
         }
 
-
         _map.style.removeClasses(classes);
         _map.style.update(options);
 
@@ -264,22 +268,6 @@
             });
     }
 
-    /**
-     * Is Mapbox gl supported
-     */
-    function supported() {
-        //return false;
-
-        // IE 11 is still not supported: https://github.com/mapbox/mapbox-gl-js/issues/95
-        // review this one the issue is fixed
-        var isIE11 = !!window.MSInputMethodContext;
-        if (isIE11) {
-            return false;
-        }
-
-        // rely on mapbox detection by default:
-        return mapboxgl.util.supported();
-    }
 
     /**
      * returns the map instance

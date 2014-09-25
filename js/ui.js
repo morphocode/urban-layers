@@ -22,7 +22,7 @@
 
        $("#help-button").on("click", function(e) {
             e.preventDefault();
-            if (urbanmap.map.supported()) {
+            if (urbanmap.util.supported()) {
                 startTour();
             } else {
                 showContent("not-supported");
@@ -56,7 +56,7 @@
 
         $("#btn-explore").on("click", function(e) {
             e.preventDefault();
-            if (urbanmap.map.supported()) {
+            if (urbanmap.util.supported()) {
                 showMap();
             } else {
                 showContent("not-supported");

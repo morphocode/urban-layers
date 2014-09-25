@@ -15,7 +15,7 @@
     "attribution": "Sources: Esri, HERE, DeLorme, MapmyIndia, © OpenStreetMap contributors, and the GIS user community",
     "description": "",
     "id": "stamen-toner",
-    "maxzoom": 19,
+    "maxzoom": 16,
     "minzoom": 0,
     "name": "Stamen Toner",
     "private": true,

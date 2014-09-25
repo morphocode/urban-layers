@@ -51,14 +51,14 @@
 
         <script>
             $().ready(function() {
-                if (getParameterByName("show") != "true") {
+                if (urbanmap.util.getParameterByName("show") != "true") {
                     $("body").html("Under Construction");
                 }
 
                 // build the buttons
                 urbanmap.ui.build();
 
-                if (!urbanmap.map.supported()) {
+                if (!urbanmap.util.supported()) {
                     console.log('Your browser does not support Mapbox GL');
                     $('html').addClass('mode-not-supported');
 
