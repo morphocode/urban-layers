@@ -109,7 +109,7 @@
                 center: [40.774066683777875, -73.97723823183378],
                 minZoom: 10,
                 zoom: 11,
-                maxZoom: (urbanmap.util.detailMode()) ? 15 : 14
+                maxZoom: (urbanmap.util.detailMode()) ? 15 : 15
             });
 
             // always show non-_mapped buildings
