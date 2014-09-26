@@ -120,14 +120,28 @@
 
             var buildingsSource = _map.sources['nycBuildings'];
 
-            var loadedTiles = [];
+            var tilesQueue = [
+                '11/603/769',
+                '11/602/769',
+                '11/601/769'
+            ], reqTilesCount = tilesQueue.length;
+            ;
             buildingsSource.on('tile.load', function(event) {
-                var tileId = event.tile.id;
-                loadedTiles.push(tileId);
-                console.log("Tile loaded: ", tileId);
-                if (tileId == 1) {
+                var tile = event.tile;
+
+                // remove the tile from the required list, once loaded
+                for (var i = 0; i < tilesQueue.length; i++) {
+                    if (tile.url.indexOf(tilesQueue[i]) > -1) {
+                        tilesQueue.splice(i, 1);
+                        break;
+                    }
+                }
+
+                // loading is finished, once there are no more tiles left in the queue
+                if (tilesQueue.length == 0) {
                     $('html').toggleClass("tiles-loaded", true);
                 }
+                console.log("Completion percent: " + (reqTilesCount - tilesQueue.length) / reqTilesCount * 100);
             });
 
             var basemap = new mapboxgl.Source({
