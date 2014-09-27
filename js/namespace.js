@@ -1,4 +1,4 @@
-var urbanmap = {
+var urbanlayers = {
     map: {},
     ui: {
         timeline: {}

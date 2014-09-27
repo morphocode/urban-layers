@@ -1,12 +1,14 @@
 (function() {
     'use strict';
 
-    urbanmap.map.build = build;
-    urbanmap.map.map = map;
+    urbanlayers.map.build = build;
+    urbanlayers.map.isLoaded = isLoaded;
+    urbanlayers.map.map = map;
 
     var minYear = 1765,
         maxYear = 2014,
         _map,
+        _isLoaded = false,
 
         // colors
         yellow = d3.rgb(254, 190, 18).toString(),
@@ -29,46 +31,9 @@
         options = {transition: false};
 
 
-    patch();
     /**
-     * Patch the original mapbox gl js lib in order to improve performance
-     */
-    function patch() {
-        mapboxgl.Style.prototype.update = function(options) {
-            this.cascade(options);
-        };
-
-        mapboxgl.Style.prototype.addClasses = function(n, options) {
-            var needsUpdate = false;
-            for (var i = 0, c; c = n[i]; i++) {
-                if (!this.classes[c]) needsUpdate = true; // prevent unnecessary recalculation
-
-                //console.log("Adding class: "+ c);
-                this.classes[c] = true;
-            }
-            /*
-            if (needsUpdate) {
-                this.cascade(options);
-            }*/
-        };
-
-        mapboxgl.Style.prototype.removeClasses = function(n, options) {
-            var needsUpdate = false;
-            for (var i = 0, c; c = n[i]; i++) {
-                if (this.classes[c]) needsUpdate = true; // // prevent unnecessary recalculation
-
-                //console.log("Removing class: "+ c);
-                delete this.classes[c];
-            }/*
-            if (needsUpdate) {
-                this.cascade(options);
-            }*/
-        };
-
-    }
-
-
-    /**
+     * Loads the style and builds the mapbox gl map
+     *
      * returns promise
      */
     function build() {
@@ -80,7 +45,7 @@
 
             // enable more details ... this prooved to break rendering with some browsers
             // so we only enable it conditionally
-            if (urbanmap.util.detailMode()) {
+            if (urbanlayers.util.detailMode()) {
                 style.sources["nycBuildings"].url = "http://io.morphocode.com/urban-layers/data/nyc-mn-tiles-details.tilejson";
             }
 
@@ -109,7 +74,7 @@
                 center: [40.774066683777875, -73.97723823183378],
                 minZoom: 10,
                 zoom: 11,
-                maxZoom: (urbanmap.util.detailMode()) ? 15 : 15
+                maxZoom: (urbanlayers.util.detailMode()) ? 15 : 15
             });
 
             // always show non-_mapped buildings
@@ -118,14 +83,19 @@
             // add the compass
             _map.addControl(new mapboxgl.Navigation());
 
+
+            // Preload the largest map tiles -----------------------------------------------------------------------------
             var buildingsSource = _map.sources['nycBuildings'];
 
-            // Create a new instance of ladda for the specified button
-            var button = document.querySelector( '#btn-get-started' );
+            // Init the loader button - we're using ladda
+            // https://github.com/hakimel/Ladda
+            var button = document.querySelector( '#btn-get-started-loader' );
             var l = Ladda.create(button);
             l.start();
             l.setProgress(0);
 
+            // patch ladda.js, to use the clip property instead of the width for the progress bar
+            // this fixes issue with transparent backgrounds
             var baseSetProgress = l.setProgress;
             l.setProgress = function(progress) {
                 baseSetProgress(progress);
@@ -137,13 +107,15 @@
                 }
             };
 
+            // list of pbf tiles, that we need to pre-load
             var tilesQueue = [
                 '11/603/769',
                 '11/602/769',
                 '11/601/769',
                 '11/603/770'
-            ], reqTilesCount = tilesQueue.length;
+            ], totalCount = tilesQueue.length;
 
+            // listen for tiles being loaded
             buildingsSource.on('tile.load', function(event) {
                 var tile = event.tile;
 
@@ -155,19 +127,24 @@
                     }
                 }
 
+                // update the loader progress:
+                var progress = (totalCount - tilesQueue.length) / totalCount;
+                l.setProgress(progress);
+
                 // Once there are no more tiles left in the queue - we're done
                 if (tilesQueue.length == 0) {
                     $('html').toggleClass("tiles-loaded", true);
-                }
-                var progress = (reqTilesCount - tilesQueue.length) / reqTilesCount;
-                l.setProgress(progress);
 
-                if (progress == 1) {
+                    // hide the loader -> show the button
                     l.toggle();
                     l.stop();
+
+                    _isLoaded = true;
                 }
             });
 
+
+            // Add the Basemap -----------------------------------------------------------------------------
             var basemap = new mapboxgl.Source({
                 type: 'raster',
                 //url: 'http://io.morphocode.com/urban-layers/data/stamen-toner-lite.tilejson',
@@ -318,6 +295,45 @@
             });
     }
 
+
+    /**
+     * Patches the original mapbox gl js lib in order to improve performance
+     */
+    (function patch() {
+        /**
+         * Updates the viewport
+         */
+        mapboxgl.Style.prototype.update = function(options) {
+            this.cascade(options);
+        };
+
+        /**
+         * Adds all the specified classes to the map, without updating the view
+         */
+        mapboxgl.Style.prototype.addClasses = function(n, options) {
+            var needsUpdate = false;
+            for (var i = 0, c; c = n[i]; i++) {
+                this.classes[c] = true;
+            }
+        };
+
+        /**
+         * Remove all the specified classes from the map, without updating the view
+         */
+        mapboxgl.Style.prototype.removeClasses = function(n, options) {
+            var needsUpdate = false;
+            for (var i = 0, c; c = n[i]; i++) {
+                delete this.classes[c];
+            }
+        };
+    })();
+
+    /**
+     * Is the map loaded, i.e. all required tiles are loaded and ready for presentation
+     */
+    function isLoaded() {
+        return _isLoaded;
+    }
 
     /**
      * returns the map instance

@@ -1,18 +1,38 @@
 (function() {
     'use strict';
 
-    urbanmap.ui.build = build;
-    urbanmap.ui.buildTour = buildTour;
-    urbanmap.ui.startTour = startTour;
-    urbanmap.ui.welcome = welcome;
+    urbanlayers.ui.bootstrap = bootstrap;
+    urbanlayers.ui.build = build;
+    urbanlayers.ui.startTour = startTour;
 
 
     /**
-     * Called when the user opens the page
+     * Boostraps Urban Layers: builds the UI, checks for support, etc.
      */
-    function welcome() {
-        //showContent("team");
-        showContent("welcome");
+    function bootstrap() {
+        if (urbanlayers.util.getParameterByName("show") != "true") {
+            $("body").html("Under Construction");
+        }
+
+        // built the UI
+        build();
+
+        if (!urbanlayers.util.supported()) {
+            $('html').addClass('mode-not-supported');
+        } else {
+            $.when(urbanlayers.map.build())
+                .then(function() {
+
+                    urbanlayers.ui.timeline.build();
+
+                    // the tour has to be built after the timeline & the map, in order for selectors to work
+                    // or use custom intro.onbeforechange callback
+                    buildTour();
+                });
+
+            // welcome the User
+            showContent("welcome");
+        }
     }
 
     /**
@@ -20,9 +40,15 @@
      */
     function build() {
 
-       $("#help-button").on("click", function(e) {
+       $(".btn-help").on("click", function(e) {
             e.preventDefault();
-            if (urbanmap.util.supported()) {
+
+            // show the intro, only if the map has been loaded:
+            if (!urbanlayers.map.isLoaded()) {
+                return;
+            }
+
+            if (urbanlayers.util.supported()) {
                 startTour();
             } else {
                 showContent("not-supported");
@@ -54,9 +80,9 @@
             showContent("welcome");
         });
 
-        $("#btn-get-started").on("click", function(e) {
+        $(".btn-get-started").on("click", function(e) {
             e.preventDefault();
-            if (urbanmap.util.supported()) {
+            if (urbanlayers.util.supported()) {
                 showMap();
             } else {
                 showContent("not-supported");
@@ -65,15 +91,15 @@
 
 
         $("#layer-oldest-buildings").on("click", function() {
-            //urbanmap.ui.timeline.slideTo(0, 100, 1000);
+            //urbanlayers.ui.timeline.slideTo(0, 100, 1000);
         });
 
         $("#layer-most-buildings").on("click", function() {
-            //urbanmap.ui.slideTo(400, 600, 2000);
+            //urbanlayers.ui.slideTo(400, 600, 2000);
         });
 
         $("#layer-newest-buildings").on("click", function() {
-            //urbanmap.ui.slideTo(1400, 1500, 1000);
+            //urbanlayers.ui.slideTo(1400, 1500, 1000);
         });
     }
 
@@ -139,10 +165,15 @@
                 position: 'bottom'
               },
               {
+                element: document.querySelector('#legend'),
+                intro: "<strong>Legend</strong>",
+                position: 'top'
+              }/*,
+              {
                 element: document.querySelector('#help-button'),
                 intro: "<strong>Click here if you want to see this tutorial again.</strong>",
                 position: 'bottom'
-              }
+              }*/
             ]
         });
 
@@ -152,7 +183,7 @@
         }).oncomplete(function() {
             tourTaken();
         }).onbeforechange(function(targetElem) {
-            var isLastStep = targetElem.id == 'help-button';
+            var isLastStep = this._currentStep == this._options.steps.length-1;
             $("body").toggleClass("intro-last", isLastStep);
         });
 
@@ -185,8 +216,8 @@
     var demoShown = false;
     function showDemo() {
         if (!demoShown) {
-            urbanmap.ui.timeline.demo();
-            urbanmap.map.map().flyTo([40.774066683777875, -73.97723823183378], 13, -61);
+            urbanlayers.ui.timeline.demo();
+            urbanlayers.map.map().flyTo([40.774066683777875, -73.97723823183378], 13, -61);
             demoShown = true;
         }
     }

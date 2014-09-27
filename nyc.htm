@@ -55,32 +55,7 @@
 
         <script>
             $().ready(function() {
-                if (urbanmap.util.getParameterByName("show") != "true") {
-                    $("body").html("Under Construction");
-                }
-
-                // build the buttons
-                urbanmap.ui.build();
-
-                if (!urbanmap.util.supported()) {
-                    console.log('Your browser does not support Mapbox GL');
-                    $('html').addClass('mode-not-supported');
-
-                } else {
-                    $.when(urbanmap.map.build())
-                        .then(function() {
-
-                            urbanmap.ui.timeline.build();
-
-                            // the tour has to be built after the timeline & the map, in order for selectors to work
-                            // or use custom intro.onbeforechange callback
-                            urbanmap.ui.buildTour();
-                        });
-
-                    // welcome the User
-                    urbanmap.ui.welcome();
-                }
-
+                urbanlayers.ui.bootstrap();
             });
 
         </script>
@@ -120,8 +95,8 @@
                 <li><a href="#" class="btn-about hidden-md">About</a></li>
                 <li><a href="#" class="btn-learn">Learn</a></li>
                 <li><a href="#" class="btn-team">Team</a></li>
-                <li><a href="#" class="btn-subscribe">Subscribe</a></li>
-                <li><a id="help-button" href="#">Help</a></li>
+                <li><a href="#" class="btn-subscribe">Connect</a></li>
+                <li><a href="#" class="btn-help" >Help</a></li>
                 <li class="share-menu-item"><a id="help-button" href="#">Share:</a></li>
                 <li class="share-buttons">
                     <div class="addthis_toolbox addthis_default_style addthis_16x16_style">
@@ -156,15 +131,9 @@
                                     <div class="col-md-12">
                                             <h1>Urban Layers</h1>
                                             <h2>Explore the structure of Manhattan’s urban fabric.</h2>
-                                            <div class="start-wrapper">
-                                                <button id="btn-get-started" class="ladda-button btn btn-xlarge btn-primary" data-color="blue" data-style="contract" data-spinner-color="#52BAD5" data-loading disabled><span class="ladda-label">Get Started</span></button>
-                                                <!-- <button type="button" class="btn btn-primary btn-xlarge" id="#btn-get-started">Get Started</button> -->
-                                                <!--
-                                                <div id="preloader">
-                                                    <i class="fa fa-refresh fa-spin"></i>
-                                                    <div class="loading">Loading...</div>
-                                                </div>
-                                                -->
+                                            <div class="buttons">
+                                                <button id="btn-get-started-loader" class="btn-get-started ladda-button btn btn-xlarge btn-primary" data-color="blue" data-style="contract" data-spinner-color="#52BAD5" data-loading disabled><span class="ladda-label">Get Started</span></button>
+                                                <button id="btn-get-started-not-supported" type="button" class="btn-get-started btn btn-primary btn-xlarge">Get Started</button>
                                             </div>
                                     </div>
                                 </div>

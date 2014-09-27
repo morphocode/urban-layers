@@ -1,9 +1,9 @@
 (function() {
     'use strict';
 
-    urbanmap.util.getParameterByName = getParameterByName;
-    urbanmap.util.detailMode = detailMode;
-    urbanmap.util.supported = supported;
+    urbanlayers.util.getParameterByName = getParameterByName;
+    urbanlayers.util.detailMode = detailMode;
+    urbanlayers.util.supported = supported;
 
     var isMacLike = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ? true : false;
 

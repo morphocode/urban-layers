@@ -558,29 +558,12 @@ blockquote footer {
     height: 100%;
 }
 
-.start-wrapper {
+#welcome .buttons {
     height: 70px;
     margin-top: 70px;
 }
 
-.tiles-loaded #btn-explore {
-    display: inline-block;
-}
-
-#preloader {
-    text-align: center;
-}
-
-#preloader .fa {
-    font-size: 4em;
-}
-
-#preloader .loading {
-    margin-top: 10px;
-    text-transform: uppercase;
-}
-
-.tiles-loaded #preloader {
+#btn-get-started-not-supported {
     display: none;
 }
 
@@ -637,6 +620,14 @@ blockquote footer {
     background-size: cover;
 }
 
+.mode-not-supported #btn-get-started-loader {
+    display: none;
+}
+
+.mode-not-supported #btn-get-started-not-supported {
+    display: inline-block;
+}
+
 #not-supported {
     display: none;
     width: 100%;
@@ -676,7 +667,7 @@ blockquote footer {
 }
 
 .section-not-supported .buttons {
-    margin-top: 40px;
+    margin: 40px 0 20px 0;
 }
 
 /** About the Project ===================================== */
