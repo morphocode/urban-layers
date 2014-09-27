@@ -90,10 +90,10 @@
     /**
      * Show a quick demo by animating the sliders a bit
      */
-    function demo() {
+    function demo(callback) {
         var cStart = rangeSlider.start().pos(),
             cEnd = rangeSlider.end().pos();
-        rangeSlider.slideTo(cStart - width/6, cEnd - width/6, 2000);
+        rangeSlider.slideTo(cStart - width/6, cEnd - width/6, 2000, callback);
     }
 
 
@@ -225,7 +225,7 @@
         /**
          * Slides the two sliders to the new positions using a transition
          */
-        function slideTo(newStart, newEnd, duration) {
+        function slideTo(newStart, newEnd, duration, callback) {
             var duration = duration || 2000;
             d3.transition()
                 .duration(duration)
@@ -242,7 +242,8 @@
                         endSlider.update(iEnd, true);
                         updateSelection();
                     }
-                });
+                })
+                .each("end", callback);
         }
 
         /**

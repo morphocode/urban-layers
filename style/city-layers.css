@@ -270,10 +270,21 @@ path.area#active-area {
 }
 
 .introjs-tooltiptext {
-    text-align: center;
+    text-align: left;
 }
 
- .introjs-tooltipbuttons {
+.introjs-tooltiptext h4 {
+    color: #666;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.introjs-tooltiptext p {
+    font-size: 1em;
+}
+
+.introjs-tooltipbuttons {
     margin-top: 20px;
     text-align: right;
  }

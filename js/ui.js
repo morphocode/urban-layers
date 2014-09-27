@@ -3,8 +3,6 @@
 
     urbanlayers.ui.bootstrap = bootstrap;
     urbanlayers.ui.build = build;
-    urbanlayers.ui.startTour = startTour;
-
 
     /**
      * Boostraps Urban Layers: builds the UI, checks for support, etc.
@@ -49,7 +47,11 @@
             }
 
             if (urbanlayers.util.supported()) {
-                startTour();
+                if (isFirstTime) {
+                    showMap();
+                } else {
+                    showTour();
+                }
             } else {
                 showContent("not-supported");
             }
@@ -121,12 +123,14 @@
      */
     function showMap() {
         if (isFirstTime) {
-            startTour();
-
+            urbanlayers.map.map().flyTo([40.774066683777875, -73.97723823183378], 13, -61);
+            setTimeout(function() {
+                urbanlayers.ui.timeline.demo(function() {
+                    showTour();
+                });
+            }, 600);
             isFirstTime = false;
-        } /*else {
-            showDemo();
-        }*/
+        }
         showContent('map');
     }
 
@@ -140,14 +144,14 @@
         tour.setOptions({
             steps: [
               {
-                element: document.querySelector('#map-controls'),
-                intro: "<strong>This graph shows when were current buildings of Mahnattan built.</strong> <br /><br /> The x axis represents the year of construction, where the y axis gives the number of buildings built during the selected time period.",
-                position: 'bottom'
+                element: document.querySelector('.range-start .slider-thumb'),
+                intro: "<h4>Timeline</h4><p><strong>Drag the sliders</strong> to change the time period. <br/> Only buildings built during the selected time frame will be visible on the map.</p>",
+                position: 'left'
               },
               {
-                element: document.querySelector('.range-start .slider-thumb'),
-                intro: "<strong>Drag the sliders to control which buildings are visible.</strong> <br /> <br /> The left slider controls the start of the period. The right slider - it's end.",
-                position: 'left'
+                element: document.querySelector('#map-controls'),
+                intro: "<h4>Graph</h4><p><strong>The graph</strong> shows when were <strong>current buildings</strong> of Mahnattan <strong>built</strong>.</p> The <em>X</em> axis represents the <em>year of construction</em>.<br/> The <em>Y</em> axis measures the <em>number of buildings built</em> during the selected time period.</p>",
+                position: 'bottom'
               },/*
               {
                 element: document.querySelector('.explore-menu'),
@@ -156,24 +160,19 @@
               },*/
               {
                 element: document.querySelector('.mapboxgl-ctrl-nav'),
-                intro: "<strong>Use the map controls to zoom in/out or rotate the map.</strong>",
-                position: 'bottom'
-              },
-              {
-                element: document.querySelector('.nav .btn-about'),
-                intro: "<strong>Learn more about the project.</strong>",
+                intro: "<h4>Map Controls</h4> <p>Use the map controls to <strong>zoom</strong> or <strong>rotate</strong> the map.</p>",
                 position: 'bottom'
               },
               {
                 element: document.querySelector('#legend'),
-                intro: "<strong>Legend</strong>",
+                intro: "<h4>Map Legend</h4> <p> The <strong>oldest buildings</strong> are coloured in <strong>red</strong>. Buildings <strong>built recently</strong> are shown in <strong>blue</strong>.</p>",
                 position: 'top'
-              }/*,
+              },
               {
-                element: document.querySelector('#help-button'),
-                intro: "<strong>Click here if you want to see this tutorial again.</strong>",
+                element: document.querySelector('.navbar-nav'),
+                intro: "<h4>Learn More</h4> <p> Meet the team and Learn more about the project.</p>",
                 position: 'bottom'
-              }*/
+              }
             ]
         });
 
@@ -192,9 +191,6 @@
          */
         function tourTaken() {
             $.cookie('tour-taken', 'yes');
-            // start the timeline demo, once the tour is over:
-            showDemo();
-
         }
     }
 
@@ -206,23 +202,12 @@
     }
 
     /**
-     * Starts a tour around the site functionality.
+     * Starts the intro js presentation
      */
-    function startTour() {
-        showContent("intro");
+    function showTour() {
+        showContent('intro');
         tour.start();
     }
-
-    var demoShown = false;
-    function showDemo() {
-        if (!demoShown) {
-            urbanlayers.ui.timeline.demo();
-            urbanlayers.map.map().flyTo([40.774066683777875, -73.97723823183378], 13, -61);
-            demoShown = true;
-        }
-    }
-
-
 
 
 })();
