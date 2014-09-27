@@ -48,7 +48,8 @@
 
             if (urbanlayers.util.supported()) {
                 if (isFirstTime) {
-                    showMap();
+                    // do nothing, if we haven't seen the map yet
+                    //showMap();
                 } else {
                     showTour();
                 }
