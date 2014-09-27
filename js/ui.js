@@ -150,7 +150,7 @@
               },
               {
                 element: document.querySelector('#map-controls'),
-                intro: "<h4>Graph</h4><p><strong>The graph</strong> shows when were <strong>current buildings</strong> of Mahnattan <strong>built</strong>.</p> The <em>X</em> axis represents the <em>year of construction</em>.<br/> The <em>Y</em> axis measures the <em>number of buildings built</em> during the selected time period.</p>",
+                intro: "<h4>Graph</h4><p><strong>The graph shows when were current buildings of Mahnattan built</strong>.</p> The <em>X</em> axis represents the <em>year of construction</em>.<br/> The <em>Y</em> axis shows the <em>number of buildings built</em> for each year.</p>",
                 position: 'bottom'
               },/*
               {
@@ -160,12 +160,12 @@
               },*/
               {
                 element: document.querySelector('.mapboxgl-ctrl-nav'),
-                intro: "<h4>Map Controls</h4> <p>Use the map controls to <strong>zoom</strong> or <strong>rotate</strong> the map.</p>",
+                intro: "<h4>Zoom Controls</h4> <p>Use the map controls to <strong>zoom</strong> or <strong>rotate</strong> the map.</p>",
                 position: 'bottom'
               },
               {
                 element: document.querySelector('#legend'),
-                intro: "<h4>Map Legend</h4> <p> The <strong>oldest buildings</strong> are coloured in <strong>red</strong>. Buildings <strong>built recently</strong> are shown in <strong>blue</strong>.</p>",
+                intro: "<h4>Legend</h4> <p> The <strong>oldest buildings</strong> are coloured in <strong>red</strong>. Buildings <strong>built recently</strong> are shown in <strong>blue</strong>.</p>",
                 position: 'top'
               },
               {

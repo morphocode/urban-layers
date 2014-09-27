@@ -190,12 +190,14 @@ path.area#active-area {
     white-space: nowrap;
 }
 
-.range-start .v-tooltip-contents {
-    left: 0;
+.range-start .v-tooltip-contents, .range-end .inverse .v-tooltip-contents {
+    left: auto;
+    right: 0;
 }
 
-.range-end .v-tooltip-contents {
-    right: 0;
+.range-end .v-tooltip-contents, .range-start .inverse .v-tooltip-contents {
+    left: 0;
+    right: auto;
 }
 
 .slider-thumb {
@@ -218,7 +220,7 @@ path.area#active-area {
 }
 
 .slider.drag .slider-thumb, .slider-thumb:hover {
-    background-color: rgb(82, 186, 213);
+    background-color: #888;
 }
 
 .slider.drag .v-tooltip, .slider:hover .v-tooltip {
@@ -250,7 +252,7 @@ path.area#active-area {
 }
 
 .slider.range-end  .slider-thumb:hover:before, .slider.range-end.drag .slider-thumb:before {
-    border-color: rgb(82, 186, 213) transparent transparent transparent;
+    border-color: #888 transparent transparent transparent;
 }
 
 .slider.range-start .slider-thumb:before {
@@ -260,7 +262,7 @@ path.area#active-area {
 }
 
 .slider.range-start  .slider-thumb:hover:before, .slider.range-start.drag .slider-thumb:before {
-    border-color: transparent rgb(82, 186, 213) transparent transparent;
+    border-color: transparent #888 transparent transparent;
 }
 
 

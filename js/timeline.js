@@ -408,8 +408,11 @@
                 // update the position of the tooltip
                 tooltip
                     .style("left", posX + margin.left + "px")
-                    .style("top",  posY + margin.top + "px");
+                    .style("top",  posY + margin.top + "px")
+                    // flip tooltip position near the two ends
+                    .classed("inverse", posX < 100 || posX > width - 100);
                 tooltipContents.html(d.count + " buildings");
+
 
                 yearSpan.html(newValue);
 
