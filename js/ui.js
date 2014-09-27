@@ -124,12 +124,18 @@
      */
     function showMap() {
         if (isFirstTime) {
-            urbanlayers.map.map().flyTo([40.774066683777875, -73.97723823183378], 13, -61);
-            setTimeout(function() {
-                urbanlayers.ui.timeline.demo(function() {
-                    showTour();
-                });
-            }, 600);
+            var map = urbanlayers.map.map(),
+                mapDemo = true;
+            map.flyTo([40.774066683777875, -73.97723823183378], 13, -61);
+            map.on('moveend', function(e) {
+                if (mapDemo) {
+                    urbanlayers.ui.timeline.demo(function() {
+                        showTour();
+                    });
+                }
+                mapDemo = false;
+            });
+
             isFirstTime = false;
         }
         showContent('map');
