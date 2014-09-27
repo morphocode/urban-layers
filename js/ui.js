@@ -159,14 +159,14 @@
                 position: 'bottom'
               },*/
               {
-                element: document.querySelector('.mapboxgl-ctrl-nav'),
-                intro: "<h4>Zoom Controls</h4> <p>Use the map controls to <strong>zoom</strong> or <strong>rotate</strong> the map.</p>",
-                position: 'bottom'
-              },
-              {
                 element: document.querySelector('#legend'),
                 intro: "<h4>Legend</h4> <p> The <strong>oldest buildings</strong> are coloured in <strong>red</strong>. Buildings <strong>built recently</strong> are shown in <strong>blue</strong>.</p>",
                 position: 'top'
+              },
+              {
+                element: document.querySelector('.mapboxgl-ctrl-nav'),
+                intro: "<h4>Zoom Controls</h4> <p>Use the map controls to <strong>zoom</strong> or <strong>rotate</strong> the map.</p>",
+                position: 'bottom'
               },
               {
                 element: document.querySelector('.navbar-nav'),
