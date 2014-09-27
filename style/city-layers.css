@@ -48,10 +48,13 @@ nav {
 
 .navbar-brand
 {
-  background: url(../images/layers-of-nyc-logo.png) no-repeat 20px 12px;
-  text-indent: -1000px;
-  height: 50px;
-  width: 200px;
+    padding-left: 30px;
+    height: 50px;
+    width: 200px;
+}
+
+.navbar-brand img {
+    margin-top: -5px;
 }
 
 #map {
@@ -425,6 +428,7 @@ li.explore-menu, li.share-menu-item {
 
 .nav>li a#button-project-of {
     color: #999;
+    display: none;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 12px;
@@ -438,7 +442,7 @@ li.explore-menu, li.share-menu-item {
 /** Toolbar */
 
 #btn-morphocode {
-    opacity: 0.75;
+    opacity: 0.55;
 }
 
 #btn-morphocode:hover {
