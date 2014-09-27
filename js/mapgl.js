@@ -120,16 +120,34 @@
 
             var buildingsSource = _map.sources['nycBuildings'];
 
+            // Create a new instance of ladda for the specified button
+            var button = document.querySelector( '#btn-get-started' );
+            var l = Ladda.create(button);
+            l.start();
+            l.setProgress(0);
+
+            var baseSetProgress = l.setProgress;
+            l.setProgress = function(progress) {
+                baseSetProgress(progress);
+
+                progress = Math.max( Math.min( progress, 1 ), 0 );
+                var progressElement = button.querySelector( '.ladda-progress' );
+                if (progressElement) {
+                    progressElement.style.clip = 'rect(0px, ' + ( progress || 0 ) * button.offsetWidth + 'px, 80px, 0px)';
+                }
+            };
+
             var tilesQueue = [
                 '11/603/769',
                 '11/602/769',
-                '11/601/769'
+                '11/601/769',
+                '11/603/770'
             ], reqTilesCount = tilesQueue.length;
-            ;
+
             buildingsSource.on('tile.load', function(event) {
                 var tile = event.tile;
 
-                // remove the tile from the required list, once loaded
+                // remove the tile from the queue, once loaded
                 for (var i = 0; i < tilesQueue.length; i++) {
                     if (tile.url.indexOf(tilesQueue[i]) > -1) {
                         tilesQueue.splice(i, 1);
@@ -137,11 +155,17 @@
                     }
                 }
 
-                // loading is finished, once there are no more tiles left in the queue
+                // Once there are no more tiles left in the queue - we're done
                 if (tilesQueue.length == 0) {
                     $('html').toggleClass("tiles-loaded", true);
                 }
-                console.log("Completion percent: " + (reqTilesCount - tilesQueue.length) / reqTilesCount * 100);
+                var progress = (reqTilesCount - tilesQueue.length) / reqTilesCount;
+                l.setProgress(progress);
+
+                if (progress == 1) {
+                    l.toggle();
+                    l.stop();
+                }
             });
 
             var basemap = new mapboxgl.Source({

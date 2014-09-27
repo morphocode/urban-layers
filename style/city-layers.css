@@ -331,7 +331,6 @@ path.area#active-area {
 
 
 
-
 /** layout ============================================================================== */
 
 .navbar-nav>li>a {
@@ -562,10 +561,6 @@ blockquote footer {
 .start-wrapper {
     height: 70px;
     margin-top: 70px;
-}
-
-#btn-explore {
-    display: none;
 }
 
 .tiles-loaded #btn-explore {
@@ -891,3 +886,29 @@ a#morphocode-logo:hover {
     width: 12.5%;
     padding: 0;
 }
+
+
+.ladda-button[data-style=contract] {
+    width: auto;
+}
+
+.ladda-button[data-style=contract][data-loading] {
+    height: 63px;
+    width: 63px;
+}
+
+.ladda-button[data-style=contract] .ladda-progress {
+    background: white;
+    border-radius: 50%;
+    /** we're using clip, so override default behavior */
+    width: 63px !important;
+}
+
+.ladda-button[disabled], .ladda-button[data-loading], .ladda-button[disabled]:hover, .ladda-button[data-loading]:hover {
+    background: #ddd !important;
+    border: none;
+    opacity: 1;
+}
+
+
+

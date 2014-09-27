@@ -54,7 +54,7 @@
             showContent("welcome");
         });
 
-        $("#btn-explore").on("click", function(e) {
+        $("#btn-get-started").on("click", function(e) {
             e.preventDefault();
             if (urbanmap.util.supported()) {
                 showMap();
