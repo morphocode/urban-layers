@@ -15,9 +15,8 @@
         // built the UI
         build();
 
-        if (!urbanlayers.util.supported()) {
-            $('html').addClass('mode-not-supported');
-        } else {
+        // check for support
+        if (urbanlayers.util.supported()) {
             $.when(urbanlayers.map.build())
                 .then(function() {
 
@@ -30,6 +29,8 @@
 
             // welcome the User
             showContent("welcome");
+        } else {
+            $('html').addClass('mode-not-supported');
         }
     }
 
@@ -172,7 +173,7 @@
               },
               {
                 element: document.querySelector('.mapboxgl-ctrl-nav'),
-                intro: "<h4>Zoom Controls</h4> <p>Use the map controls to <strong>zoom</strong> or <strong>rotate</strong> the map.</p>",
+                intro: "<h4>Zoom Controls</h4> <p>Click to <strong>zoom</strong> or <strong>rotate</strong> the map.</p>",
                 position: 'bottom'
               },
               {

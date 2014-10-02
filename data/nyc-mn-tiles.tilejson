@@ -7,9 +7,9 @@
 
     "version": "1.0.0",
 
-    "attribution": "Pluto Data Set",
+    "attribution": "",
 
-    "legend": "Dangerous zones are red, safe zones are green",
+    "legend": "",
 
     "scheme": "xyz",
 

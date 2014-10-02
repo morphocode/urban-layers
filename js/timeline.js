@@ -18,8 +18,8 @@
      */
     function build() {
         // Set the dimensions of the canvas / graph
-        margin = {top: 20, right: 30, bottom: 15, left: 30},
-            width = $(window).width() - 0 - margin.left - margin.right,
+        margin = {top: 25, right: 30, bottom: 20, left: 30},
+            width = $(window).width() - margin.left - margin.right,
             height = 130 - margin.top - margin.bottom;
 
         // Add an SVG element with the desired dimensions and margin.
@@ -35,9 +35,13 @@
             axesLayer = canvas.append('g').attr("class", "axes-layer"),
             sliderLayer = canvas.append('g').attr("class", "slider-layer");
 
-        // Set the ranges
-        x = d3.scale.linear().range([0, width]);
-        y = d3.scale.pow().exponent(.3).range([height, 0]);
+        // Set the scales
+        x = d3.scale.linear()
+            .range([0, width]);
+
+        y = d3.scale.pow()
+            .exponent(.3)
+            .range([height, 0]);
 
         // Define the axes
         xAxis = d3.svg.axis().scale(x)
@@ -46,7 +50,8 @@
             .tickFormat(function(d) {
                 return d;
             })
-            .tickSubdivide(true);
+            //.tickSubdivide(true)
+            .ticks(width/100);
 
         // build the Y axis
         yAxis = d3.svg.axis()
@@ -85,7 +90,27 @@
             buildGraph(graphLayer, data);
             rangeSlider.data(data);
         });
+
+        /*
+        d3.select(window).on('resize', function() {
+            var width = $(window).width() - margin.left - margin.right,
+            x = d3.scale.linear().range([0, width]);
+
+            xAxis = d3.svg.axis().scale(x)
+                .orient("bottom")
+                .tickSize(-height)
+                .tickFormat(function(d) {
+                    return d;
+                })
+                .tickSubdivide(true);
+
+            // update the axis with the new values
+            d3.select(".x.axis").call(xAxis);
+            d3.select(".y.axis").call(yAxis)
+                .call(customYTicks);
+        });*/
     }
+
 
     /**
      * Show a quick demo by animating the sliders a bit
@@ -120,7 +145,7 @@
                 d.count = +d.count;
             });
 
-        // Scale the range of the data
+        // Set the domain for the scales
         x.domain(d3.extent(data, function(d) { return d.year; }));
         y.domain([0, d3.max(data, function(d) { return d.count; })]).nice();
 
@@ -133,11 +158,6 @@
             .attr("d", valueline(data));
 
         // Add the area path.
-        graphics.append("path")
-          .attr("class", "area")
-          .attr("clip-path", "url(#clip)")
-          .attr("d", area(data));
-
         graphics.append("path")
           .attr("class", "area")
           .attr("clip-path", "url(#clip)")
@@ -158,18 +178,23 @@
             .attr("d", valueline(data));
 
         // update the axis with the new values
-        d3.select(".x.axis").call(xAxis);
+        d3.select(".x.axis").call(xAxis)
+            .call(function(g) {
+                g.selectAll('text')
+                    .attr('dy', 10);
+            });
         d3.select(".y.axis").call(yAxis)
             .call(customYTicks);
 
-        /**
-         * Adjusts the position of the ticks on the Y axis
-         */
-        function customYTicks(g) {
-          g.selectAll("text")
-              .attr("x", 4)
-              .attr("dy", -4);
-        }
+    }
+
+    /**
+     * Adjusts the position of the ticks on the Y axis
+     */
+    function customYTicks(g) {
+      g.selectAll("text")
+          .attr("x", 4)
+          .attr("dy", -4);
     }
 
     /**

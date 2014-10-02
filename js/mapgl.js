@@ -15,12 +15,15 @@
         gray0 = d3.rgb(55, 55, 55).toString(),
         gray1 = d3.rgb(93, 92, 93).toString(),
         gray2 = d3.rgb(183, 183, 183).toString(),
-        red = d3.rgb(219, 58, 27).toString(),
-        red1 = d3.rgb(238, 131, 110).toString(),
-        palette0 = [gray0, 'rgb(68, 154, 136)', red, 'rgb(44, 154, 183)', gray0],
-        palette1 = [red, red1, /*'rgb(199,233,180)',*/ yellow, 'rgb(127,205,187)', 'rgb(65,182,196)', 'rgb(29,145,192)', 'rgb(34,94,168)', 'rgb(12,44,132)'],
+        red0 = d3.rgb(219, 58, 27).toString(),
+        red1 = d3.rgb(232, 92, 65).toString(),
+        red2 = d3.rgb(238, 131, 110).toString(),
+        palette0 = [gray0, 'rgb(68, 154, 136)', red0, 'rgb(44, 154, 183)', gray0],
+        palette1 = [red1, red2, yellow, 'rgb(127,205,187)', 'rgb(65,182,196)', 'rgb(29,145,192)', 'rgb(34,94,168)', 'rgb(12,44,132)'],
         colorScale = d3.scale.quantile()
-                        .domain(d3.range(1840, maxYear))
+                        // using 1855 for start, because there are less buildings built before that date. Using 1765 for minimum "shifts" the visual result towards the blue gamma
+                        // using 2015 for max range, to achieve exact intervals of 20 years: 1895, 1915, 1935, etc
+                        .domain(d3.range(1855, 2015 + 1))
                         //.range(colorbrewer.RdYlBu[9]),
                         //.range(colorbrewer.Spectral[9]),
                         //.range(colorbrewer.BrBG[9]),
@@ -93,6 +96,8 @@
             var l = Ladda.create(button);
             l.start();
             l.setProgress(0);
+            l.toggle();
+            l.stop();
 
             // patch ladda.js, to use the clip property instead of the width for the progress bar
             // this fixes issue with transparent backgrounds
@@ -190,6 +195,10 @@
      */
     function generateLayer(yearbuilt) {
         var color = (yearbuilt > 0) ? colorScale(yearbuilt) : gray2;
+        // if built before 1855
+        if (yearbuilt > 0 && yearbuilt < colorScale.domain()[0]) {
+            color = red0;
+        }
 
         var layer = {
             "id": "buildings_" + yearbuilt.toString(),
@@ -279,17 +288,32 @@
      * Build the legend
      */
     function buildLegend() {
-        var legend = d3.select('#legend')
+        var legend = d3.select('#legend #color-gradient')
           .append('ul')
             .attr('class', 'list-inline');
+
+        var legendColors = colorScale.range();
 
         var keys = legend.selectAll('li.key')
             .data(colorScale.range());
 
+        // color key for missing data:
+        legend.append('li')
+            .style('border-top-color', gray2)
+            .text('No Data');
+
+        // color key for buildings built prior 1855
+        legend.append('li')
+            .style('border-top-color', red0)
+            .text(minYear);
+            //.text('pre ' + colorScale.domain()[0]);
+
+        // color keys of the range
         keys.enter().append('li')
-            .attr('class', 'key')
             .style('border-top-color', String)
             .text(function(d) {
+                // retrieves the year boundary for each color
+                // for ex. "#db3a1b" -> [1840, 1861.625]
                 var r = colorScale.invertExtent(d);
                 return Math.round(r[0]);
             });
