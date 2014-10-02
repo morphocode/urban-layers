@@ -3,6 +3,7 @@
 
     urbanlayers.util.getParameterByName = getParameterByName;
     urbanlayers.util.detailMode = detailMode;
+    urbanlayers.util.debugMode = debugMode;
     urbanlayers.util.supported = supported;
 
     var isMacLike = navigator.platform.match(/(Mac|iPhone|iPod|iPad)/i) ? true : false;
@@ -30,6 +31,10 @@
         // enable details only if specified
 		return getParameterByName("details") == "true";
 	}
+
+    function debugMode() {
+        return getParameterByName("debug") == "true";
+    }
 
     /**
      * Is Mapbox gl supported.

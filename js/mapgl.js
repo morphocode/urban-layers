@@ -96,8 +96,11 @@
             var l = Ladda.create(button);
             l.start();
             l.setProgress(0);
-            l.toggle();
-            l.stop();
+
+            // for development purposes... go to map directly
+            if (urbanlayers.util.debugMode()) {
+                l.toggle();
+            }
 
             // patch ladda.js, to use the clip property instead of the width for the progress bar
             // this fixes issue with transparent backgrounds
