@@ -127,8 +127,12 @@ path.area#active-area {
   stroke: #fff;
 }
 
-.x.axis .minor {
-  stroke-opacity: .5;
+.x.axis.bottom line {
+  stroke: #ddd;
+}
+
+.x.axis.bottom text {
+    display: none;
 }
 
 .x.axis path {

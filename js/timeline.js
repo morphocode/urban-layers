@@ -8,7 +8,7 @@
         width,
         height,
         bisectDate = d3.bisector(function(d) { return d.year; }).left,
-        x, xAxis,
+        x, xAxis, bottomXAxis,
         y, yAxis,
         rangeSlider;
 
@@ -53,6 +53,13 @@
             //.tickSubdivide(true)
             .ticks(width/100);
 
+        // the small dark ticks
+        bottomXAxis = d3.svg.axis().scale(x)
+            .orient("bottom")
+            .tickSubdivide(3)
+            .tickSize(4)
+            .ticks(width/100);
+
         // build the Y axis
         yAxis = d3.svg.axis()
             .scale(y)
@@ -70,11 +77,16 @@
           .attr("width", width)
           .attr("height", height);
 
-        // Add the X Axis
+        // Add the light ticks on the X Axis
         var gx = axesLayer.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis);
+
+        var gx2 = axesLayer.append("g")
+            .attr("class", "x axis bottom")
+            .attr("transform", "translate(0," + height + ")")
+            .call(bottomXAxis);
 
         // Add the Y Axis
         var gy = axesLayer.append("g")
@@ -183,6 +195,10 @@
                 g.selectAll('text')
                     .attr('dy', 10);
             });
+
+        d3.select(".x.axis.bottom")
+            .call(bottomXAxis);
+
         d3.select(".y.axis").call(yAxis)
             .call(customYTicks);
 
