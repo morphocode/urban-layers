@@ -14,7 +14,7 @@
     "scheme": "xyz",
 
     "tiles": [
-        "http://io.morphocode.com/urban-layers/data/tiles/buildings_mn/{z}/{x}/{y}.pbf"
+        "http://io.morphocode.com/urban-layers/data/tiles/buildings_bbl_mn/{z}/{x}/{y}.pbf"
     ],
 
     "grids": [
