@@ -631,7 +631,7 @@ blockquote footer {
 }
 
 #welcome-details .info p {
-    font-size: 1.2em;
+    font-size: 1.3em;
 }
 
 #welcome-details .info .lead-icon {
@@ -709,7 +709,7 @@ blockquote footer {
 }
 
 p {
-    font-size: 1.4em;
+    font-size: 1.3em;
 }
 
 #about h1 {
@@ -719,6 +719,16 @@ p {
 
 #about h2 {
     margin-top: 40px;
+}
+
+img.illustration {
+    width: 100%;
+}
+
+#about h3 {
+    font-size: 1em;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 .section-quote {
@@ -737,7 +747,7 @@ p {
 }
 
 .gallery p {
-    font-size: 1.2em;
+    font-size: 1em;
     margin: 10px 0;
 }
 
