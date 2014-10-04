@@ -743,6 +743,7 @@ img.illustration {
 }
 
 .gallery img {
+    margin-top: 20px;
     width: 100%;
 }
 
