@@ -105,6 +105,17 @@
         $("#layer-newest-buildings").on("click", function() {
             //urbanlayers.ui.slideTo(1400, 1500, 1000);
         });
+
+        // partial spam protection of mailto links
+        $('#my-email').html(function(){
+            var e = "contact";
+            var a = "@";
+            var d = "morphocode";
+            var c = ".com";
+            var h = 'mailto:' + e + a + d + c;
+            $(this).parent('a').attr('href', h);
+            return e + a + d + c;
+        });
     }
 
     /**
