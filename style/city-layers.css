@@ -99,6 +99,10 @@ body.thumb-drag {
     font: 10px sans-serif;
 }
 
+#map-controls.collapsed {
+    margin-top: -55px;
+}
+
 #map-controls svg {
     background: white;
     opacity: 0.9;

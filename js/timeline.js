@@ -451,7 +451,7 @@
                     .style("left", posX + margin.left + "px")
                     .style("top",  posY + margin.top + "px")
                     // flip tooltip position near the two ends
-                    .classed("inverse", posX < 100 || posX > width - 100);
+                    .classed("inverse", (sliderName == 'range-start' && posX < 100) || (sliderName == 'range-end' && posX > width - 100) );
                 tooltipContents.html(d.count + " Building" + (d.count > 1 ? 's' : ''));
 
 
