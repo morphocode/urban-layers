@@ -497,10 +497,15 @@ li.explore-menu, li.share-menu-item {
 }
 
 .mode-map #map-controls, .mode-intro #map-controls,
-.mode-map .mapboxgl-ctrl-nav, .mode-intro .mapboxgl-ctrl-nav {
+.mode-map .mapboxgl-ctrl-nav, .mode-intro .mapboxgl-ctrl-nav,
+.mode-map .show-on-map, .mode-intro .show-on-map {
     display: block;
 }
 
+/** Enable only when the map is visible */
+.show-on-map {
+    display: none;
+}
 
 /** Content Sections */
 .section {
