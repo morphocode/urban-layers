@@ -11,6 +11,7 @@
         x, xAxis, gXAxis,
         bottomXAxis, gBottomXAxis,
         y, yAxis, gYAxis,
+        clip,
         rangeSlider;
 
     /**
@@ -72,7 +73,7 @@
             });
 
         // Add the clip path.
-        canvas.append("clipPath")
+        clip = canvas.append("clipPath")
           .attr("id", "clip")
           .append("rect")
           .attr("width", width)
@@ -145,17 +146,17 @@
 
         yAxis.tickValues([200, 2000, 8000]);
 
-        var axesLayer = d3.select(".axes-layer");
-        axesLayer.append("path")
-            .attr("class", "line")
-            .attr("clip-path", "url(#clip)")
-            .attr("d", valueline(data));
+        var axesLayer = d3.select(".axes-layer"),
+            graphLine = axesLayer.append("path")
+                .attr("class", "line")
+                .attr("clip-path", "url(#clip)")
+                .attr("d", valueline(data)),
 
-        // Add the area path.
-        graphics.append("path")
-          .attr("class", "area")
-          .attr("clip-path", "url(#clip)")
-          .attr("d", area(data));
+            // Add the area path.
+            graphArea = graphics.append("path")
+              .attr("class", "area")
+              .attr("clip-path", "url(#clip)")
+              .attr("d", area(data));
 
         // update the axis with the new values
         gXAxis.call(xAxis);
@@ -167,15 +168,26 @@
         d3.select(window).on('resize', function() {
             width = $(window).width() - margin.left - margin.right;
 
-            // update the X axis
+            // update the X axis: rebuild the
             x.range([0, width]);
-            xAxis.ticks(width/100);
-            bottomXAxis.ticks(width/100);
+            xAxis.ticks(Math.max(width/100, 2));
+            bottomXAxis.ticks(Math.max(width/100, 2));
             gXAxis.call(xAxis);
             gBottomXAxis.call(bottomXAxis);
 
-            //update hte value line
+            //update the graph line
+            graphLine.attr("d", valueline(data));
+            graphArea.attr("d", area(data));
+            clip.attr("width", width);
 
+            //update the slider
+            var startYear = rangeSlider.start().value(),
+                startPosX = x(startYear),
+                endYear = rangeSlider.end().value(),
+                endPosX = x(endYear);
+            rangeSlider.start().update(startPosX, true);
+            rangeSlider.end().update(endPosX, true);
+            rangeSlider.updateSelection();
         });
 
     }
@@ -483,7 +495,8 @@
             slideTo: slideTo,
             data: data,
             start: function() { return startSlider; },
-            end: function() { return endSlider; }
+            end: function() { return endSlider; },
+            updateSelection: updateSelection
         }
 
     }// buildRange
