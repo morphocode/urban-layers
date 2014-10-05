@@ -108,6 +108,10 @@ body.thumb-drag {
     opacity: 0.9;
 }
 
+.buttons {
+    text-align: center;
+}
+
 path.line {
   fill: none;
   stroke: #666;
@@ -386,12 +390,13 @@ li.explore-menu, li.share-menu-item {
     border: 2px solid;
     margin-left: 10px;
     margin-right: 10px;
+    margin-top: 10px;
     outline: none !important;
 }
 
 .btn:hover {
     border: 2px solid;
-    margin-top: 0;
+    margin-top: 10px;
 }
 
 .btn.btn-primary {
@@ -760,6 +765,10 @@ img.illustration {
     margin: 10px 0;
 }
 
+/** Press Downloads ================================================= */
+#press-downloads .buttons {
+    margin: 40px 0 20px 0;
+}
 
 /** Learn ================================================= */
 /*.mode-learn */#learn {
