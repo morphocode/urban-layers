@@ -746,6 +746,10 @@ img.illustration {
     color: white;
 }
 
+.gallery {
+    margin-top: 30px;
+}
+
 .gallery img {
     margin-top: 20px;
     width: 100%;
@@ -838,7 +842,7 @@ img.illustration {
 
 
 ul.attribution {
-    font-size: 1.4em;
+    font-size: 1.2em;
     list-style-type: none;
     padding: 0;
 }
