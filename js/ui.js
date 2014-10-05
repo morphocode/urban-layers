@@ -47,16 +47,17 @@
                 return;
             }
 
-            if (urbanlayers.util.supported()) {
-                if (isFirstTime) {
-                    // do nothing, if we haven't seen the map yet
-                    //showMap();
-                } else {
-                    showTour();
-                }
-            } else {
+            // show missing support message, if not supported
+            if (!urbanlayers.util.supported()) {
                 showContent("not-supported");
+                return;
             }
+
+            // show the help tutorial
+            if (!isFirstTime) {
+                showTour();
+            }
+
         });
 
         $(".btn-about").on("click", function(e) {
@@ -142,7 +143,9 @@
             map.on('moveend', function(e) {
                 if (mapDemo) {
                     urbanlayers.ui.timeline.demo(function() {
-                        showTour();
+                        if (!urbanlayers.util.debugMode()) {
+                            showTour();
+                        }
                     });
                 }
                 mapDemo = false;

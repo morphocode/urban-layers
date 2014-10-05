@@ -97,6 +97,7 @@ body.thumb-drag {
     position: absolute;
     top: 0;
     font: 10px sans-serif;
+    width: 100%;
 }
 
 #map-controls.collapsed {
@@ -106,6 +107,7 @@ body.thumb-drag {
 #map-controls svg {
     background: white;
     opacity: 0.9;
+    width: 100%;
 }
 
 .buttons {

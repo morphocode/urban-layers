@@ -8,8 +8,9 @@
         width,
         height,
         bisectDate = d3.bisector(function(d) { return d.year; }).left,
-        x, xAxis, bottomXAxis,
-        y, yAxis,
+        x, xAxis, gXAxis,
+        bottomXAxis, gBottomXAxis,
+        y, yAxis, gYAxis,
         rangeSlider;
 
     /**
@@ -27,7 +28,7 @@
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
-            .attr("class", "graph")
+            .attr("id", "graph")
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -78,22 +79,21 @@
           .attr("height", height);
 
         // Add the light ticks on the X Axis
-        var gx = axesLayer.append("g")
+        gXAxis = axesLayer.append("g")
             .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
+            .attr("transform", "translate(0," + (height + 3) + ")")
             .call(xAxis);
 
-        var gx2 = axesLayer.append("g")
+        gBottomXAxis = axesLayer.append("g")
             .attr("class", "x axis bottom")
             .attr("transform", "translate(0," + height + ")")
             .call(bottomXAxis);
 
         // Add the Y Axis
-        var gy = axesLayer.append("g")
+        gYAxis = axesLayer.append("g")
             .attr("class", "y axis")
             //.attr("transform", "translate(" + width + ",0)")
             .call(yAxis);
-            //.call(customYTicks);
 
         rangeSlider = buildRangeSlider(sliderLayer);
 
@@ -103,24 +103,6 @@
             rangeSlider.data(data);
         });
 
-        /*
-        d3.select(window).on('resize', function() {
-            var width = $(window).width() - margin.left - margin.right,
-            x = d3.scale.linear().range([0, width]);
-
-            xAxis = d3.svg.axis().scale(x)
-                .orient("bottom")
-                .tickSize(-height)
-                .tickFormat(function(d) {
-                    return d;
-                })
-                .tickSubdivide(true);
-
-            // update the axis with the new values
-            d3.select(".x.axis").call(xAxis);
-            d3.select(".y.axis").call(yAxis)
-                .call(customYTicks);
-        });*/
     }
 
 
@@ -175,32 +157,26 @@
           .attr("clip-path", "url(#clip)")
           .attr("d", area(data));
 
-        /*
-        graphics.append("path")
-            .attr("id", "active-area")
-            .attr("class", "area")
-            .attr("clip-path", "url(#selection-clip)")
-            .attr("d", area(data));
-            */
-
-        // Add the valueline path.
-        graphics.append("path")
-            .attr("class", "line")
-            .attr("clip-path", "url(#clip)")
-            .attr("d", valueline(data));
-
         // update the axis with the new values
-        d3.select(".x.axis").call(xAxis)
-            .call(function(g) {
-                g.selectAll('text')
-                    .attr('dy', 10);
-            });
-
-        d3.select(".x.axis.bottom")
-            .call(bottomXAxis);
-
-        d3.select(".y.axis").call(yAxis)
+        gXAxis.call(xAxis);
+        gBottomXAxis.call(bottomXAxis);
+        gYAxis.call(yAxis)
             .call(customYTicks);
+
+        // update the graph on resize
+        d3.select(window).on('resize', function() {
+            width = $(window).width() - margin.left - margin.right;
+
+            // update the X axis
+            x.range([0, width]);
+            xAxis.ticks(width/100);
+            bottomXAxis.ticks(width/100);
+            gXAxis.call(xAxis);
+            gBottomXAxis.call(bottomXAxis);
+
+            //update hte value line
+
+        });
 
     }
 
