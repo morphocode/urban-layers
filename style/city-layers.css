@@ -236,11 +236,14 @@ path.area#active-area {
     text-align: center;
     width: 30px;
     z-index: 0;
+    /** fix for firefox */
+    top: 110px !important;
 }
 
 .slider-thumb .year {
-    padding-top: 4px;
-    display: inline-block;
+    line-height: 20px;
+    padding: 0px;
+    display: block;
     font-weight: bold;
 }
 
