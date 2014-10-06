@@ -353,6 +353,21 @@ path.area#active-area {
     background: rgb(68, 154, 136);
 }
 
+/** fix issue with introjs boundary calculation */
+.intro-slider .introjs-helperLayer {
+    height: 45px !important;
+}
+
+/** switch the position of the tooltip if there's no space to the left */
+.intro-slider-inverse .introjs-tooltip {
+    left: 50px !important;
+    right: auto !important;
+}
+
+.intro-slider-inverse .introjs-arrow {
+    display: none !important;
+}
+
 .introjs-button.introjs-disabled {
     display: none;
 }
