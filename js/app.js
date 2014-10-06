@@ -228,7 +228,7 @@
         // this two need additional classes in order to customize the buttons and the position of the tooltip
         }).onbeforechange(function(targetElem) {
             var isLastStep = this._currentStep == this._options.steps.length-1,
-                isSliderStep = (targetElem.getAttribute("class")) ? targetElem.getAttribute("class").indexOf('slider') : false,
+                isSliderStep = (targetElem.getAttribute("class")) ? targetElem.getAttribute("class").indexOf('slider') != -1 : false,
                 isToTheLeft = $('.range-start .slider-thumb').offset().left < 300;
 
             $("body").toggleClass("intro-last", isLastStep);
