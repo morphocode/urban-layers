@@ -206,7 +206,7 @@
               },*/
               {
                 element: document.querySelector('#legend'),
-                intro: "<h4>Legend</h4> <p> The <strong>oldest buildings</strong> are coloured in <strong>red</strong>. Buildings <strong>built recently</strong> are shown in <strong>blue</strong>.</p>",
+                intro: "<h4>Legend</h4> <p> The <strong>oldest buildings</strong> are coloured in <strong>red</strong>. <strong>Recent buildings</strong> are shown in <strong>blue</strong>.</p>",
                 position: 'top'
               },
               {

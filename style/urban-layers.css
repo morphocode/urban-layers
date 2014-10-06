@@ -823,6 +823,10 @@ img.illustration {
     margin: 40px 0 20px 0;
 }
 
+#press-downloads #btn-download-pdf {
+    display: none;
+}
+
 /** Learn ================================================= */
 /*.mode-learn */#learn {
     display: table;
