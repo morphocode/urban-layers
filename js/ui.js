@@ -85,6 +85,11 @@
             showContent("welcome");
         });
 
+        $(".btn-tools").on("click", function(e) {
+            e.preventDefault();
+            scrollTo("#about-tools", 1000);
+        });
+
         $(".btn-get-started").on("click", function(e) {
             e.preventDefault();
             if (urbanlayers.util.supported()) {
@@ -131,11 +136,18 @@
      */
     function showContent(section) {
         var isContentActive = $("#content-wrapper").css("visibility") == "visible";
+        // remove all current classes
         $("body").removeClass();
         $("body").addClass('mode-' + section);
 
         // scroll to the content section, if we're not coming from the map
-        $("#content-wrapper").scrollTo("#"+section, isContentActive ? 1000 : 0);
+        scrollTo("#"+section, isContentActive ? 1000 : 0);
+    }
+
+    function scrollTo(selection, myDuration)  {
+        var duration = myDuration || 0;
+
+        $("#content-wrapper").scrollTo(selection, duration);
     }
 
     var isFirstTime = true;

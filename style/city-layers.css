@@ -697,6 +697,10 @@ blockquote footer {
     height: 100%;
 }
 
+#btn-not-supported-watch-demo {
+    display: none;
+}
+
 .section-not-supported {
     background: rgba(238, 131, 110, 0.8);
     display: table-row;
