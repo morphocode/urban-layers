@@ -117,6 +117,13 @@
             $(this).parent('a').attr('href', h);
             return e + a + d + c;
         });
+
+        // collapse the bootstrap mobile menu on click
+        $(document).on('click','.navbar-collapse.in',function(e) {
+            if( $(e.target).is('a') ) {
+                $(this).collapse('hide');
+            }
+        });
     }
 
     /**
