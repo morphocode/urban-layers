@@ -80,7 +80,7 @@
             showContent("subscribe");
         });
 
-        $("#btn-home").on("click", function(e) {
+        $("#btn-home, #top-link").on("click", function(e) {
             e.preventDefault();
             showContent("welcome");
         });
@@ -99,6 +99,11 @@
             }
         });
 
+        // listen for scroll events and show the link to top, if needed
+        $('#content-wrapper').scroll(function() {
+            var showTopLink = $(this).find('#about .about-the-project').offset().top < 0;
+            $('#top-link').toggleClass('active', showTopLink);
+        });
 
         $("#layer-oldest-buildings").on("click", function() {
             //urbanlayers.ui.timeline.slideTo(0, 100, 1000);

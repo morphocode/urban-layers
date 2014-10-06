@@ -36,6 +36,29 @@ body h1, body h2, body h3, body h4, body h5, body h6 {
     font-family: 'Roboto', 'texgyreherosregular', 'Helvetica Neue', 'Arial', sans-serif;
 }
 
+#top-link {
+    display: none;
+    background: rgba(93, 93, 93, 0.7);
+    height: 40px;
+    position: fixed;
+    right: 35px;
+    text-align: center;
+    bottom: 20%;
+    color: #FFF;
+    width: 40px;
+    padding: 2px 8px 6px;
+    font-size: 32px;
+    z-index: 99;
+}
+
+#top-link.active {
+    display: block;
+}
+
+#top-link .fa {
+    vertical-align: text-top;
+}
+
 /*
 h1 {
     font-family: Roboto, Helvetica Neue, Helvetica, Liberation Sans, Arial, sans-serif;
