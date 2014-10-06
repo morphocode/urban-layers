@@ -8,10 +8,6 @@
      * Boostraps Urban Layers: builds the UI, checks for support, etc.
      */
     function bootstrap() {
-        if (urbanlayers.util.getParameterByName("show") != "true") {
-            $("body").html("Under Construction");
-        }
-
         // built the UI
         build();
 
