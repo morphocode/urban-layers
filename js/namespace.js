@@ -1,7 +1,6 @@
 var urbanlayers = {
+    app: {},
     map: {},
-    ui: {
-        timeline: {}
-    },
+    graph: {},
     util: {}
 };

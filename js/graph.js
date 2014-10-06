@@ -1,8 +1,8 @@
 (function() {
     "use strict";
 
-    urbanlayers.ui.timeline.build = build;
-    urbanlayers.ui.timeline.demo = demo;
+    urbanlayers.graph.build = build;
+    urbanlayers.graph.demo = demo;
 
     var margin,
         width,

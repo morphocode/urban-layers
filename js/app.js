@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    urbanlayers.ui.bootstrap = bootstrap;
-    urbanlayers.ui.build = build;
+    urbanlayers.app.bootstrap = bootstrap;
+    urbanlayers.app.build = build;
 
     /**
      * Boostraps Urban Layers: builds the UI, checks for support, etc.
@@ -20,7 +20,7 @@
             $.when(urbanlayers.map.build())
                 .then(function() {
 
-                    urbanlayers.ui.timeline.build();
+                    urbanlayers.graph.build();
 
                     // the tour has to be built after the timeline & the map, in order for selectors to work
                     // or use custom intro.onbeforechange callback
@@ -106,7 +106,7 @@
         });
 
         $("#layer-oldest-buildings").on("click", function() {
-            //urbanlayers.ui.timeline.slideTo(0, 100, 1000);
+            //urbanlayers.graph.slideTo(0, 100, 1000);
         });
 
         $("#layer-most-buildings").on("click", function() {
@@ -166,7 +166,7 @@
             map.flyTo([40.774066683777875, -73.97723823183378], 13, -61);
             map.on('moveend', function(e) {
                 if (mapDemo) {
-                    urbanlayers.ui.timeline.demo(function() {
+                    urbanlayers.graph.demo(function() {
                         if (!urbanlayers.util.debugMode()) {
                             showTour();
                         }
