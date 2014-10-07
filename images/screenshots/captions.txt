@@ -1,29 +1,26 @@
 All images copyright Morphocode.
 
 
+morphocode-urban-layers-animated.gif
+Screen capture of Urban Layers, showing interaction with the map.
+
 morphocode-urban-layers-manhattan-buildings-all-long.jpg
 Screenshot of Urban Layers, showing all buildings in Manhattan colored by age.
-
 
 morphocode-urban-layers-manhattan-buildings-built-before-1890.jpg
 Screenshot of Urban Layers, showing buildings in Manhattan built after 1980.
 
-
 morphocode-urban-layers-manhattan-buildings-built-before-1890.jpg
 Screenshot of Urban Layers, showing the oldest buildings in Lower Manhattan.
-
 
 morphocode-urban-layers-manhattan-buildings-all-detail-03.jpg
 Screenshot of Urban Layers, showing buildings in Lower Manhattan colored by age.
 
-
 morphocode-urban-layers-manhattan-buildings-all-detail.jpg
 Screenshot of Urban Layers: closer look at Midtown Manhattan.
 
-
 morphocode-urban-layers-manhattan-buildings-all-detail-02.jpg
 Screenshot of Urban Layers, showing fragment of the urban fabric of Manhattan.
-
 
 morphocode-urban-layers-manhattan-the-morris-jumel-mansion.jpg
 Morris–Jumel Mansion — the oldest buildings in Manhattan according to PLUTO.
